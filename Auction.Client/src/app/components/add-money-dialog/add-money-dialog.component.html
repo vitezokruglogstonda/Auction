@@ -1,0 +1,36 @@
+<div class="dialog-container">
+    <div class="dialog-title">
+        <p>Choose following options or enter the amount manually</p>
+    </div>
+    <div class="center-div">
+        <div class="center-div-wrapper" [@slideAnimation]="animationState">
+            <div class="center-div-content options-container">
+                <div matRipple class="option" *ngFor="let option of amountOptions"
+                    [ngClass]="{'selected-option': selectedOption === option}" (click)="selectOption(option)">
+                    <p>{{option}}</p>
+                </div>
+            </div>
+            <div class="center-div-content manual-container manual-container-none">
+                <div matRipple class="back-to-options-button" (click)="triggerAnimation()">
+                    <i class="fa-solid fa-chevron-left back-to-options-button-icon"></i>
+                </div>
+                <div class="input-field">
+                    <mat-form-field id="mat-input">
+                        <input matInput type="number" [(ngModel)]="moneyAmount" step="100"
+                            (ngModelChange)="manualValueChanged($event)" name="value" min="0" />
+                        <mat-hint *ngIf="moneyAmountWarning_Show"
+                            class="input-field-warning-message">{{moneyAmountWarning}}
+                        </mat-hint>
+                        <!-- <button mat-button (click)="decrement()">-</button>
+                            <button mat-button (click)="increment()">+</button> -->
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="submit-button-container">
+        <div matRipple class="submit-button" (click)="addMoney()" >
+            <p>Add money</p>
+        </div>
+    </div>
+</div>

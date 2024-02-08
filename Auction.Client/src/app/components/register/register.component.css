@@ -1,0 +1,222 @@
+.main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: "Century Gothic";
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background: linear-gradient(to bottom, #e1a940, #e1a940b3, #c6cad6); */
+    background: linear-gradient(to bottom, #e1a940, #e1a940b3, transparent);
+}
+
+.header-text {
+    color: black;
+    margin: 4%;
+    font-size: 150%;
+    letter-spacing: 5px;
+}
+
+.stepper {
+    background-color: transparent;
+    width: 50%;
+}
+
+.step-form-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.field-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.step-form-container.shorter {
+    flex-direction: row;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    flex-basis: 30%;
+}
+
+.info-field {
+    flex: 1 0 40%;
+    max-width: 30%;
+    margin-right: 20px;
+}
+
+.form-field {
+    flex-grow: 1;
+}
+
+.side-icon {
+    margin-top: 15px;
+    margin-right: 5px;
+    color: black;
+}
+
+.picture-step {
+    align-items: center;
+}
+
+.profile-picture-div {
+    /* width: 20%;
+    height: 20%; */
+    width: 10em;
+    height: 10em;
+    max-width: 20%;
+    max-height: 20%;
+
+    background-size: 100% 100%;
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+    object-fit: cover;
+}
+
+.badge {
+    position: absolute;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 30px;
+    height: 30px;
+    right: 41%;
+    top: 5%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    border: none;
+}
+
+.badge:hover {
+    background-color: rgba(0, 0, 0, 1);
+}
+
+.badge-icon {
+    /* width: 100%;
+    height: 100%;
+    position:relative;
+    top: 10%;
+    color: #636468; */
+
+    /* margin-top: 30%; */
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.badge:hover .badge-icon {
+    color: rgba(255, 255, 255, 1);
+}
+
+.step-form-container-register {
+    display: flex;
+    flex-direction: row;
+}
+
+.register-button {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 20%;
+    background-color: transparent;
+    color: black;
+    font-size: 1.2em;
+    border-radius: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #aeb1bc;
+}
+
+.register-button:hover {
+    cursor: pointer;
+    border-color: transparent;
+    background-color: #0080009c;
+}
+
+.warning-message-input {
+    color: #ffa500;
+}
+
+.devider-line {
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background-color: black;
+}
+
+.footer {
+    position: relative;
+    width: 100%;
+    bottom: 0px;
+}
+
+.step-button-container {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.step-button {
+    color: orange;
+    border-color: #ffa600ab;
+}
+
+#first-step-button {
+    position: relative;
+    left: 7%;
+}
+
+.upload-picture-button {
+    background-color: transparent;
+    width: 15%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #aeb1bc;
+    height: 2.5em;
+    font-size: 1em;
+}
+
+.upload-picture-button:hover {
+    cursor: pointer;
+    border-color: transparent;
+    background-color: orange;
+}
+
+.button-icon {
+    color: black;
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+    font-family: "Century Gothic";
+    /* background-color: rgb(53, 53, 53); 
+    color: orange; */
+    /* #ffa600ab */
+    background-color: orange;
+    color: black;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+    font-family: "Century Gothic";
+    /* background-color: rgb(53, 53, 53); */
+    background-color: orange;
+}
+
+/* ::ng-deep .mat-step-header .mat-step-label{
+    color: white; 
+} */

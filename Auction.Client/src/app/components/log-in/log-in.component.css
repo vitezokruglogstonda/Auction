@@ -1,0 +1,99 @@
+.card-container{
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    top: 25%;
+    left: 35%;
+    height: 50%;
+    width: 30%;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 7px;
+    overflow: hidden;
+    min-height: 350px;
+    min-width: 250px;
+    font-family: "Century Gothic";
+
+}
+
+.login-form-container{
+    flex: 65;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -4%;
+    margin-bottom: -4%;
+}
+
+.login-title{
+    flex: 15;
+    font-size: 1.5em; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-title p{
+    text-align: center;
+}
+
+.form-field{
+    height: 25%;
+    width: 80%;
+    min-height: 62px;
+}
+
+.submit-button{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    width: 20%;
+    height: 3em;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #c6cad6;
+    border-width: 2px;
+    background-color: transparent;
+}
+
+.submit-button:hover{
+    cursor: pointer;
+    border-color: transparent;
+}
+
+.register-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 20;
+    margin-bottom: 20px;
+}
+
+#login-button:hover{
+    background-color: orange;
+    /* margin-bottom: -5px; */
+    top: 3%;
+}
+
+#register-button:hover{
+    background-color: #008300bf;
+}
+
+#loginErrorLabel{
+    color:red;
+    margin: 0px;
+}
+
+@media only screen and (max-width: 1400px){
+    #login-button{
+        background-color: orange;
+        /* margin-bottom: -5px; */
+        top: 0%;
+    }
+}
+
+/* ::ng-deep .mdc-text-field--outlined{
+    border-color: orange;
+} */

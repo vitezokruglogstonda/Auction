@@ -1,0 +1,137 @@
+.dialog-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-family: "Century Gothic";
+}
+
+.dialog-title{
+    font-size: 2em;
+}
+
+.input-field-container{
+    display: none;
+}
+
+.dialog-container-options{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.drag-drop{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 20px;
+    border-style: dashed;
+    border-width: 2px;
+    border-color: orange;
+    background-color: #f1f1f1;
+    width: 80%;
+    height: 60%;
+}
+
+.drag-drop-icon{
+    font-size: 7em;
+    color: #0000005e;
+}
+
+.drag-drop-text{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%;
+}
+
+.drag-drop-text-icon{
+    color: orange;
+}
+
+.browse{
+    color: orange;
+}
+
+.browse:hover{
+    cursor: pointer;
+    color: rgb(255, 199, 96);
+}
+
+.highlight{
+    border-color: #446ccf;
+    background-color: #c6cad6;
+}
+
+.upload-error{
+    color: rgba(255, 17, 0, 0.623);
+}
+
+.upload-button-container{
+    justify-content: center;
+}
+
+.upload-button-container-header{
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-button-container-header p{
+    font-size: 2.5em;
+}
+
+.upload-button-div{
+    width: 100%;
+    height: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-button{
+    width: 50%;
+    height: 8em;
+    background-color: transparent;
+    border-radius: 50px;
+    /* box-shadow: 0px 5px 10px black; */
+    box-shadow: 0px 3px 4px black;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #c6cad6;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.upload-button:hover{
+    border-color: transparent;
+    background-color: orange;
+    cursor: pointer;
+    box-shadow: 0px 10px 15px black;
+}
+
+.upload-button-icon{
+    font-size: 4em;
+    color:#c6cad6;
+}
+
+.upload-button:hover .upload-button-icon{
+    color:black;
+}
+
+.upload-button p{
+    font-size: 4em;
+    color:#c6cad6;
+}
+
+.upload-button:hover p{
+    color:black;
+}

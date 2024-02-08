@@ -1,0 +1,26 @@
+<div class="dialog-container">
+    <div *ngIf="!showUploadButton" class="dialog-container-options">
+        <p class="dialog-title">Upload photo</p>
+        <div class="input-field-container">
+            <input id="input-field" type="file" accept="image/*" (change)="newPicture($event)">
+        </div>
+        <div class="drag-drop">
+            <i class="fa-regular fa-images drag-drop-icon"></i>
+            <div class="drag-drop-text">                
+                <p><i class="fa-solid fa-arrow-up-from-bracket drag-drop-text-icon"></i> Drop your file(s) here, or <span class="browse" (click)="browse()">Browse</span></p>
+            </div>
+        </div>
+        <div class="upload-error"></div>
+    </div>
+    <div *ngIf="serverCommunication&&showUploadButton" class="dialog-container-options upload-button-container">
+        <div class="upload-button-container-header">
+            <p>Photo selected</p>
+        </div>
+        <div class="upload-button-div">
+            <button class="upload-button" (click)="uploadPhoto()">
+                <i class="fas fa-upload icon upload-button-icon"></i>
+                <p>Upload now</p>
+            </button>
+        </div>
+    </div>
+</div>

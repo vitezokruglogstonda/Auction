@@ -1,0 +1,26 @@
+::ng-deep .snackbar {
+    --mdc-snackbar-container-color: #ffa500;
+}
+
+.snackbar-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 1.5em;
+}
+
+.snackbar-text{
+    font-size: medium;
+    font-family: "Century Gothic";
+    color: black;
+}
+
+.snackbar-button{
+    margin-left: 2em;    
+    margin-right: -1em;
+}
+
+.snackbar-button:hover{
+    cursor: pointer;
+}

@@ -1,0 +1,83 @@
+.card-container{
+    position: fixed;
+    right: 30px;
+    top: 79px;
+    width: 15%;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+}
+
+.header h4{
+    margin:2%;
+    font-family: "Century Gothic";
+}
+
+.header p{
+    margin:2%;
+    margin-bottom: 4%;
+    font-family: "Century Gothic";
+}
+
+.header p span{
+    color: green;
+    font-family: "Century Gothic";
+}
+
+.image-container{
+    width: 80px;
+    height: 80px;
+    margin-top: 10px;
+    border-radius: 50%;
+    background-color: #c6cad6;
+    overflow: hidden;
+}
+
+.image{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover; 
+}
+
+.devider-line{
+    margin-bottom: -5%;
+}
+
+.button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 20%;
+}
+
+.action-button{
+    margin: 5%;
+    width: 35%;
+    font-family: "Century Gothic";
+    font-size: small;
+}
+
+#my-profile-button{
+    background-color: orange;
+    &:hover {
+        background-color: green;
+    }
+}
+
+#sign-out-button{
+    background-color: orange;
+    &:hover {
+        background-color: red;
+    }
+}

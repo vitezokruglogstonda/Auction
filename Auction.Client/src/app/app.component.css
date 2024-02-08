@@ -1,0 +1,90 @@
+.main-toolbar {
+    background-color: orange;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 8;
+}
+
+.app-title {
+    letter-spacing: .2rem;
+    font-family: "Century Gothic";
+    padding: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-left: none;
+    border-right: none;
+    color: black;
+}
+
+.app-title:hover {
+    color: #c6cad6;
+    cursor: pointer;
+}
+
+.menu-icon {
+    color: black;
+}
+
+.menu-icon:hover {
+    color: #c6cad6;
+}
+
+.right-toolbar-element {
+    width: 2.5%;
+    /* height: 64px;
+    width: 64px; */
+}
+
+.sidenav-container {
+    height: calc(100% - 64px);
+    /* overflow: overlay; */
+}
+
+.sidenav {
+    background-color: #ffa600ab;
+    width: 15%;
+}
+
+.sidenav-list-option {
+    /* color: white; */
+    text-align: center;
+    font-family: "Century Gothic";
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.mat-mdc-list-item-unscoped-content {
+    color: white;
+}
+
+.content-container {
+    background-color: #c6cad6;
+    /* background-image: url("C:\\Users\\Andrija\\Desktop\\background.png");
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh; 
+    background-size: cover;
+    margin: 0; */
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    overflow-y: scroll;
+    background: #c6cad6;
+}
+
+::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 60px;
+}
+
+@media screen and (max-width: 600px) {
+    .sidenav-container {
+        height: calc(100% - 56px);
+    }
+
+    .sidenav {
+        background-color: #446ccf;
+        width: 40%;
+    }
+}

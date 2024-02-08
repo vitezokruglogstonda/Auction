@@ -1,0 +1,189 @@
+.dialog-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.dialog-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    flex: 1;
+    flex-basis: 20%;
+}
+
+.dialog-title p{
+    font-family: "Century Gothic";
+    font-size: 1.4em;
+    text-align: center;
+}
+
+.center-div{
+    width: 100%;
+    overflow: hidden;
+    flex: 2;
+    flex-basis: 60%;
+}
+
+.center-div-wrapper{
+    display: flex;
+    width: 200%;
+    position: relative;
+    top: 25%;
+}
+
+.center-div-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 50%;
+}
+
+.options-container{
+    float:left;
+}
+
+.option{
+    width: 25%;
+    height: 3em;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Century Gothic";
+    font-size: larger;
+    border-style: solid;
+    border-width: 2px;
+    border-color: transparent;
+    margin: 3%;
+}
+
+.option:hover{
+    cursor: pointer;
+    border-color: transparent;
+    background-color: #1b890073;
+}
+
+.selected-option{
+    background-color: #008300bf;
+    border-color: #215321;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.selected-option:hover{
+    background-color: #008300bf;
+    border-color: #215321;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.manual-container{
+    float: right;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.manual-container-none{
+    display: none;
+}
+
+.manual-container-upper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.back-to-options-button{
+    border-width: 0px;
+    border-style: solid;
+    background-color: transparent;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-options-button:hover{
+    background-color: #c6cad687;
+    cursor: pointer;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.back-to-options-button-icon{
+    color: orange;
+    font-size: 2em;
+}
+
+.input-field{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#mat-input{
+    width: 90%;
+    height: 40%;
+    position: relative;
+    top: 5%;
+}
+
+.input-field-warning-message{
+    font-size: small;
+    font-family: "Century Gothic";
+    color: #ffa500;
+}
+
+.submit-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex:1;
+    flex-basis: 20%;
+    width: 100%;
+}
+
+.submit-button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-style: solid;
+    border-color: #989ca5;
+    border-width: 2px;
+    border-radius: 50px;
+    width: 90%;
+    height: 3em;
+    background-color: #c6cad6b7;
+
+    pointer-events: none;
+}
+
+.submit-button p{
+    text-align: center;    
+    font-family: "Century Gothic";
+    width: 100%;
+    color:#989ca5;
+}
+
+.submit-button:hover{
+    cursor: pointer;
+}
+
+.submit-button-active{
+    background-color: orange;
+    border-color: transparent;
+    pointer-events: auto;
+    & p{
+        color: black;
+    }
+}
