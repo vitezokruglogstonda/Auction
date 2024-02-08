@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\0b113c61-aefa-4bfb-b857-20af015e06c6__DSC9246.jpg",
+      "PackagePath": "staticwebassets\\Images\\ProfilePictures\\0b113c61-aefa-4bfb-b857-20af015e06c6__DSC9246.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\26b4e418-8465-489e-a7fd-b2d3e0d85bc6_andrija.png",
+      "PackagePath": "staticwebassets\\Images\\ProfilePictures\\26b4e418-8465-489e-a7fd-b2d3e0d85bc6_andrija.png"
+    },
+    {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\7cec09b2-c76b-4b09-a8f8-dd6f481330fd__DSC9273.jpg",
+      "PackagePath": "staticwebassets\\Images\\ProfilePictures\\7cec09b2-c76b-4b09-a8f8-dd6f481330fd__DSC9273.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\account_icon.png",
+      "PackagePath": "staticwebassets\\Images\\ProfilePictures\\account_icon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Auction.Server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Auction.Server.props",
+      "PackagePath": "build\\Auction.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Auction.Server.props",
+      "PackagePath": "buildMultiTargeting\\Auction.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Auction.Server.props",
+      "PackagePath": "buildTransitive\\Auction.Server.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
