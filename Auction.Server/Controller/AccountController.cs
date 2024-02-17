@@ -83,9 +83,18 @@ namespace Auction.Server.Controller
         [Auth]
         [HttpGet]
         [Route("check-if-authorized")]
-        public async Task<ActionResult<UserType?>> CheckIfAuthorized()
+        public ActionResult<UserType?> CheckIfAuthorized()
         {
             return Ok((HttpContext.Items["User"] as User)!.UserType);
+        }
+
+        [Auth]
+        [HttpGet]
+        [Route("refresh-token")]
+        public IActionResult RefreshAccessToken()
+        {
+            this.AccountService.RefreshAccessToken(HttpContext);
+            return Ok();
         }
 
     }

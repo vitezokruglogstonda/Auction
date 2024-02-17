@@ -14,6 +14,12 @@ using Auction.Server.Services.Interfaces;
 
 namespace Auction.Server.Services.Implementation
 {
+    public enum TokenType
+    {
+        AccessToken,
+        RefreshToken
+    }
+
     public class AccountService : IAccountService
     {
         private readonly AuctionContext DbContext;
@@ -84,21 +90,44 @@ namespace Auction.Server.Services.Implementation
             }
         }
 
-        public void GenerateJwtToken(User user, HttpContext httpContext)
+        public void GenerateJwtToken(User user, HttpContext httpContext, TokenType tokenType)
         {
+            TimeSpan tokenLifetime;
+            string jwtConfigLifetime, headerField;
+            switch (tokenType)
+            {
+                case TokenType.AccessToken:
+                    jwtConfigLifetime = "AccessTokenLifetime";
+                    headerField = "JWT";
+                    break;
+                case TokenType.RefreshToken:
+                    jwtConfigLifetime = "RefreshTokenLifetime";
+                    headerField = "RefreshToken";
+                    break;
+                default:
+                    jwtConfigLifetime = "RefreshTokenLifetime";
+                    headerField = "RefreshToken";
+                    break;
+            }
+            tokenLifetime = TimeSpan.Parse(Configuration.GetSection("Jwt").GetSection(jwtConfigLifetime).Value!);
+
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(Configuration.GetSection("Jwt").GetSection("Key").Value!);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
-                Expires = DateTime.UtcNow.AddHours(1), 
-                //Expires = DateTime.UtcNow.AddSeconds(10), 
+                Expires = DateTime.UtcNow.Add(tokenLifetime), 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             SecurityToken securityToken = tokenHandler.CreateToken(tokenDescriptor);
             string token = tokenHandler.WriteToken(securityToken);
 
-            httpContext.Response.Headers["JWT"] = token;
+            httpContext.Response.Headers[headerField] = token;
+        }
+
+        public void RefreshAccessToken(HttpContext httpContext)
+        {
+            this.GenerateJwtToken((httpContext.Items["User"] as User)!, httpContext, TokenType.AccessToken);
         }
 
         public bool CheckIfEmailExists(string email)
@@ -147,8 +176,9 @@ namespace Auction.Server.Services.Implementation
             user!.OnlineStatus = true;
             DbContext.Update(user);
             await DbContext.SaveChangesAsync();
-            GenerateJwtToken(user, httpContext);
             user.ProfilePicturePath = PictureService.MakeProfilePictureUrl(user.ProfilePicturePath!);
+            GenerateJwtToken(user, httpContext, TokenType.AccessToken);
+            GenerateJwtToken(user, httpContext, TokenType.RefreshToken);
             return user;
         }
 

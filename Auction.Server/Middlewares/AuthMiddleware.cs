@@ -12,12 +12,19 @@ namespace Auction.Server.Middlewares
         }
         public async Task InvokeAsync(HttpContext httpContext, IAccountService accountService)
         {
-            string? token = httpContext.Request.Headers["JWT"].FirstOrDefault()?.Split(" ").Last();
-
-            if (token != null && token != String.Empty)
-                await accountService.CheckJwtToken(httpContext, token!);
+            await this.CheckTokenAsync(httpContext, accountService, "JWT");
+            await this.CheckTokenAsync(httpContext, accountService, "RefreshToken");
 
             await _next(httpContext);
         }
+
+        private async Task CheckTokenAsync(HttpContext httpContext, IAccountService accountService, string headerField)
+        {
+            string? token = httpContext.Request.Headers[headerField].FirstOrDefault()?.Split(" ").Last();
+
+            if (token != null && token != String.Empty)
+                await accountService.CheckJwtToken(httpContext, token!);
+        }
+
     }
 }

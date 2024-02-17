@@ -32,6 +32,12 @@ namespace Auction.Server.Controller
             return Ok(profile);
         }
 
-        
+        [HttpGet]
+        [Route("proba")]
+        public async Task<IActionResult> Proba()
+        {
+            return Ok("sve oke");
+        }
+
     }
 }
