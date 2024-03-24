@@ -39,7 +39,6 @@ namespace Auction.Server.Models
         [Required]
         [DataType(DataType.Date)]
         [Column("Birth Date")]
-        //public string? BirthDate { get; set; }
         public CustomDate BirthDate { get; set; } = new CustomDate();
 
         [Required]
@@ -65,10 +64,10 @@ namespace Auction.Server.Models
         public decimal Balance { get; set; }
 
         //[NotMapped]
-        public virtual List<Article> CreatedArticles { get; set; } = new List<Article>();
+        public virtual List<Article>? CreatedArticles { get; set; } = new List<Article>();
 
         //[NotMapped]
-        public virtual List<Article> BoughtArticles { get; set; } = new List<Article>();
+        public virtual List<Article>? BoughtArticles { get; set; } = new List<Article>();
 
     }
 }

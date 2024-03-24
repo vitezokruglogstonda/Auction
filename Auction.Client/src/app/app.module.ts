@@ -24,11 +24,22 @@ import { AccountIconComponent } from './components/account-icon/account-icon.com
 import { AccountInfoCardComponent } from './components/account-info-card/account-info-card.component';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
-import { profileReducer } from './store/profile/profile.reducer';
+import { profileArticlesListReducer, profileReducer } from './store/profile/profile.reducer';
 import { ProfileEffects } from './store/profile/profile.effects';
 import { AddMoneyDialogComponent } from './components/add-money-dialog/add-money-dialog.component';
 import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CreateArticlePageComponent } from './components/create-article-page/create-article-page.component';
+import { RouteService } from './services/route.service';
+import { ViewArticlesComponent } from './components/view-articles/view-articles.component';
+import { ArticlePictureSliderComponent } from './components/article-picture-slider/article-picture-slider.component';
+import { ViewArticleListItemComponent } from './components/view-article-list-item/view-article-list-item.component';
+import { ViewArticleGridItemComponent } from './components/view-article-grid-item/view-article-grid-item.component';
+import { articleReducer, articlesListReducer, bidListReducer } from './store/article/article.reducer';
+import { ArticleEffects } from './store/article/article.effects';
+import { ArticlePageComponent } from './components/article-page/article-page.component';
 
 
 
@@ -44,6 +55,12 @@ import { AuthGuard } from './guards/auth.guard';
     ProfilePageComponent,
     AddMoneyDialogComponent,
     CustomSnackbarComponent,
+    CreateArticlePageComponent,
+    ViewArticlesComponent,
+    ArticlePictureSliderComponent,
+    ViewArticleListItemComponent,
+    ViewArticleGridItemComponent,
+    ArticlePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,21 +69,32 @@ import { AuthGuard } from './guards/auth.guard';
       appInfo: appReducer,
       userInfo: userReducer,
       profileInfo: profileReducer,
+      profileArticlesList: profileArticlesListReducer,
+      articlesList: articlesListReducer,
+      articleInfo: articleReducer,
+      bidList: bidListReducer
     }),
-    EffectsModule.forRoot([UserEffects, ProfileEffects]),
+    EffectsModule.forRoot([UserEffects, ProfileEffects, ArticleEffects]),
     BrowserAnimationsModule,
     FormsModule,
     materialComponents,
     StoreDevtoolsModule.instrument({
       maxAge: 7, 
       autoPause: true
-    })
+    }),
+    HttpClientModule
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch()),
     MatDatepickerModule,
-    AuthGuard
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    RouteService,
   ],
   bootstrap: [AppComponent]
 })

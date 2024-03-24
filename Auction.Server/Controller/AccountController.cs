@@ -57,6 +57,14 @@ namespace Auction.Server.Controller
         }
 
         [Auth]
+        [HttpPut]
+        [Route("log-in-with-token")]
+        public async Task<ActionResult<User>> LogInWithToken()
+        {
+            return Ok(await this.AccountService.LogUserIn((HttpContext.Items["User"] as User)!.Email, HttpContext));
+        }
+
+        [Auth]
         [HttpGet]
         [Route("log-out")]
         public async Task<ActionResult<bool>> LogOut()
@@ -89,7 +97,7 @@ namespace Auction.Server.Controller
         }
 
         [Auth]
-        [HttpGet]
+        [HttpPost]
         [Route("refresh-token")]
         public IActionResult RefreshAccessToken()
         {

@@ -1,0 +1,12 @@
+<div *ngIf="article" class="grid-article-item-container">
+    <app-article-picture-slider [viewMethod]="articleViewMethod" [pictures]="article.pictures"
+        class="grid-article-item-pictures"></app-article-picture-slider>
+    <div class="grid-article-item-info">
+        <p class="article-title-label">{{article.title}}</p>
+        <p class="article-price-label">${{article.soldPrice}}</p>
+    </div>
+    <div class="grid-article-item-overlay" (click)="viewArticle()">
+        <i class="fa-solid fa-magnifying-glass overlay-icon"></i>
+        <p class="overlay-text">View article</p>
+    </div>
+</div>

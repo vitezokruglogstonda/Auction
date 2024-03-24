@@ -49,7 +49,6 @@ export class UploadPictureDialogComponent {
     this.dragDropArea?.addEventListener("drop", () => {
       this.handleDrop(event as DragEvent, this.dialogRef, this.uploadedPicture, this.elRef);
     }, false);
-
   }
 
   preventDefaults(e: Event) {

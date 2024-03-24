@@ -60,6 +60,7 @@
 
 .content-container {
     background-color: #c6cad6;
+    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5) 250%);
     /* background-image: url("C:\\Users\\Andrija\\Desktop\\background.png");
     background-repeat: no-repeat;
     background-size: 100vw 100vh; 

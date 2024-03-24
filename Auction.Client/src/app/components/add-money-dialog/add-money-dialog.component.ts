@@ -43,7 +43,7 @@ export class AddMoneyDialogComponent {
     this.firstTimeAnimationTrigger = true;
     this.moneyAmountWarning_Show = false;
     this.minMoneyAmountLimit = Number(this.amountOptions[0].slice(1));
-    this.moneyAmountWarning = `The least amount you can enter is ${this.minMoneyAmountLimit}.`;
+    this.moneyAmountWarning = `The least amount you can enter is $${this.minMoneyAmountLimit}.`;
   }
 
   selectOption(option: String){

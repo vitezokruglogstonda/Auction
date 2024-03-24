@@ -47,12 +47,25 @@ namespace Auction.Server.Models
                 .HasColumnType("bytea")
                 .IsRequired();
 
+            modelBuilder
+                .Entity<Article>()
+                .Property(u => u.ExpiryDate)
+                .HasConversion(new ValueConverter<CustomDateTime, string>(
+                v => ConvertDateTimeToString(v),
+                v => new CustomDateTime(v)));
+
             base.OnModelCreating(modelBuilder);
         }
 
         private string ConvertDateToString(CustomDate? customDate)
         {
             string returnDate = customDate?.Day.ToString() + "/" + customDate?.Month.ToString() + "/" + customDate?.Year.ToString();
+            return returnDate;
+        }
+
+        private string ConvertDateTimeToString(CustomDateTime? customDatetime)
+        {
+            string returnDate = customDatetime?.Hour.ToString() + ":" + customDatetime?.Minute.ToString() + ":" + customDatetime?.Second.ToString() + "|" + customDatetime?.Day.ToString() + "/" + customDatetime?.Month.ToString() + "/" + customDatetime?.Year.ToString();
             return returnDate;
         }
 

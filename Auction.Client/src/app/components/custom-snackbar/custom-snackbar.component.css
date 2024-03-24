@@ -10,10 +10,24 @@
     height: 1.5em;
 }
 
+.snackbar-info-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.snackbar-alert-icon{
+    color:black;
+    font-size: x-large;
+    margin-right: 0.5em;
+}
+
 .snackbar-text{
     font-size: medium;
     font-family: "Century Gothic";
     color: black;
+    white-space: nowrap; 
 }
 
 .snackbar-button{

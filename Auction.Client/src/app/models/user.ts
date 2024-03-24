@@ -1,3 +1,5 @@
+import { Article } from "./article";
+
 export interface User {
     id: number | null;
     email: String;
@@ -8,7 +10,6 @@ export interface User {
     userType: UserType;
     profilePicturePath: String;
     balance: number;
-    JWT: String;
 }
 
 export enum UserType {
@@ -46,4 +47,9 @@ export interface UserProfile {
     birthDate: CustomDate | null;
     gender: String;
     profilePicturePath: String;
+}
+
+export interface ProfileResult{
+    profile: UserProfile,
+    articles: Article[] | null,
 }

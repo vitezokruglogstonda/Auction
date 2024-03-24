@@ -1,0 +1,26 @@
+<div class="view-container">
+    <div class="view-header">
+        <mat-button-toggle-group class="view-setting" [(ngModel)]="viewSetting">
+            <mat-button-toggle class="view-setting-button" value="list" (click)="listView()"
+                [ngClass]="{'selected-setting': viewSetToList()}">
+                <i class="fa-solid fa-list view-setting-icon"></i>
+            </mat-button-toggle>
+            <mat-button-toggle class="view-setting-button" value="grid" (click)="gridView()"
+                [ngClass]="{'selected-setting': viewSetToGrid()}">
+                <i class="fa-solid fa-border-all view-setting-icon"></i>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+        <mat-paginator *ngIf="showPaginator" #paginator class="paginator" (page)="handlePaginatorEvent($event)"
+            [length]="numberOfArticles" [pageSize]="pageSize" [showFirstLastButtons]="true"
+            [pageSizeOptions]="pageSizeOptions" [hidePageSize]="false" [pageIndex]="pageIndex">
+        </mat-paginator>
+    </div>
+    <div class="view-content">
+        <div *ngIf="viewSetToList()" class="list-view">
+            <app-view-article-list-item *ngFor="let article of articles" [article]="article" [articleViewMethod]="articleViewMethod" class="list-view-container"></app-view-article-list-item>
+        </div>
+        <div *ngIf="viewSetToGrid()" class="grid-view">
+            <app-view-article-grid-item *ngFor="let article of articles" [article]="article" [articleViewMethod]="articleViewMethod" class="grid-view-container"></app-view-article-grid-item>
+        </div>
+    </div>
+</div>

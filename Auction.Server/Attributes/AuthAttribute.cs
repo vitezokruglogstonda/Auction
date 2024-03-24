@@ -31,7 +31,7 @@ namespace Auction.Server.Attributes
         {
             User? user = (User?)context.HttpContext.Items["User"];
             if (user == null || (this.Roles != null && !this.Roles.Contains(user.UserType)))
-                context.Result = new UnauthorizedResult();            
+                context.Result = new UnauthorizedObjectResult("Token expired");   
         }
     }
 }

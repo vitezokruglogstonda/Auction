@@ -1,0 +1,16 @@
+<div class="slider-container">
+    <img *ngIf="currentPicture" class="picture" src="{{currentPicture}}" alt="picture">
+    <div *ngIf="overlayEnabled()" class="list-article-item-overlay">
+        <div #leftButton matRipple class="slider-button left" (click)="previousSlide()">
+            <i class="fa-solid fa-chevron-left slider-button-icon"></i>
+        </div>
+        <div class="index-indicator">
+            <div #dots class="index-indicator-container">                
+                <div *ngFor="let picture of pictures" class="index-indicator-dot"></div>
+            </div>
+        </div>
+        <div #rightButton matRipple class="slider-button right" (click)="nextSlide()">
+            <i class="fa-solid fa-chevron-right slider-button-icon"></i>
+        </div>
+    </div>
+</div>

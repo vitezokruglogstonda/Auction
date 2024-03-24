@@ -1,1 +1,17 @@
-<p>home-page works!</p>
+<div class="home-page-container">
+    <div class="search-section">
+        <div class="search-container">
+            <div class="search-input-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input class="search-input" type="text" [(ngModel)]="searchQuery" (input)="onSearchQueryChange()">
+            </div>
+            <div class="search-cancel-icon" (click)="cancelSearch()">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+    </div>
+    <app-view-articles *ngIf="!loadArticlesListError" class="articles-view-section" [articles]="articles" (pageParametersEvent)="handlePageParametersChange($event)" [numberOfArticles]="totalNumberOfArticles"></app-view-articles>
+    <div *ngIf="loadArticlesListError" class="no-content-div">
+        <p>No items to show.</p>
+    </div>
+</div>

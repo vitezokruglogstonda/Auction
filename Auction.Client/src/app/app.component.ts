@@ -10,6 +10,9 @@ import { SidenavListItem } from './models/sidenav-info';
 import { EMPTY, Subject, switchMap } from 'rxjs';
 import { selectUserId, selectUserType } from './store/user/user.selector';
 import { FormControl } from '@angular/forms';
+import { LocalStorageService } from './services/local-storage.service';
+import { logInWithToken } from './store/user/user.action';
+import { RouteService } from './services/route.service';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +30,7 @@ export class AppComponent {
   public userId: number | null;
   public userType: UserType;
 
-  constructor(private store: Store<AppState>, private router: Router){
+  constructor(private store: Store<AppState>, private router: Router, private localStorage: LocalStorageService, private routeService: RouteService){
     this.toolbarCenterText = environment.app_title;
     this.menuButtonTooltipText = environment.toolbar_menu_button_tooltip_text;
     this.accountIcon_Show = false;
@@ -39,8 +42,14 @@ export class AppComponent {
   }
   
   ngOnInit(): void {
+    if(this.localStorage.getItem('jwt')){
+      this.store.dispatch(logInWithToken());
+    }
+
     this.store.select(selectLoginStatus).subscribe((state)=>{
       let route = "";
+      if(this.routeService.getCurrentRoute())
+        route = this.routeService.getCurrentRoute()!;
       if(state === LoginStatus.Offline){
         this.accountIcon_Show = false;
         this.userType = UserType.Guest;

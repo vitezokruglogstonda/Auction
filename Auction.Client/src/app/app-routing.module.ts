@@ -6,6 +6,9 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserType } from './models/user';
+import { CreateArticlePageComponent } from './components/create-article-page/create-article-page.component';
+import { RouteService } from './services/route.service';
+import { ArticlePageComponent } from './components/article-page/article-page.component';
 
 const routes: Routes = [
   {
@@ -40,13 +43,33 @@ const routes: Routes = [
       roles: [UserType.Admin, UserType.RegisteredUser] 
     }
   },
+  {
+    path: "create-article",
+    component: CreateArticlePageComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: [UserType.Admin, UserType.RegisteredUser] 
+    }
+  },
+  {
+    path: "article/:articleId",
+    component: ArticlePageComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: [UserType.Admin, UserType.RegisteredUser] 
+    }
+  },
   { path: '**', redirectTo: "" } //404 strana
 ];
 
-export const routingComponents = [LogInComponent, RegisterComponent, HomePageComponent, ProfilePageComponent];
+export const routingComponents = [LogInComponent, RegisterComponent, HomePageComponent, ProfilePageComponent, CreateArticlePageComponent, ArticlePageComponent];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+  constructor(private routeService: RouteService) {
+    this.routeService.init(); 
+  }
+}

@@ -1,0 +1,9 @@
+<div *ngIf="article" class="list-article-item-container">
+    <!-- <div class="list-article-item-container-overlay" (click)="viewArticle()"></div> -->
+    <app-article-picture-slider [viewMethod]="articleViewMethod" [pictures]="article.pictures" class="list-article-item-pictures"></app-article-picture-slider>
+    <div class="list-article-item-info" (click)="viewArticle()">
+        <p class="article-title-label">{{article.title}}</p>
+        <p class="article-description-label">{{article.description}}</p>
+        <p class="article-price-label">Last price: ${{article.soldPrice}}</p>
+    </div>
+</div>

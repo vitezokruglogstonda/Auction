@@ -1,6 +1,5 @@
 import { UserType } from "../app/models/user";
 
-
 export const environment = {
     server_url: "https://localhost:7287/",
     app_title: 'Auction',
@@ -44,6 +43,21 @@ export const environment = {
         width: "20%",
         height: "50%"
     },
+    article_picture_upload: {
+        fileSize: 4,
+        numberOfFiles: 5,
+        errorMessage_fileType: "Wrong file type. Try something else.",
+        errorMessage_numberOfFiles: "You can upload maximum 5 photos.",
+        errorMessage_fileSize: "Maximum file size is 4MB.",
+    },
+    article_data_upload: {
+        errorMessage_inputField: "This field mandatory.",
+        errorMessage_incompleteData: "You must provide all information before publishing this article.",
+        errorMessage_publishArticleSuccess: "Article published successfully.",
+        errorMessage_publishArticleFailed: "Article publishing failed.",
+    },
+    interceptor_sessionExpiredMessage: "Session expired, please login again.",
+    view_articles_pageSizeOptions: [10,20,50,100],
     sidenavItems: [
         {
             title: "Login",
@@ -65,6 +79,12 @@ export const environment = {
             route: "profile/",
             permissions: [UserType.RegisteredUser, UserType.Admin]
         },
+        {
+            title: "Add New Article",
+            route: "create-article",
+            permissions: [UserType.RegisteredUser, UserType.Admin]
+        },
     ],
-    addMoneyOptions: ["$100", "$200", "$500", "$1000", "$2000", "..."]
+    addMoneyOptions: ["$100", "$200", "$500", "$1000", "$2000", "..."],
+    defaultArticleImage: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png",
 };

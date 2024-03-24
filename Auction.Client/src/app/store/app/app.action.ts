@@ -7,3 +7,6 @@ export const registerFail = createAction("Registration Failed");
 export const updateEmailError = createAction("Update Email Error", props<{status: boolean}>());
 export const logout = createAction("Log Out Success");
 export const changeProfilePicture = createAction("Change Profile Picture", props<{picturePath: String}>());
+export const publishArticleSuccess = createAction("Publish Article - Success");
+export const publishArticleFailed = createAction("Publish Article - Failed");
+export const resetPublishArticleError = createAction("Reset Publish Article Error");

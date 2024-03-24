@@ -4,41 +4,41 @@ import { AuthService } from "../services/auth.service";
 import { User, UserType } from "../models/user";
 import { AppState } from "../store/app.state";
 import { Store } from "@ngrx/store";
-import { selectJwt } from "../store/user/user.selector";
-import { Observable, map, of, switchMap } from "rxjs";
+import { Observable, catchError, map, of, switchMap, throwError } from "rxjs";
+import { LocalStorageService } from "../services/local-storage.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-    private jwt: String = "";
-
-    constructor(private authService: AuthService, private router: Router, private store: Store<AppState>) {
-        this.store.select(selectJwt).subscribe((state) => {
-            this.jwt = state;
-        });
-    }
+    constructor(private authService: AuthService, private router: Router, private localStorage: LocalStorageService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+
+        let jwt: string | null = this.localStorage.getItem("jwt");
         if (route.data['roles'].includes(UserType.Guest)) {
-            if (this.jwt === "")
+            if (jwt === null)
                 return of(true);
             this.router.navigate(['']);
             return of(false);            
         }
-        if (this.jwt === ""){
+        if (jwt === null){
             this.router.navigate(['/login']);
             return of(false);
         }
-        return this.authService.isAuthenticated(this.jwt).pipe(
+        return this.authService.isAuthenticated().pipe(
             map((result: UserType | null) => {
                 if (result === null || !route.data['roles'].includes(result)) {
                     this.router.navigate(['/login']);
                     return false;
                 }
                 return true;
-            })
+            }),
+            // catchError((error) => {
+            //     this.router.navigate(['/login']); //ovo mnogo ne valja (pogledaj notes)
+            //     return throwError(error);
+            // })
         );
     }
 }

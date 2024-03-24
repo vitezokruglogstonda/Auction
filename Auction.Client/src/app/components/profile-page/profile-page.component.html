@@ -39,7 +39,8 @@
             </div>
             <div class="info-field-container">
                 <div class="info-icon-container">
-                    <i class="info-icon fas fa-cart-shopping"></i>
+                    <!-- <i class="info-icon fas fa-cart-shopping"></i> -->
+                    <i class="info-icon fa-solid fa-handshake"></i>
                 </div>
                 <div class="info-field">
                     <p><span class="value-text">{{numberOfItemsSold}}</span></p>
@@ -71,7 +72,7 @@
                 <i class="fa-solid fa-plus button-icon"></i>
             </div>
         </mat-card>
-        <mat-card class="option">
+        <mat-card class="option" (click)="redirectToCreateArticlePage()">
             <div class="option-info-container">
                 <div class="option-info-icon">
                     <i class="fa-solid fa-gavel option-icon" id="article-button-icon"></i>
@@ -86,4 +87,32 @@
         </mat-card>
     </div>
     <mat-divider class="divider-line"></mat-divider>
+    <div class="articles-view-container">
+        <mat-tab-group color="primary" preserveContent> <!-- makni ovo ako hoces da se ucita content svaki put kad selektujes tab -->
+            <mat-tab>
+                <ng-template mat-tab-label class="tab-header">
+                    <i class="fa-solid fa-gavel tab-header-icon"></i>
+                    <p>Selling Articles</p>
+                </ng-template>
+                <app-view-articles *ngIf="!no_sellingItems" [articles]="sellingItemsList!" [numberOfArticles]="sellingItemsList.length"></app-view-articles>
+                <div *ngIf="no_sellingItems" class="no-items-box">No items to show.</div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label class="tab-header">
+                    <i class="fa-solid fa-handshake tab-header-icon"></i>
+                    <p>Sold Articles</p>
+                </ng-template>
+                <app-view-articles *ngIf="!no_soldItems" [articles]="soldItemsList!" [numberOfArticles]="soldItemsList.length"></app-view-articles>
+                <div *ngIf="no_soldItems" class="no-items-box">No items to show.</div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label class="tab-header">
+                    <i class="info-icon fas fa-cart-shopping tab-header-icon"></i>
+                    <p>Bought Articles</p>
+                </ng-template>
+                <app-view-articles *ngIf="!no_boughtItems" [articles]="boughtItemsList!" [numberOfArticles]="boughtItemsList.length"></app-view-articles>
+                <div *ngIf="no_boughtItems" class="no-items-box">No items to show.</div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
 </div>

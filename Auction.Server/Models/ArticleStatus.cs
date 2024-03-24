@@ -3,6 +3,8 @@
     public enum ArticleStatus
     {
         Pending,
-        Sold
+        Biding,
+        Sold,
+        Expired
     }
 }

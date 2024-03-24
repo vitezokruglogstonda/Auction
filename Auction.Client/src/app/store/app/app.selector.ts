@@ -25,3 +25,18 @@ export const selectAccountImagePath = createSelector(
     selectAppInfo,
     (state) => state.accountImagePath
 );
+
+export const selectPublishArticleError = createSelector(
+    selectAppInfo,
+    (state) => state.publishArticleError
+);
+
+export const selectTotalNumberOfArticles = createSelector(
+    selectAppInfo,
+    (state) => state.totalNumberOfArticles
+);
+
+export const selectLoadArticlesListError = createSelector(
+    selectAppInfo,
+    (state) => state.loadArticlesListError
+);

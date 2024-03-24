@@ -16,6 +16,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 export const materialComponents = [
@@ -37,4 +41,8 @@ export const materialComponents = [
     MatNativeDateModule,
     MatChipsModule,
     MatSnackBarModule,
+    MatTabsModule,
+    MatButtonToggleModule,
+    MatPaginatorModule,
+    MatExpansionModule,
 ];

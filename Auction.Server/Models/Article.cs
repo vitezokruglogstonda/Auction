@@ -18,22 +18,28 @@ namespace Auction.Server.Models
 
         [Required]
         [Column("Description")]
+        [DataType(DataType.Text)]
         public string Description { get; set; } = string.Empty;
 
         [Required]
         [Column("Starting Price")]
         public decimal StartingPrice { get; set; }
 
-        public decimal SoldPrice { get; set;}
+        public decimal? SoldPrice { get; set;}
 
         [Column("Status")]
         public ArticleStatus Status { get; set; }
+
+        [Required]
+        [Column("ExpiryDate")]
+        [DataType(DataType.DateTime)]
+        public CustomDateTime ExpiryDate { get; set; } = new CustomDateTime();
 
         //[NotMapped]
         public virtual List<ArticlePicture> Pictures { get; set; } = new List<ArticlePicture> ();
 
         //[Required]
-        [JsonIgnore]
+        //[JsonIgnore]
         //[ForeignKey("Creator")]
         public int CreatorId { get; set; }
         
@@ -41,9 +47,9 @@ namespace Auction.Server.Models
         [JsonIgnore]
         public User? Creator { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         //[ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
 
         [JsonIgnore]
         public User? Customer { get; set; }

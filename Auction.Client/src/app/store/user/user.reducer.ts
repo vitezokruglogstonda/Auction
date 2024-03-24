@@ -16,12 +16,12 @@ export const initialState: User = {
     userType: UserType.Guest,
     profilePicturePath: "",
     balance: 0,
-    JWT: "",
 };
 
 export const userReducer = createReducer(
     initialState,
     on(Actions.logIn, (state, {loginDto}) => ({...state})),
+    on(Actions.logInWithToken, (state) => ({...state})),
     on(Actions.logInSuccess, (state, {user}) => ({
         ...user,
     })),
@@ -40,6 +40,9 @@ export const userReducer = createReducer(
         ...state,
         profilePicturePath: picturePath
     })),
+    on(Actions.changeProfilePhotoFailed, (state)=>({
+        ...state
+    })),    
     on(Actions.addMoneyToAccount, (state, {amount})=>({
         ...state
     })),
@@ -47,4 +50,11 @@ export const userReducer = createReducer(
         ...state,
         balance: balance
     })),
+    on(Actions.addMoneyToAccountFailed, (state)=>({
+        ...state
+    })), 
+    on(Actions.publishArticle, (state, {articleDto})=>({
+        ...state
+    })), 
 );
+

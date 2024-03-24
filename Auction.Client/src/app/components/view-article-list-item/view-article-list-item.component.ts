@@ -1,0 +1,24 @@
+import { Component, Input } from '@angular/core';
+import { Article, ArticleViewMethod } from '../../models/article';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-view-article-list-item',
+  templateUrl: './view-article-list-item.component.html',
+  styleUrl: './view-article-list-item.component.css'
+})
+export class ViewArticleListItemComponent {
+  @Input() article: Article | null;
+  @Input() articleViewMethod: ArticleViewMethod | null;
+
+  constructor(private router: Router){
+    this.article = null;
+    this.articleViewMethod = null;
+  }
+
+  viewArticle(){
+    //ubaci article.id u rutu
+    this.router.navigate(["/article", this.article!.id]);
+  }
+
+}

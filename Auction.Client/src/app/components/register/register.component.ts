@@ -9,8 +9,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { UploadPictureDialogComponent } from '../upload-picture-dialog/upload-picture-dialog.component';
 import { checkEmail, register } from '../../store/user/user.action';
 import { selectEmailTaken } from '../../store/app/app.selector';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarRef, MatSnackBarVerticalPosition, TextOnlySnackBar } from '@angular/material/snack-bar';
-import { CustomSnackbarComponent } from '../custom-snackbar/custom-snackbar.component';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-register',
@@ -41,9 +40,8 @@ export class RegisterComponent {
   public uploadedPicture: File | null;
   public userPictureExists: boolean;
   public showBadge: boolean;
-  public snackBarRef: MatSnackBarRef<CustomSnackbarComponent> | null;
 
-  constructor(public dialog: MatDialog, private elRef: ElementRef, private store: Store<AppState>, private router: Router, private snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, private elRef: ElementRef, private store: Store<AppState>, private router: Router, private snackbarService: SnackbarService) {
     this.email = "";
     this.emailError = false;
     this.emailExample = environment.login_card_example_email;
@@ -66,7 +64,6 @@ export class RegisterComponent {
     this.uploadedPicture = null;
     this.userPictureExists = false;
     this.showBadge = false;
-    this.snackBarRef = null;
   }
 
   ngOnInit(): void {
@@ -185,7 +182,7 @@ export class RegisterComponent {
 
   registerNow() {
     if (this.checkData()) {
-      this.snackBarRef != null && this.snackBarRef.containerInstance._animationState === 'visible' ? this.snackBarRef.dismiss() : "";
+      this.snackbarService.dismiss();      
       let userData: RegisterDto = {
         email: this.email,
         password: this.password,
@@ -197,14 +194,7 @@ export class RegisterComponent {
       };
       this.store.dispatch(register({ registerDto: userData }));
     } else {
-      this.snackBarRef = this.snackBar.openFromComponent(CustomSnackbarComponent, {
-        data: { message: environment.registrationError_snackBar.text, snackBarRef: null},
-        horizontalPosition: environment.registrationError_snackBar.horisontal_position as MatSnackBarHorizontalPosition,
-        verticalPosition: environment.registrationError_snackBar.vertical_position as MatSnackBarVerticalPosition,
-        panelClass: ['snackbar'],
-        duration: environment.registrationError_snackBar.duration,
-      });
-      this.snackBarRef.instance.data.snackBarRef = this.snackBarRef;
+      this.snackbarService.spawnSnackbar(environment.registrationError_snackBar.text);     
     }
   }
 

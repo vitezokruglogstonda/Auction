@@ -64,30 +64,37 @@ namespace Auction.Server.Services.Implementation
 
         public async Task CheckJwtToken(HttpContext httpContext, string token)
         {
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            byte[] key = Encoding.ASCII.GetBytes(Configuration.GetSection("Jwt").GetSection("Key").Value!);
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
+            try
             {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ClockSkew = TimeSpan.FromMinutes(10)
-            }, out SecurityToken validatedToken);
+                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+                byte[] key = Encoding.ASCII.GetBytes(Configuration.GetSection("Jwt").GetSection("Key").Value!);
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.FromMinutes(10)
+                }, out SecurityToken validatedToken);
 
-            JwtSecurityToken jwtToken = (JwtSecurityToken)validatedToken;
+                JwtSecurityToken jwtToken = (JwtSecurityToken)validatedToken;
 
-            int userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                int userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
-            if (jwtToken.ValidTo < DateTime.UtcNow)
-                return;
+                if (jwtToken.ValidTo < DateTime.UtcNow)
+                    return;
 
-            User? user = await DbContext.Users.FindAsync(userId);
+                User? user = await DbContext.Users.FindAsync(userId);
 
-            if (user != null && user.OnlineStatus /*&& user.ValidatedUser*/)
-            {
-                httpContext.Items["User"] = user;
+                if (user != null && user.OnlineStatus /*&& user.ValidatedUser*/)
+                {
+                    httpContext.Items["User"] = user;
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }            
         }
 
         public void GenerateJwtToken(User user, HttpContext httpContext, TokenType tokenType)

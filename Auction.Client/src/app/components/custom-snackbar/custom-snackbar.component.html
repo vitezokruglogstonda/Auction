@@ -1,5 +1,8 @@
 <div class="snackbar-container">
-    <p class="snackbar-text">{{message}}</p>
+    <div class="snackbar-info-container">
+        <i class="fa-solid fa-circle-exclamation snackbar-alert-icon"></i>
+        <p class="snackbar-text">{{message}}</p>
+    </div>
     <button mat-icon-button class="snackbar-text snackbar-button" (click)="dismiss()">
         <i class="fa-solid fa-xmark"></i>
     </button>

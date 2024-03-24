@@ -1,0 +1,238 @@
+.article-page-container{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.article-page-upper{
+    width: 100%;
+    height: 50%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.picture-slide-container{
+    height: 80%;
+    width: 40%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.picture-slide{
+    width: 100%;
+    height: 100%;
+}
+
+.vertical-line {
+    height: 80%;
+    background-color: gray;
+    width: 1px;
+}
+
+.article-info-container{
+    height: 80%;
+    width: 40%;
+    min-width: 37em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 10px;
+    background-image: linear-gradient(to top, transparent 10%, rgba(0, 0, 0, 0.5) 150%);
+}
+
+.article-info-title{
+    width: 80%;
+    height: 30%;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.article-info-title p{
+    font-size: xx-large;
+    font-family: "Century Gothic";
+    text-align: center;
+}
+
+.info-container{
+    width: 95%;
+    min-width: 15em;
+    height: 20%;
+    min-height: 4em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info-subcontainer{
+    width: 30%;
+    min-width: 20em;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.info-subcontainer-right{
+    justify-content: flex-end;
+}
+
+.info-image-container{
+    width: 3em;
+    height: 3em;
+    min-width: 3em;
+    min-height: 3em;
+    border-radius: 50%;
+    background-color: #c6cad6;
+    overflow: hidden;
+}
+
+.info-image-container:hover{
+    cursor: pointer;
+}
+
+.info-image{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover; 
+}
+
+.info-label-container{
+    height: 100%; 
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.info-label-container-right{
+    align-items: flex-end;
+    margin-right: 2%;
+    margin-left: 0%;
+}
+
+.info-value{
+    font-size: x-large;
+    font-family: "Century Gothic";
+    margin: 0%;
+}
+
+.article-info-user-name:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 10%;
+}
+
+.info-label{
+    font-size: medium;
+    font-family: "Century Gothic";
+    margin: 0%;
+}
+
+.article-info-label:hover{
+    cursor: pointer;
+}
+
+.label-icon-container{
+    width: 3em;
+    height: 3em;
+    min-width: 3em;
+    min-height: 3em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label-icon{    
+    color: black;
+    font-size: x-large;
+}
+
+.current-price-icon{
+    color:green;
+}
+
+.article-page-downer{
+    width: 87%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.description-container{
+    width: 100%;
+}
+
+.description-icon{
+    color: black;
+    font-size: large;
+}
+
+.description-title{
+    font-family: "Century Gothic";
+    font-size: large;
+}
+
+.description-text{
+    font-family: "Century Gothic";
+    font-size: medium;
+    white-space: pre-line;
+}
+
+.biding-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 50%;
+    height: 60%;
+    align-self: flex-start;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.enroll-button{
+    width: 30%;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: orange;
+    align-self: flex-start;
+    
+    /* border-style: solid;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.5); */
+    box-shadow: 0px 1px 5px black;
+    transition: box-shadow 0.5s ease;
+}
+
+.enroll-button:hover{
+    cursor: pointer;
+    /* border-color: transparent; */
+    box-shadow: 0px 2px 10px black;
+}
+
+.enroll-button-label{
+    font-family: "Century Gothic";
+    font-size: larger;
+}

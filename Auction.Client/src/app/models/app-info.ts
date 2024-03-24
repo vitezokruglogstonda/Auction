@@ -4,6 +4,9 @@ export interface AppInfo{
     accountImagePath: String;
     registerError: boolean;
     emailTaken: boolean;
+    publishArticleError: boolean,
+    totalNumberOfArticles: number;
+    loadArticlesListError: boolean;
 }
 
 export enum LoginStatus {

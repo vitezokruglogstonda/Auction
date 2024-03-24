@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from '../../store/app.state';
 import { Store } from '@ngrx/store';
 import { selectUserId, selectUserInfo, selectUserProfilePicturePath } from '../../store/user/user.selector';
 import { UserProfile } from '../../models/user';
-import { getProfile } from '../../store/profile/profile.action';
-import { selectProfileInfo } from '../../store/profile/profile.selector';
+import { getProfile, loadProfileArticles } from '../../store/profile/profile.action';
+import { selectBoughtArticles, selectSellingArticles, selectProfileInfo, selectSoldArticles } from '../../store/profile/profile.selector';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadPictureDialogComponent } from '../upload-picture-dialog/upload-picture-dialog.component';
 import { environment } from '../../../environments/environment';
 import { AddMoneyDialogComponent } from '../add-money-dialog/add-money-dialog.component';
+import { Article } from '../../models/article';
 
 @Component({
   selector: 'app-profile-page',
@@ -24,15 +25,26 @@ export class ProfilePageComponent {
   public myProfile: boolean;
   public numberOfItemsSold: number;
   public balance: number;
-  //public soldItemsList: List<Article>;
   private destroy$ = new Subject<void>();
+  public soldItemsList: Article[];
+  public sellingItemsList: Article[];
+  public boughtItemsList: Article[];
+  public no_soldItems: boolean;
+  public no_sellingItems: boolean;
+  public no_boughtItems: boolean;
 
-  constructor(private store: Store<AppState>, private route: ActivatedRoute, public photoDialog: MatDialog) {
+  constructor(private store: Store<AppState>, private route: ActivatedRoute, public photoDialog: MatDialog, private router: Router) {
     this.userId = 0;
     this.profile = null;
     this.myProfile = false;
     this.numberOfItemsSold = 0;
     this.balance = 0;
+    this.soldItemsList = [];
+    this.sellingItemsList = [];
+    this.boughtItemsList = [];
+    this.no_soldItems = true;
+    this.no_sellingItems = true;
+    this.no_boughtItems = true;
   }
 
   ngOnInit() {
@@ -49,6 +61,7 @@ export class ProfilePageComponent {
           this.profile = { ...profile };
           this.balance = profile.balance;
         });
+        this.store.dispatch(loadProfileArticles({userId: state}));
       } else {
         this.myProfile = false;
         this.store.dispatch(getProfile({ userId: this.userId }));
@@ -56,6 +69,43 @@ export class ProfilePageComponent {
           this.profile = { ...profile }; 
         });
       }
+
+      this.store.select(selectSoldArticles(this.userId)).subscribe(state => {
+        if(state.length !== 0){
+          this.soldItemsList.splice(0, this.soldItemsList.length);
+          state.forEach(item => {
+            this.soldItemsList?.push(item as Article);
+          })
+          this.no_soldItems = false;
+        }
+        else{
+          this.no_soldItems = true;
+        }        
+      });
+      this.store.select(selectSellingArticles).subscribe(state => {
+        if(state.length !== 0){
+          this.sellingItemsList.splice(0, this.sellingItemsList.length);
+          state.forEach(item => {
+            this.sellingItemsList?.push(item as Article);
+          })
+          this.no_sellingItems = false;
+        }
+        else{
+          this.no_sellingItems = true;
+        }
+      });
+      this.store.select(selectBoughtArticles(this.userId)).subscribe(state => {
+        if(state.length !== 0){
+          this.boughtItemsList.splice(0, this.boughtItemsList.length);
+          state.forEach(item => {
+            this.boughtItemsList?.push(item as Article);
+          })
+          this.no_boughtItems = false;
+        }else{
+          this.no_boughtItems = true;
+        }
+      });
+
     });
   }
 
@@ -92,6 +142,10 @@ export class ProfilePageComponent {
       height: environment.dialog_AddMoney_Settings.height,
       enterAnimationDuration: environment.dialog_AddMoney_Settings.openAnimationDuration,
     })
+  }
+
+  redirectToCreateArticlePage(){
+    this.router.navigate(["create-article"]);
   }
 
 }

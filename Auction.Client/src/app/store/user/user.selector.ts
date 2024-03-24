@@ -20,8 +20,3 @@ export const selectUserProfilePicturePath = createSelector(
     selectUserInfo,
     (userInfo) => userInfo.profilePicturePath
 );
-
-export const selectJwt = createSelector(
-    selectUserInfo,
-    (userInfo) => userInfo.JWT
-);

@@ -22,4 +22,27 @@ namespace Auction.Server.Models.Dto
         public string? Gender { get; set; }
         public string? ProfilePicturePath { get; set; }
     }
+
+    public class ProfileResponse
+    {
+        public ProfileResponse(UserProfile profile)
+        {
+            Profile = profile;
+        }
+
+        public UserProfile Profile { get; set; }
+        public List<ArticleDto_Response>? Articles { get; set; }
+    }
+
+    public class ArticleOwners
+    {
+        public ArticleOwners(UserProfile? creator, UserProfile? customer)
+        {
+            Creator = creator;
+            Customer = customer;
+        }
+
+        public UserProfile? Creator { get; set; }
+        public UserProfile? Customer { get; set; }
+    }
 }
