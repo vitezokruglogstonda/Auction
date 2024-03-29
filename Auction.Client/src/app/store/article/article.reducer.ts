@@ -56,9 +56,18 @@ export const articlesListReducer = createReducer(
     on(Actions.loadSingleArticleFailed, (state) => {
         return articlesListAdapter.removeAll({ ...state });
     }),
-    // on(Actions.changeArticleStatus, (state, {status}) => {
-    //     return articlesListAdapter.updateOne({ ...state });
-    // }),
+    on(Actions.changeArticleStatus, (state, {id, articleInfoDto}) => {
+        return articlesListAdapter.updateOne(
+            { id: id, changes: { status: articleInfoDto.status, soldPrice: articleInfoDto.lastPrice } },
+            state
+          );
+    }),
+    on(Actions.changeArticleLastPrice, (state, {id, lastPrice}) => {
+        return articlesListAdapter.updateOne(
+            { id: id, changes: { soldPrice: lastPrice } },
+            state
+          );
+    }),
 );
 
 export const bidListAdapter: EntityAdapter<BidItem> = createEntityAdapter<BidItem>();
@@ -85,5 +94,7 @@ export const bidListReducer = createReducer(
     })),
     on(Actions.newBidItem, (state, {item}) => {
         return bidListAdapter.addOne(item, state);
+        // const newItem = { ...item, id: require('uuid').v4() };
+        // return bidListAdapter.addOne(newItem, state);
     }),
 );

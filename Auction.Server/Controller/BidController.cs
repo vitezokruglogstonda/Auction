@@ -21,7 +21,7 @@ namespace Auction.Server.Controller
         [Auth]
         [HttpGet]
         [Route("start-bidding")]
-        public async Task<ActionResult<bool>> StartBidding([FromQuery] int articleId)
+        public async Task<ActionResult<ArticleInfoDto?>> StartBidding([FromQuery] int articleId)
         {
             return Ok(await this.BiddingService.StartBidding((HttpContext.Items["User"] as User)!, articleId));
         }
@@ -40,7 +40,7 @@ namespace Auction.Server.Controller
         [Auth]
         [HttpGet]
         [Route("get-bid-list")]
-        public async Task<ActionResult<List<BidItem>?>> Bid([FromQuery] int articleId)
+        public async Task<ActionResult<List<BidItem>?>> GetBidList([FromQuery] int articleId)
         {
             List<BidItem>? bids = await this.BiddingService.GetBidList(articleId);
                 if (bids == null)

@@ -3,7 +3,10 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { ArticleService } from "../../services/article.service";
 import { switchMap } from "rxjs";
 import * as ArticleActions from "./article.action";
-import { Article, ArticleOwners, ArticleStatus, BidItem } from "../../models/article";
+import * as UserActions from "../user/user.action";
+import { Article, ArticleInfoDto, ArticleOwners, ArticleStatus, BidItem, BidItemDto } from "../../models/article";
+import { environment } from "../../../environments/environment";
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class ArticleEffects {
@@ -134,8 +137,16 @@ export class ArticleEffects {
             ofType(ArticleActions.getBidList),
             switchMap((action) =>
                 this.articleService.getBidList(action.articleId).pipe(
-                    switchMap((items: BidItem[] | null) => {
-                        if (items !== null && items.length > 0) {
+                    switchMap((result: BidItemDto[] | null) => {
+                        if (result !== null && result.length > 0) {
+                            let items: BidItem[] = [];
+                            result.forEach(el => {
+                                items.push({
+                                    id: uuidv4(),
+                                    userProfile: el.userProfile,
+                                    amount: el.amount
+                                })
+                            })
                             return [
                                 ArticleActions.getBidListSuccess({ items: items }),
                             ];
@@ -153,13 +164,17 @@ export class ArticleEffects {
             ofType(ArticleActions.startBidding),
             switchMap((action) =>
                 this.articleService.startBidding(action.articleId).pipe(
-                    switchMap((result: boolean | null) => {
+                    switchMap((result: ArticleInfoDto | null) => {
                         if (result !== null) {
                             return [
-                                ArticleActions.checkIfCurrentlyBiddingSuccess({ status: result }),
+                                ArticleActions.checkIfCurrentlyBiddingSuccess({ status: true }),
+                                ArticleActions.changeArticleStatus({ id: action.articleId, articleInfoDto: result }),
+                                UserActions.substractMoneyFromAccount({ amount: environment.defaultFee })
                             ];
                         } else {
-                            return [];
+                            return [
+                                ArticleActions.checkIfCurrentlyBiddingSuccess({ status: false })
+                            ];
                         }
                     })
                 )
@@ -172,10 +187,16 @@ export class ArticleEffects {
             ofType(ArticleActions.newBid),
             switchMap((action) =>
                 this.articleService.newBid(action.articleId, action.amount).pipe(
-                    switchMap((item: BidItem | null) => {
-                        if (item !== null) {
+                    switchMap((result: BidItemDto | null) => {
+                        if (result !== null) {
+                            let item: BidItem = {
+                                id: uuidv4(),
+                                userProfile: result.userProfile,
+                                amount: result.amount
+                            };
                             return [
                                 ArticleActions.newBidItem({ item: item }),
+                                ArticleActions.changeArticleLastPrice({ id: action.articleId, lastPrice: action.amount })
                             ];
                         } else {
                             return [];

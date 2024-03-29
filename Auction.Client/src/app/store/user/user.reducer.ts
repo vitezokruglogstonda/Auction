@@ -56,5 +56,9 @@ export const userReducer = createReducer(
     on(Actions.publishArticle, (state, {articleDto})=>({
         ...state
     })), 
+    on(Actions.substractMoneyFromAccount, (state, {amount})=>({
+        ...state,
+        balance: state.balance-amount
+    })),
 );
 

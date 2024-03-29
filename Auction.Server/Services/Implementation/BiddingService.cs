@@ -25,22 +25,17 @@ namespace Auction.Server.Services.Implementation
             ProfileService = profileService;
         }
 
-        public async Task<bool> StartBidding(User user, int articleId)
+        public async Task<ArticleInfoDto?> StartBidding(User user, int articleId)
         {
             Article? article = await this.DbContext.Articles.FindAsync(articleId);
             if (article == null || article.Status == ArticleStatus.Sold || article.Status == ArticleStatus.Expired)
-                return false;
-            if(article.Status == ArticleStatus.Pending)
-            {
-                article.Status = ArticleStatus.Biding;
-                this.DbContext.Update(article);
-            }
+                return null;
 
-            if (await CheckIfUserIsBidding(user.Id, articleId)) return false;
+            if (await CheckIfUserIsBidding(user.Id, articleId)) return null;
 
             int fee = Int32.Parse(this.Configuration.GetSection("BidFee").Value!);
             if (user.Balance < fee)
-                return false;
+                return null;
 
             user.Balance -= fee;
             this.DbContext.Update(user);
@@ -48,9 +43,20 @@ namespace Auction.Server.Services.Implementation
 
             BidListHead? head = await GetHead(articleId);
             if (head == null)
-                return false;
+                return null;
 
-            return true;
+            SubscriberNode newNode = new(user.Id);
+            newNode.Next = head.Subs;
+            head.Subs = "a_" + articleId.ToString() + "_u_" + user.Id.ToString();
+
+            await this.Redis.StringSetAsync(head.Subs, JsonSerializer.Serialize<SubscriberNode>(newNode));
+            await this.Redis.StringSetAsync("a_" + articleId.ToString(), JsonSerializer.Serialize<BidListHead>(head));
+
+            return new ArticleInfoDto()
+            {
+                Status = ArticleStatus.Biding,
+                LastPrice = (decimal)head.LastPrice!
+            };
         }
 
         public async Task<BidItem?> NewBid(User user, int articleId, decimal amount)
@@ -67,22 +73,17 @@ namespace Auction.Server.Services.Implementation
             if (head == null)
                 return null;
 
-            if (head.LastPrice + fee >= amount) // +fee (cisto da ne bude $1 vise)
+            if (head.LastPrice + fee > amount) // +fee (cisto da ne bude $1 vise)
                 return null;
 
-        //ovo moze da se brise ako se ne skida sa balansa
-            user.Balance -= amount;
-            this.DbContext.Update(user);
-            await this.DbContext.SaveChangesAsync();
-
             BidNode newNode = new(user.Id, articleId, amount, null);
-            newNode.Next = head.First;
+            newNode.Next = head.Bids;
             //head.First = "u_" + newNode.UserId.ToString() + "_" + newNode.ArticleId.ToString(); 
                 //(u vezi ovog iznad) sta ako vise bid-a od 1 user-a za taj isti proizvod
-            head.First = Guid.NewGuid().ToString();
+            head.Bids = Guid.NewGuid().ToString();
             head.LastPrice = newNode.MoneyAmount;
 
-            await this.Redis.StringSetAsync(head.First, JsonSerializer.Serialize<BidNode>(newNode));
+            await this.Redis.StringSetAsync(head.Bids, JsonSerializer.Serialize<BidNode>(newNode));
             await this.Redis.StringSetAsync("a_" + articleId.ToString(), JsonSerializer.Serialize<BidListHead>(head));
 
             return new BidItem((await this.ProfileService.GetUserProfile(newNode.UserId))!, newNode.MoneyAmount);
@@ -91,11 +92,11 @@ namespace Auction.Server.Services.Implementation
         public async Task<List<BidItem>?> GetBidList(int articleId)
         {
             BidListHead? head = await GetHead(articleId, false);
-            if (head == null || head!.First == null)
+            if (head == null || head!.Bids == null)
                 return null;
 
             List<BidItem> list = new();
-            string ? next = head!.First;
+            string ? next = head!.Bids;
             string? serializedNode;
             BidNode node;
 
@@ -147,7 +148,7 @@ namespace Auction.Server.Services.Implementation
         public async Task<decimal?> GetLastArticlePrice(int articleId)
         {
             string? headSerialized = await this.Redis.StringGetAsync("a_" + articleId.ToString());
-            if (headSerialized == null) return null;
+            if (headSerialized.IsNullOrEmpty()) return null;
 
             BidListHead? head = JsonSerializer.Deserialize<BidListHead>(headSerialized!);
             return head!.LastPrice;
@@ -155,21 +156,22 @@ namespace Auction.Server.Services.Implementation
         public async Task<bool> CheckIfUserIsBidding(int userId, int articleId)
         {
             string? headSerialized = await this.Redis.StringGetAsync("a_" + articleId.ToString());
-            if (headSerialized.IsNullOrEmpty())
+            //if (headSerialized.IsNullOrEmpty())
+            if (headSerialized == null || headSerialized.Length == 0)
                 return false;
             BidListHead? head = JsonSerializer.Deserialize<BidListHead>(headSerialized!);
 
-            string? next = head!.First;
+            string? next = head!.Subs;
             bool result = false;
             string? serializedNode;
-            BidNode node;
+            SubscriberNode node;
 
             while (next != null)
             {
                 serializedNode = await this.Redis.StringGetAsync(next);
                 if (serializedNode == null)
                     break;
-                node = JsonSerializer.Deserialize<BidNode>(serializedNode)!;
+                node = JsonSerializer.Deserialize<SubscriberNode>(serializedNode)!;
                 if(node.UserId == userId)
                 {
                     result = true;

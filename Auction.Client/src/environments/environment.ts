@@ -87,4 +87,5 @@ export const environment = {
     ],
     addMoneyOptions: ["$100", "$200", "$500", "$1000", "$2000", "..."],
     defaultArticleImage: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png",
+    defaultFee: 100,
 };

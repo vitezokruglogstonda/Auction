@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Article, ArticleOwners, ArticleStatus, BidItem } from "../../models/article";
+import { Article, ArticleInfoDto, ArticleOwners, ArticleStatus, BidItem } from "../../models/article";
 
 export const loadTotalNumberOfArticles = createAction("Load Total Number Of Articles");
 export const loadTotalNumberOfArticlesSuccess = createAction("Load Total Number Of Articles - Success", props<{numberOfArticles: number}>());
@@ -12,7 +12,8 @@ export const loadArticlesFailed = createAction("Load Articles - Failed");
 export const loadSingleArticle = createAction("Load Single Article", props<{articleId: number}>());
 export const loadSingleArticleSuccess = createAction("Load Single Article - Success", props<{item: Article}>());
 export const loadSingleArticleFailed = createAction("Load Single Article - Failed");
-export const changeArticleStatus = createAction("Change Article Status", props<{status: ArticleStatus}>());
+export const changeArticleStatus = createAction("Change Article Status", props<{id: number, articleInfoDto: ArticleInfoDto}>());
+export const changeArticleLastPrice = createAction("Change Article Last Price", props<{id: number, lastPrice: number}>());
 
 export const loadArticlesOwners = createAction("Load Articles Owners", props<{creatorId: number, customerId: number | null}>());
 export const loadArticlesOwnersSuccess = createAction("Load Articles Owners - Success", props<{owners: ArticleOwners}>());

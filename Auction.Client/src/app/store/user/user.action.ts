@@ -16,3 +16,4 @@ export const addMoneyToAccount = createAction("Add Money To Account", props<{amo
 export const addMoneyToAccountSuccess = createAction("Add Money To Account - Success", props<{balance: number}>());
 export const addMoneyToAccountFailed = createAction("Add Money To Account - Failed");
 export const publishArticle = createAction("Publish Article", props<{articleDto : ArticleDto}>());
+export const substractMoneyFromAccount = createAction("Substract Money From Account", props<{amount: number}>());

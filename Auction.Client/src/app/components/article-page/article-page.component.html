@@ -99,7 +99,60 @@
         </div>
         <div class="biding-container">
             <div class="enroll-button" *ngIf="showEnrollButton" (click)="enroll()">
-                <p class="enroll-button-label">Bid Now</p>
+                <div class="enroll-button-content-container">
+                    <i class="fa-solid fa-gavel label-icon enroll-button-content"></i>
+                    <p class="enroll-button-label">Bid Now</p>
+                    <p class="fee-label enroll-button-content">(${{fee}})</p>
+                </div>
+            </div>
+            <div class="bid-list-and-options-container" *ngIf="!showEnrollButton && showBidSection">
+                <div class="bid-list-container">
+                    <div class="bid-list" *ngIf="showBidList">
+                        <div class="bid-item" *ngFor="let bidItem of bidList; let i = index" [ngClass]="{'last-bid': i === 0}">
+                            <div class="bid-item-user-profile">
+                                <div class="bid-item-user-profile-picture" (click)="goToProfile(bidItem.userProfile.id)">
+                                    <img class="picture" src="{{bidItem.userProfile.profilePicturePath}}" alt="">
+                                </div>
+                                <div class="bid-item-user-profile-name" (click)="goToProfile(bidItem.userProfile.id)">
+                                    <p>{{bidItem.userProfile.firstName}} {{bidItem.userProfile.lastName}}</p>
+                                </div>
+                            </div>
+                            <div class="bid-item-amount">
+                                <p>${{bidItem.amount}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!showBidList">
+                        <p id="no-bids-label">No bids yet.</p>
+                    </div>
+                </div>
+                <div class="bid-options-container bid-options-container-active" *ngIf="currentlyBidding">
+                    <div class="bid-options">
+                        <div class="info-subcontainer">
+                            <div class="label-icon-container">
+                                <i class="fas fa-money-bill label-icon"></i>
+                            </div>
+                            <div class="info-label-container">
+                                <p class="info-value">${{userBalance}}</p>
+                                <p class="info-label">Your balance</p>
+                            </div>
+                        </div>
+                        <div class="bid-amount-input">
+                            <div class="label-icon-container">
+                                <i class="fa-solid fa-dollar-sign label-icon"></i>
+                            </div>
+                            <mat-form-field class="form-field" appearance="fill">
+                                <mat-label>Bid amount</mat-label>
+                                <input matInput type="number" [(ngModel)]="newBid" step="100" name="value"
+                                    min="{{article.soldPrice + fee}}" (ngModelChange)="bidValueEntered($event)">
+                            </mat-form-field>
+                        </div>                     
+                    </div>
+                    <div matRipple class="bid-button" (click)="placeBid()">
+                        <p>Bid</p>
+                    </div>
+                </div>
+                <div class="bid-options-container" *ngIf="!currentlyBidding"></div>
             </div>
         </div>
     </div>

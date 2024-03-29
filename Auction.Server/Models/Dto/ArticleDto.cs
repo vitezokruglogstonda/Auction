@@ -48,4 +48,10 @@ namespace Auction.Server.Models.Dto
         
         public int? CustomerId { get; set; }
     }
+
+    public class ArticleInfoDto
+    {
+        public ArticleStatus Status { get; set; }
+        public decimal LastPrice { get; set; }  
+    }
 }

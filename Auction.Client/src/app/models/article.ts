@@ -58,6 +58,12 @@ export interface ArticleOwners{
 }
 
 export interface BidItem{
+    id: string;
+    userProfile: UserProfile,
+    amount: number
+}
+
+export interface BidItemDto{
     userProfile: UserProfile,
     amount: number
 }
@@ -69,4 +75,9 @@ export interface BidListState extends EntityState<BidItem>{
 export interface BidDto{
     articleId: number,
     amount: number
+}
+
+export interface ArticleInfoDto{
+    status: ArticleStatus,
+    lastPrice: number
 }

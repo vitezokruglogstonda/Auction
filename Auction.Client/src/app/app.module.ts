@@ -79,7 +79,8 @@ import { ArticlePageComponent } from './components/article-page/article-page.com
     FormsModule,
     materialComponents,
     StoreDevtoolsModule.instrument({
-      maxAge: 7, 
+      //maxAge: 7, 
+      maxAge: 100, 
       autoPause: true
     }),
     HttpClientModule

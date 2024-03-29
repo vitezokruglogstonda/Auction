@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, Subscription, interval, switchMap, take, takeUntil, takeWhile } from 'rxjs';
+import { Observable, Subject, Subscription, first, interval, switchMap, take, takeUntil, takeWhile } from 'rxjs';
 import { AppState } from '../../store/app.state';
 import { Article, ArticleStatus, ArticleViewMethod, BidItem, CustomDateTime } from '../../models/article';
 import { selectBidItems, selectCurrentlyBiddingArticle, selectProfilesForArticle, selectSingleArticle } from '../../store/article/article.selector';
-import { changeArticleStatus, checkIfCurrentlyBidding, clearBidList, getBidList, loadArticlesOwners, loadSingleArticle, startBidding } from '../../store/article/article.action';
+import { changeArticleStatus, checkIfCurrentlyBidding, clearBidList, getBidList, loadArticlesOwners, loadSingleArticle, newBid, startBidding } from '../../store/article/article.action';
 import { UserProfile } from '../../models/user';
 import { getProfile } from '../../store/profile/profile.action';
 import { selectProfileInfo } from '../../store/profile/profile.selector';
-import { selectUserId } from '../../store/user/user.selector';
+import { selectUserId, selectUserInfo } from '../../store/user/user.selector';
+import { environment } from '../../../environments/environment';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-article-page',
@@ -19,6 +21,7 @@ import { selectUserId } from '../../store/user/user.selector';
 export class ArticlePageComponent {
 
   public userId: number;
+  public userBalance: number;
   private destroy$ = new Subject<void>();
   public articleId: number;
   public article: Article | null;
@@ -34,11 +37,16 @@ export class ArticlePageComponent {
   public showCurrentPrice: boolean;
   public currentlyBidding: boolean;
   public showEnrollButton: boolean;
-  public showBids: boolean;
+  public showBidSection: boolean;
+  public showBidList: boolean;
   public bidList: BidItem[];
+  public firstTime: boolean;
+  public fee: number;
+  public newBid: number;
 
-  constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router) {
+  constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router, private snackbarService: SnackbarService) {
     this.userId = 0;
+    this.userBalance = 0;
     this.articleId = 0;
     this.article = null;
     this.articleViewMethod = ArticleViewMethod.Page
@@ -53,11 +61,15 @@ export class ArticlePageComponent {
     this.showCurrentPrice = false;
     this.currentlyBidding = false;
     this.showEnrollButton = false;
-    this.showBids = false;
+    this.showBidSection = false;
+    this.showBidList = false;
     this.bidList = [];
+    this.firstTime = true;
+    this.fee = environment.defaultFee;
+    this.newBid = 0;
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.store.dispatch(clearBidList());
     this.store.select(selectBidItems).subscribe(state => {
       this.bidList.splice(0, this.bidList.length);
@@ -65,12 +77,26 @@ export class ArticlePageComponent {
         if(bidItem !== undefined)
           this.bidList.push(bidItem);
       })
-      this.showBids = this.bidList.length === 0 ? false : true;
+      this.bidList.sort((a, b) => {
+        if (a.amount > b.amount) {
+            return -1;
+        }
+        if (a.amount < b.amount) {
+            return 1;
+        }
+        return 0;
+      });
+      this.showBidList = this.bidList.length === 0 ? false : true;
     })
-    this.store.select(selectUserId).subscribe(state => {
+    // this.store.select(selectUserId).subscribe(state => {
+    //   if (state)
+    //     this.userId = state;
+    // });
+    this.store.select(selectUserInfo).subscribe(state => {
       if (state)
-        this.userId = state;
-    });
+        this.userId = state.id as number;
+        this.userBalance = state.balance;
+    });    
     this.route.params.pipe(
       switchMap((params) => {
         this.articleId = Number(params['articleId']);
@@ -83,14 +109,6 @@ export class ArticlePageComponent {
         this.articleProcessing();
       } else {
         this.store.dispatch(loadSingleArticle({ articleId: this.articleId }));
-        this.store.select(selectSingleArticle(this.articleId))
-          .pipe(take(1))
-          .subscribe((selectedArticle) => {
-            if (selectedArticle != undefined) {
-              this.article = selectedArticle!;
-              this.articleProcessing();
-            }
-          });
       }
     })
     this.expiryTimeLeftSubscription = interval(1000).pipe(
@@ -108,16 +126,17 @@ export class ArticlePageComponent {
   }
 
   articleProcessing() {
-    this.store.dispatch(loadArticlesOwners({ creatorId: this.article?.creatorId as number, customerId: this.article?.customerId as number | null }));
-    this.store.select(selectProfilesForArticle).pipe(takeUntil(this.destroy$)).subscribe((profiles) => {
-      if (profiles.creator !== null)
-        this.articleCreator = { ...profiles.creator };
-      if (profiles.customer !== null)
-        this.articleCustomer = { ...profiles.customer };
-      else {
-        this.articleStatusLabel = this.getStatusLabel();
-      }
-    });
+    if(this.firstTime){
+      this.store.dispatch(loadArticlesOwners({ creatorId: this.article?.creatorId as number, customerId: this.article?.customerId as number | null }));
+      this.store.select(selectProfilesForArticle).pipe(takeUntil(this.destroy$)).subscribe((profiles) => {
+        if (profiles.creator !== null)
+          this.articleCreator = { ...profiles.creator };
+        if (profiles.customer !== null)
+          this.articleCustomer = { ...profiles.customer };
+      });
+    }    
+    this.articleStatusLabel = this.getStatusLabel();
+    this.showBidSection = this.article?.status === ArticleStatus.Biding ? true : false;
     if (this.article?.status == ArticleStatus.Sold) {
       this.showExpiryDate = false;
     } else {
@@ -132,18 +151,21 @@ export class ArticlePageComponent {
     this.showCurrentPrice = this.article?.status === ArticleStatus.Biding || this.article?.status === ArticleStatus.Sold ? true : false;
     if (this.article?.status === ArticleStatus.Biding || this.article?.status === ArticleStatus.Pending) {
       if (this.article?.creatorId !== this.userId) {
-        this.store.dispatch(checkIfCurrentlyBidding({ articleId: this.article?.id as number }));
+        if(this.firstTime){
+          this.store.dispatch(checkIfCurrentlyBidding({ articleId: this.article?.id as number }));
+        }
+        this.firstTime = false;
         this.store.select(selectCurrentlyBiddingArticle).subscribe(state => {
           if (state !== undefined) {
-            this.currentlyBidding = state;
-            if(this.currentlyBidding){
+            if(state){
               this.showEnrollButton = false;
-              this.store.dispatch(getBidList({articleId: this.article?.id as number}));
-              if(this.article?.status === ArticleStatus.Pending)
-                this.store.dispatch(changeArticleStatus({status: ArticleStatus.Biding}));
+              if(!this.currentlyBidding)
+                this.store.dispatch(getBidList({articleId: this.article?.id as number}));
+
             }else{
               this.showEnrollButton = true;
             }
+            this.currentlyBidding = state;
           }
         });
       } else if(this.article?.status === ArticleStatus.Biding){
@@ -228,6 +250,35 @@ export class ArticlePageComponent {
 
   enroll() {
     this.store.dispatch(startBidding({articleId: this.article?.id as number}));
+  }
+
+  bidValueEntered(value: number | null){
+    this.newBid = 0;
+    let test: boolean = true;
+    if(value != null){
+      value >= this.article?.soldPrice! + 100 ? this.newBid = value : test = false;
+    }        
+    this.changeSubmitButtonStyle(test);
+  }
+
+  changeSubmitButtonStyle(action: boolean){
+    if(action){
+      document.getElementsByClassName("bid-button")[0].classList.add("bid-button-active");
+    }else{
+      document.getElementsByClassName("bid-button")[0].classList.remove("bid-button-active");      
+    }
+  }
+
+  placeBid(){
+    if(this.newBid < this.article?.soldPrice! + 100){
+      this.snackbarService.spawnSnackbar("The bid amount must be at least $100 grater than last the bid.");
+      return;
+    }
+    if(this.newBid > this.userBalance){
+      this.snackbarService.spawnSnackbar("You don't have enough money on your balance.");
+      return;
+    }
+    this.store.dispatch(newBid({articleId : this.article?.id!, amount: this.newBid}));
   }
 
 }
