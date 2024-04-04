@@ -4,6 +4,7 @@ using Auction.Server.Models.Dto;
 using Auction.Server.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Auction.Server.Controller
 {
@@ -26,12 +27,14 @@ namespace Auction.Server.Controller
             return Ok(await this.BiddingService.StartBidding((HttpContext.Items["User"] as User)!, articleId));
         }
 
+        //ovo dole ide u sokete
+
         [Auth]
         [HttpPost]
         [Route("new-bid")]
         public async Task<ActionResult<BidItem?>> NewBid([FromBody] BidDto bid)
         {
-            BidItem? bidItem = await this.BiddingService.NewBid((HttpContext.Items["User"] as User)!, bid.ArticleId, bid.Amount);
+            BidItem? bidItem = await this.BiddingService.NewBid((HttpContext.Items["User"] as User)!.Id, bid.ArticleId, bid.Amount);
             if (bidItem == null)
                 return BadRequest();
             return Ok(bidItem);
@@ -43,9 +46,8 @@ namespace Auction.Server.Controller
         public async Task<ActionResult<List<BidItem>?>> GetBidList([FromQuery] int articleId)
         {
             List<BidItem>? bids = await this.BiddingService.GetBidList(articleId);
-                if (bids == null)
+            if (bids == null)
                 return BadRequest();
-
             return Ok(bids);
         }
 

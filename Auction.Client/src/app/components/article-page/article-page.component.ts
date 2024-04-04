@@ -278,7 +278,7 @@ export class ArticlePageComponent {
       this.snackbarService.spawnSnackbar("You don't have enough money on your balance.");
       return;
     }
-    this.store.dispatch(newBid({articleId : this.article?.id!, amount: this.newBid}));
+    this.store.dispatch(newBid({userId: this.userId, articleId : this.article?.id!, amount: this.newBid}));
   }
 
 }

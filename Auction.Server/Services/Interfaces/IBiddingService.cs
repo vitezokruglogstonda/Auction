@@ -6,7 +6,7 @@ namespace Auction.Server.Services.Interfaces
     public interface IBiddingService
     {
         public Task<ArticleInfoDto?> StartBidding(User user, int articleId);
-        public Task<BidItem?> NewBid(User user, int articleId, decimal amount);
+        public Task<BidItem?> NewBid(int userId, int articleId, decimal amount);
         public Task<List<BidItem>?> GetBidList(int articleId);
         public Task<decimal?> GetLastArticlePrice(int articleId);
         public Task<bool> CheckIfUserIsBidding(int userId, int articleId);

@@ -1,3 +1,4 @@
+using Auction.Server.Hubs;
 using Auction.Server.Middlewares;
 using Auction.Server.Models;
 using Auction.Server.Services.Implementation;
@@ -9,6 +10,7 @@ using StackExchange.Redis;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<AuctionContext>(options =>
    options.UseNpgsql(builder.Configuration.GetConnectionString("DBConnection")));
@@ -23,16 +25,31 @@ builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IPictureService, PictureService>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
 
+builder.Services.AddHttpContextAccessor();
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddDefaultPolicy(policy =>
+//    {
+//        policy.AllowAnyOrigin();
+//        policy.AllowAnyHeader();
+//        policy.AllowAnyMethod();
+//        policy.WithExposedHeaders("JWT", "RefreshToken");
+//    });
+
+//});
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.AllowAnyOrigin();
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-        policy.WithExposedHeaders("JWT", "RefreshToken");
-    });
+    options.AddPolicy("AllowOrigin",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials()
+                   .WithExposedHeaders("JWT", "RefreshToken");
+        });
 });
 
 //var configuration = ConfigurationOptions.Parse("localhost:6379");
@@ -46,13 +63,20 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors();
+app.UseCors("AllowOrigin");
 
 app.UseMiddleware<AuthMiddleware>();
 
 app.UseAuthorization();
 
-app.MapControllers();
+//app.MapControllers();
+//app.MapHub<BidHub>("/bidding");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<BidHub>("/bid-hub");
+});
 
 app.Run();
 

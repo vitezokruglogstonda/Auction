@@ -2,7 +2,7 @@
 {
     public class BidDto
     {
-        //public int UserId { get; set; }
+        public int UserId { get; set; }
         public int ArticleId { get; set; }
         public int Amount { get; set; }
     }
@@ -11,10 +11,12 @@
     {
         public UserProfile UserProfile { get; set; }
         public decimal Amount { get; set; }
-        public BidItem(UserProfile profile, decimal amount) 
+        public int ArticleId { get; set; }
+        public BidItem(UserProfile profile, decimal amount, int articleId) 
         { 
             this.UserProfile = profile;
             this.Amount = amount;
+            this.ArticleId = articleId;
         }
     }
 }

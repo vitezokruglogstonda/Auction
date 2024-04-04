@@ -59,8 +59,11 @@ namespace Auction.Server.Services.Implementation
             };
         }
 
-        public async Task<BidItem?> NewBid(User user, int articleId, decimal amount)
+        public async Task<BidItem?> NewBid(int userId, int articleId, decimal amount)
         {
+            User? user = await this.ProfileService.GetUser(userId);
+            if(user == null) return null;
+
             if(await this.ProfileService.IsUserACreator(user.Id, articleId))
                 return null;
         //ovaj IF moze da se obrise jer po specifikaciji moze da biduje iako nema pare (takodje i skidanje sa balansa nize)
@@ -86,7 +89,7 @@ namespace Auction.Server.Services.Implementation
             await this.Redis.StringSetAsync(head.Bids, JsonSerializer.Serialize<BidNode>(newNode));
             await this.Redis.StringSetAsync("a_" + articleId.ToString(), JsonSerializer.Serialize<BidListHead>(head));
 
-            return new BidItem((await this.ProfileService.GetUserProfile(newNode.UserId))!, newNode.MoneyAmount);
+            return new BidItem((await this.ProfileService.GetUserProfile(newNode.UserId))!, newNode.MoneyAmount, articleId);
         }
 
         public async Task<List<BidItem>?> GetBidList(int articleId)
@@ -107,7 +110,7 @@ namespace Auction.Server.Services.Implementation
                     break;
                 node = JsonSerializer.Deserialize<BidNode>(serializedNode)!;
 
-                list.Add(new BidItem((await this.ProfileService.GetUserProfile(node.UserId))!, node.MoneyAmount));
+                list.Add(new BidItem((await this.ProfileService.GetUserProfile(node.UserId))!, node.MoneyAmount, articleId));
 
                 next = node.Next;
             }

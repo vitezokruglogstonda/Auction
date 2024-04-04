@@ -23,6 +23,7 @@
     "@angular/platform-server": "^17.0.0",
     "@angular/router": "^17.0.0",
     "@angular/ssr": "^17.0.10",
+    "@microsoft/signalr": "^8.0.0",
     "@ngrx/effects": "^17.1.0",
     "@ngrx/entity": "^17.1.0",
     "@ngrx/store": "^17.1.0",

@@ -89,7 +89,7 @@ export const bidListReducer = createReducer(
     on(Actions.startBidding, (state, {articleId}) => {
         return bidListAdapter.removeAll({ ...state });
     }),
-    on(Actions.newBid, (state, {articleId, amount}) => ({
+    on(Actions.newBid, (state, {userId, articleId, amount}) => ({
         ...state
     })),
     on(Actions.newBidItem, (state, {item}) => {

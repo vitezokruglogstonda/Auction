@@ -7,10 +7,11 @@ import * as UserActions from "../user/user.action";
 import { Article, ArticleInfoDto, ArticleOwners, ArticleStatus, BidItem, BidItemDto } from "../../models/article";
 import { environment } from "../../../environments/environment";
 import { v4 as uuidv4 } from 'uuid';
+import { BidService } from "../../services/bid.service";
 
 @Injectable()
 export class ArticleEffects {
-    constructor(private actions$: Actions, private articleService: ArticleService) { }
+    constructor(private actions$: Actions, private articleService: ArticleService, private bidService: BidService) { }
 
     getProfileArticles = createEffect(() =>
         this.actions$.pipe(
@@ -132,33 +133,6 @@ export class ArticleEffects {
         )
     );
 
-    getBidList = createEffect(() =>
-        this.actions$.pipe(
-            ofType(ArticleActions.getBidList),
-            switchMap((action) =>
-                this.articleService.getBidList(action.articleId).pipe(
-                    switchMap((result: BidItemDto[] | null) => {
-                        if (result !== null && result.length > 0) {
-                            let items: BidItem[] = [];
-                            result.forEach(el => {
-                                items.push({
-                                    id: uuidv4(),
-                                    userProfile: el.userProfile,
-                                    amount: el.amount
-                                })
-                            })
-                            return [
-                                ArticleActions.getBidListSuccess({ items: items }),
-                            ];
-                        } else {
-                            return [];
-                        }
-                    })
-                )
-            )
-        )
-    );
-
     startBidding = createEffect(() =>
         this.actions$.pipe(
             ofType(ArticleActions.startBidding),
@@ -182,21 +156,23 @@ export class ArticleEffects {
         )
     );
 
-    newBid = createEffect(() =>
+    getBidList = createEffect(() =>
         this.actions$.pipe(
-            ofType(ArticleActions.newBid),
+            ofType(ArticleActions.getBidList),
             switchMap((action) =>
-                this.articleService.newBid(action.articleId, action.amount).pipe(
-                    switchMap((result: BidItemDto | null) => {
-                        if (result !== null) {
-                            let item: BidItem = {
-                                id: uuidv4(),
-                                userProfile: result.userProfile,
-                                amount: result.amount
-                            };
+                this.bidService.getBidList(action.articleId).pipe(
+                    switchMap((result: BidItemDto[] | null) => {
+                        if (result !== null && result.length > 0) {
+                            let items: BidItem[] = [];
+                            result.forEach(el => {
+                                items.push({
+                                    id: uuidv4(),
+                                    userProfile: el.userProfile,
+                                    amount: el.amount
+                                })
+                            })
                             return [
-                                ArticleActions.newBidItem({ item: item }),
-                                ArticleActions.changeArticleLastPrice({ id: action.articleId, lastPrice: action.amount })
+                                ArticleActions.getBidListSuccess({ items: items }),
                             ];
                         } else {
                             return [];
@@ -206,5 +182,96 @@ export class ArticleEffects {
             )
         )
     );
+
+    // getBidList = createEffect(() =>
+    //     this.actions$.pipe(
+    //         ofType(ArticleActions.getBidList),
+    //         switchMap(async (action) =>
+    //             this.bidService.getBidList(action.articleId)
+    //         )
+    //     )
+    //     , { dispatch: false });
+
+    // getBidListSuccess = createEffect(() =>
+    //     this.bidService.bidList.pipe(
+    //         switchMap((result: BidItemDto[]) => {
+    //             let items: BidItem[] = [];
+    //             result.forEach(el => {
+    //                 items.push({
+    //                     id: uuidv4(),
+    //                     userProfile: el.userProfile,
+    //                     amount: el.amount
+    //                 })
+    //             })
+    //             return [
+    //                 ArticleActions.getBidListSuccess({ items: items }),
+    //             ];
+    //         })
+    //     )
+    // )
+
+    // newBid = createEffect(() =>
+    //     this.actions$.pipe(
+    //         ofType(ArticleActions.newBid),
+    //         switchMap((action) =>
+    //             this.articleService.newBid(action.articleId, action.amount).pipe(
+    //                 switchMap((result: BidItemDto | null) => {
+    //                     if (result !== null) {
+    //                         let item: BidItem = {
+    //                             id: uuidv4(),
+    //                             userProfile: result.userProfile,
+    //                             amount: result.amount
+    //                         };
+    //                         return [
+    //                             ArticleActions.newBidItem({ item: item }),
+    //                             ArticleActions.changeArticleLastPrice({ id: action.articleId, lastPrice: action.amount })
+    //                         ];
+    //                     } else {
+    //                         return [];
+    //                     }
+    //                 })
+    //             )
+    //         )
+    //     )
+    // );
+
+    newBid = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ArticleActions.newBid),
+            switchMap(async (action) =>
+                this.bidService.newBid(action.userId, action.articleId, action.amount)
+            )
+        )
+        , { dispatch: false });
+
+    // newBidSuccess = createEffect(() =>
+    //     this.bidService.newBidItem!.pipe(
+    //         switchMap((result: BidItemDto) => {
+    //             let item: BidItem = {
+    //                 id: uuidv4(),
+    //                 userProfile: result.userProfile,
+    //                 amount: result.amount
+    //             };
+    //             return [
+    //                 ArticleActions.newBidItem({ item: item }),
+    //                 ArticleActions.changeArticleLastPrice({ id: result.articleId, lastPrice: result.amount })
+    //             ];
+    //         })
+    // ))
+
+    newBidSuccess = createEffect(() => 
+        this.bidService.newBidItem.pipe(
+            switchMap((result: BidItemDto) => {
+                let item: BidItem = {
+                    id: uuidv4(),
+                    userProfile: result.userProfile,
+                    amount: result.amount
+                };
+                return [
+                    ArticleActions.newBidItem({ item: item }),
+                    ArticleActions.changeArticleLastPrice({ id: result.articleId, lastPrice: result.amount })
+                ];
+            })
+    ))
 
 }

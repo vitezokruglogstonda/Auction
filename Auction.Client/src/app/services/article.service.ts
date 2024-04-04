@@ -117,26 +117,6 @@ export class ArticleService {
         );
     }
 
-    //BID SERVICE
-
-    getBidList(articleId: number): Observable<BidItemDto[] | null>
-    {
-        let querry: String = `bid/get-bid-list?articleId=${articleId}`;
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'JWT': `${this.localStorage.getItem('jwt')}`
-            }),
-        };
-        return this.http.get<BidItemDto[]>(environment.server_url + querry, httpOptions).pipe(
-            switchMap((response:BidItemDto[]) => {
-                return of(response)
-            }),
-            catchError( () => {
-                return of(null);
-            })
-        );
-    }
-
     startBidding(articleId: number): Observable<ArticleInfoDto | null>
     {
         let querry: String = `bid/start-bidding?articleId=${articleId}`;
@@ -155,26 +135,46 @@ export class ArticleService {
         );
     }
 
-    newBid(articleId: number, amount: number): Observable<BidItemDto | null>
-    {
-        let bidDto: BidDto = {
-            articleId: articleId,
-            amount: amount
-        }
-        let querry: String = `bid/new-bid`;
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'JWT': `${this.localStorage.getItem('jwt')}`
-            }),
-        };
-        return this.http.post<BidItemDto>(environment.server_url + querry, bidDto, httpOptions).pipe(
-            switchMap((response:BidItemDto) => {                
-                return of(response)
-            }),
-            catchError( () => {
-                return of(null);
-            })
-        );
-    }
+    //BID SERVICE
+
+    // getBidList(articleId: number): Observable<BidItemDto[] | null>
+    // {
+    //     let querry: String = `bid/get-bid-list?articleId=${articleId}`;
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({
+    //             'JWT': `${this.localStorage.getItem('jwt')}`
+    //         }),
+    //     };
+    //     return this.http.get<BidItemDto[]>(environment.server_url + querry, httpOptions).pipe(
+    //         switchMap((response:BidItemDto[]) => {
+    //             return of(response)
+    //         }),
+    //         catchError( () => {
+    //             return of(null);
+    //         })
+    //     );
+    // }
+
+    // newBid(articleId: number, amount: number): Observable<BidItemDto | null>
+    // {
+    //     let bidDto: BidDto = {
+    //         articleId: articleId,
+    //         amount: amount
+    //     }
+    //     let querry: String = `bid/new-bid`;
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({
+    //             'JWT': `${this.localStorage.getItem('jwt')}`
+    //         }),
+    //     };
+    //     return this.http.post<BidItemDto>(environment.server_url + querry, bidDto, httpOptions).pipe(
+    //         switchMap((response:BidItemDto) => {                
+    //             return of(response)
+    //         }),
+    //         catchError( () => {
+    //             return of(null);
+    //         })
+    //     );
+    // }
 
 }

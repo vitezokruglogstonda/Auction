@@ -25,5 +25,5 @@ export const clearBidList = createAction("Clear Bid List");
 export const getBidList = createAction("Get Bid List", props<{articleId: number}>());
 export const getBidListSuccess = createAction("Get Bid List - Success", props<{items: BidItem[]}>());
 export const startBidding = createAction("Start Bidding", props<{articleId: number}>());
-export const newBid = createAction("Bid", props<{articleId: number, amount: number}>());
+export const newBid = createAction("Bid", props<{userId: number, articleId: number, amount: number}>());
 export const newBidItem = createAction("New Bid Item", props<{item: BidItem}>());

@@ -221,3 +221,4 @@ C:\Users\Andrija\Desktop\Fax\Diplomski\Auction\Auction.Server\obj\Debug\net8.0\r
 C:\Users\Andrija\Desktop\Fax\Diplomski\Auction\Auction.Server\obj\Debug\net8.0\Auction.Server.pdb
 C:\Users\Andrija\Desktop\Fax\Diplomski\Auction\Auction.Server\obj\Debug\net8.0\Auction.Server.genruntimeconfig.cache
 C:\Users\Andrija\Desktop\Fax\Diplomski\Auction\Auction.Server\obj\Debug\net8.0\ref\Auction.Server.dll
+C:\Users\Andrija\Desktop\Fax\Diplomski\Auction\Auction.Server\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
