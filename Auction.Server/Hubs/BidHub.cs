@@ -24,8 +24,9 @@ namespace Auction.Server.Hubs
             //User? user = this.HttpContextAccessor.HttpContext!.Items["User"] as User;
             BidItem? bidItem = await this.BiddingService.NewBid(bid.UserId, bid.ArticleId, bid.Amount);
             if (bidItem != null)
-                await Clients.Group(bid.ArticleId.ToString()).SendAsync("newBidItem", bidItem);
-            await Clients.Caller.SendAsync("newBidItem", bidItem);
+                await Clients.Group(bid.ArticleId.ToString()).SendAsync("NewBidItem", bidItem);
+            else
+                await Clients.Caller.SendAsync("NewBidItem", bidItem);
         }
 
         //[Auth]
@@ -39,6 +40,12 @@ namespace Auction.Server.Hubs
         public Task JoinGroup(int groupId)
         {
             return Groups.AddToGroupAsync(base.Context.ConnectionId, groupId.ToString());
+        }
+
+        
+        public Task LeaveGroup(int groupId)
+        {
+            return Groups.RemoveFromGroupAsync(base.Context.ConnectionId, groupId.ToString());
         }
 
     }

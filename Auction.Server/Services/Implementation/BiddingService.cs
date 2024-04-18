@@ -7,6 +7,7 @@ using StackExchange.Redis;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Auction.Server.Services.Implementation
 {
@@ -39,6 +40,7 @@ namespace Auction.Server.Services.Implementation
 
             user.Balance -= fee;
             this.DbContext.Update(user);
+            await ProfileService.AddFeeToArticleOwner(articleId, fee);
             await this.DbContext.SaveChangesAsync();
 
             BidListHead? head = await GetHead(articleId);
@@ -95,7 +97,10 @@ namespace Auction.Server.Services.Implementation
         public async Task<List<BidItem>?> GetBidList(int articleId)
         {
             BidListHead? head = await GetHead(articleId, false);
-            if (head == null || head!.Bids == null)
+            //if (head == null || head!.Bids == null)
+            //    return null;
+
+            if (head == null)
                 return null;
 
             List<BidItem> list = new();
@@ -184,6 +189,62 @@ namespace Auction.Server.Services.Implementation
             }
 
             return result;
+        }
+
+        public async Task<BidNode?> GetLastBid(int articleId)
+        {
+            BidListHead? head = await GetHead(articleId, false);
+            if (head == null)
+                return null;
+
+            string? lastBidSerialized = await this.Redis.StringGetAsync(head.Bids);
+            if (lastBidSerialized == null)
+                return null;
+
+            BidNode node = JsonSerializer.Deserialize<BidNode>(lastBidSerialized)!;
+
+            await ClearBidList(articleId);
+
+            return node;
+        }
+
+        private async Task ClearBidList(int articleId)
+        {
+            BidListHead? head = await GetHead(articleId, false);
+            if (head == null)
+                return;
+            await this.Redis.KeyDeleteAsync("a_" + articleId.ToString());
+
+            string? next, serializedNode;
+            SubscriberNode subNode;
+            BidNode bidNode;
+
+            next = head.Subs;
+            while (next != null)
+            {
+                serializedNode = await this.Redis.StringGetAsync(next);
+                if (serializedNode == null)
+                    break;
+                subNode = JsonSerializer.Deserialize<SubscriberNode>(serializedNode)!;
+
+                await this.Redis.KeyDeleteAsync(next);
+
+                next = subNode.Next;
+            }
+
+            next = head.Bids;
+            while (next != null)
+            {
+                serializedNode = await this.Redis.StringGetAsync(next);
+                if (serializedNode == null)
+                    break;
+                bidNode = JsonSerializer.Deserialize<BidNode>(serializedNode)!;
+
+                await this.Redis.KeyDeleteAsync(next);
+
+                next = bidNode.Next;
+            }
+
         }
 
         #region Testing

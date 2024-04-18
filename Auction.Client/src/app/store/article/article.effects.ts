@@ -4,7 +4,7 @@ import { ArticleService } from "../../services/article.service";
 import { switchMap } from "rxjs";
 import * as ArticleActions from "./article.action";
 import * as UserActions from "../user/user.action";
-import { Article, ArticleInfoDto, ArticleOwners, ArticleStatus, BidItem, BidItemDto } from "../../models/article";
+import { Article, ArticleInfoDto, ArticleOwners, ArticleStatus, BidCompletionDto, BidItem, BidItemDto } from "../../models/article";
 import { environment } from "../../../environments/environment";
 import { v4 as uuidv4 } from 'uuid';
 import { BidService } from "../../services/bid.service";
@@ -183,58 +183,6 @@ export class ArticleEffects {
         )
     );
 
-    // getBidList = createEffect(() =>
-    //     this.actions$.pipe(
-    //         ofType(ArticleActions.getBidList),
-    //         switchMap(async (action) =>
-    //             this.bidService.getBidList(action.articleId)
-    //         )
-    //     )
-    //     , { dispatch: false });
-
-    // getBidListSuccess = createEffect(() =>
-    //     this.bidService.bidList.pipe(
-    //         switchMap((result: BidItemDto[]) => {
-    //             let items: BidItem[] = [];
-    //             result.forEach(el => {
-    //                 items.push({
-    //                     id: uuidv4(),
-    //                     userProfile: el.userProfile,
-    //                     amount: el.amount
-    //                 })
-    //             })
-    //             return [
-    //                 ArticleActions.getBidListSuccess({ items: items }),
-    //             ];
-    //         })
-    //     )
-    // )
-
-    // newBid = createEffect(() =>
-    //     this.actions$.pipe(
-    //         ofType(ArticleActions.newBid),
-    //         switchMap((action) =>
-    //             this.articleService.newBid(action.articleId, action.amount).pipe(
-    //                 switchMap((result: BidItemDto | null) => {
-    //                     if (result !== null) {
-    //                         let item: BidItem = {
-    //                             id: uuidv4(),
-    //                             userProfile: result.userProfile,
-    //                             amount: result.amount
-    //                         };
-    //                         return [
-    //                             ArticleActions.newBidItem({ item: item }),
-    //                             ArticleActions.changeArticleLastPrice({ id: action.articleId, lastPrice: action.amount })
-    //                         ];
-    //                     } else {
-    //                         return [];
-    //                     }
-    //                 })
-    //             )
-    //         )
-    //     )
-    // );
-
     newBid = createEffect(() =>
         this.actions$.pipe(
             ofType(ArticleActions.newBid),
@@ -243,21 +191,6 @@ export class ArticleEffects {
             )
         )
         , { dispatch: false });
-
-    // newBidSuccess = createEffect(() =>
-    //     this.bidService.newBidItem!.pipe(
-    //         switchMap((result: BidItemDto) => {
-    //             let item: BidItem = {
-    //                 id: uuidv4(),
-    //                 userProfile: result.userProfile,
-    //                 amount: result.amount
-    //             };
-    //             return [
-    //                 ArticleActions.newBidItem({ item: item }),
-    //                 ArticleActions.changeArticleLastPrice({ id: result.articleId, lastPrice: result.amount })
-    //             ];
-    //         })
-    // ))
 
     newBidSuccess = createEffect(() => 
         this.bidService.newBidItem.pipe(
@@ -273,5 +206,18 @@ export class ArticleEffects {
                 ];
             })
     ))
+
+    biddingClosed = createEffect(() => 
+        this.bidService.biddingClosed.pipe(
+            switchMap((result: BidCompletionDto) => {
+                this.bidService.closeConnection();
+                return [
+                    ArticleActions.changeArticleStatus({id: this.bidService.currentArticleId as number, articleInfoDto: result.articleInfo}),
+                    ArticleActions.addArticleCustomer({customer: result.customerProfile}),
+                    ArticleActions.clearBidList()
+                ];
+            })
+        )
+    )
 
 }

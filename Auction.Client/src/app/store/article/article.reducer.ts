@@ -29,6 +29,13 @@ export const articleReducer = createReducer(
         ...state,
         currentlyBiddingArticle: status
     })),    
+    on(Actions.addArticleCustomer, (state, {customer}) => ({
+        ...state,
+        articleOwners: {
+            ...state.articleOwners,
+            customer: customer
+        }
+    })),
 );
 
 export const articlesListAdapter: EntityAdapter<Article> = createEntityAdapter<Article>();

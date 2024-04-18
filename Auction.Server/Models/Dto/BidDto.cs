@@ -12,11 +12,17 @@
         public UserProfile UserProfile { get; set; }
         public decimal Amount { get; set; }
         public int ArticleId { get; set; }
-        public BidItem(UserProfile profile, decimal amount, int articleId) 
-        { 
+        public BidItem(UserProfile profile, decimal amount, int articleId)
+        {
             this.UserProfile = profile;
             this.Amount = amount;
             this.ArticleId = articleId;
         }
+    }
+
+    public class BidCompletionDto
+    {
+        public ArticleInfoDto? ArticleInfo { get; set; }
+        public UserProfile? CustomerProfile { get; set; }
     }
 }

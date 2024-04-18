@@ -12,6 +12,7 @@ import { selectProfileInfo } from '../../store/profile/profile.selector';
 import { selectUserId, selectUserInfo } from '../../store/user/user.selector';
 import { environment } from '../../../environments/environment';
 import { SnackbarService } from '../../services/snackbar.service';
+import { BidService } from '../../services/bid.service';
 
 @Component({
   selector: 'app-article-page',
@@ -44,7 +45,7 @@ export class ArticlePageComponent {
   public fee: number;
   public newBid: number;
 
-  constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router, private snackbarService: SnackbarService) {
+  constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router, private snackbarService: SnackbarService, private bidService: BidService) {
     this.userId = 0;
     this.userBalance = 0;
     this.articleId = 0;
@@ -123,6 +124,7 @@ export class ArticlePageComponent {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    this.bidService.closeConnection();
   }
 
   articleProcessing() {

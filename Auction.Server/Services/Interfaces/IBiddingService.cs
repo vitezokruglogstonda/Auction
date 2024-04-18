@@ -10,6 +10,7 @@ namespace Auction.Server.Services.Interfaces
         public Task<List<BidItem>?> GetBidList(int articleId);
         public Task<decimal?> GetLastArticlePrice(int articleId);
         public Task<bool> CheckIfUserIsBidding(int userId, int articleId);
+        public Task<BidNode?> GetLastBid(int articleId);
         #region Testing
         public Task<string?> GetVal(string key);
         public Task<string> SetVal(string value);

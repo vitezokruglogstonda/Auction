@@ -84,3 +84,8 @@ export interface ArticleInfoDto{
     status: ArticleStatus,
     lastPrice: number
 }
+
+export interface BidCompletionDto{
+    articleInfo: ArticleInfoDto,
+    customerProfile: UserProfile
+}

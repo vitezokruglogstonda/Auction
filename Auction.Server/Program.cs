@@ -3,6 +3,8 @@ using Auction.Server.Middlewares;
 using Auction.Server.Models;
 using Auction.Server.Services.Implementation;
 using Auction.Server.Services.Interfaces;
+using Hangfire;
+using Hangfire.Redis.StackExchange;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
@@ -55,7 +57,19 @@ builder.Services.AddCors(options =>
 //var configuration = ConfigurationOptions.Parse("localhost:6379");
 //var redisConnection = ConnectionMultiplexer.Connect(configuration);
 
+builder.Services.AddHangfire(config =>
+{
+    config.UseRedisStorage(
+        redisConnectionString,
+        new RedisStorageOptions { Prefix = "hangfire:" }
+    );
+});
+builder.Services.AddHangfireServer();
+
 var app = builder.Build();
+
+app.UseHangfireDashboard();
+app.UseHangfireServer();
 
 app.UseHttpsRedirection(); 
 

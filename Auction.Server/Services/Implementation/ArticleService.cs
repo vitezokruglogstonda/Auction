@@ -3,6 +3,8 @@ using Auction.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using Auction.Server.Services.Interfaces;
 using System;
+using Hangfire;
+using Auction.Server.Jobs;
 
 namespace Auction.Server.Services.Implementation
 {
@@ -38,7 +40,8 @@ namespace Auction.Server.Services.Implementation
                 //SoldPrice = null,
                 SoldPrice = newArticle.StartingPrice,
                 Status = ArticleStatus.Pending,
-                ExpiryDate = new CustomDateTime(DateTime.Now.AddDays(expiryDate)), //vazi 2 dana od sad
+                //ExpiryDate = new CustomDateTime(DateTime.Now.AddDays(expiryDate)), //vazi 2 dana od sad
+                ExpiryDate = new CustomDateTime(DateTime.Now.AddMinutes(2)),
                 CreatorId = user.Id,
                 Creator = user,
                 CustomerId = null,
@@ -66,6 +69,11 @@ namespace Auction.Server.Services.Implementation
             user.CreatedArticles.Add(article);
             DbContext.Update<User>(user);
             await DbContext.SaveChangesAsync();
+
+            //var x = DateTime.Now.AddDays(expiryDate) - DateTime.Now;
+            //DateTimeOffset delay = new (DateTime.Now.AddDays(expiryDate)); 
+            DateTimeOffset delay = new (DateTime.Now.AddMinutes(2)); 
+            BackgroundJob.Schedule<HandleArticleExpirationJob>(job => job.HandleArticleExpiration(article.Id), delay);
 
             return await MakeArticleDto(article);
         }
@@ -185,6 +193,59 @@ namespace Auction.Server.Services.Implementation
 
             ArticleOwners owners = new(creator, customer);
             return owners;
+        }
+
+        public async Task<BidCompletionDto?> ExpireArticle(int articleId)
+        {
+            Article? article = await this.DbContext.Articles
+                    .Where(article => article.Id == articleId)
+                    .Include(article => article.Creator)
+                    .FirstOrDefaultAsync();
+
+            if (article == null)
+                return null;
+
+            if(article.Status == ArticleStatus.Pending)
+            {
+                article.Status = ArticleStatus.Expired;
+                this.DbContext.Update(article);
+                await this.DbContext.SaveChangesAsync();
+                return null;
+            }
+
+            if (article.Status != ArticleStatus.Biding)
+                return null;
+
+            BidNode? lastBid = await BiddingService.GetLastBid(articleId);
+
+            if (lastBid == null) return null;
+
+            User? buyer = await ProfileService.GetUser(lastBid.UserId);
+
+            article.SoldPrice = lastBid.MoneyAmount;
+            article.Customer = buyer;
+            if (buyer!.BoughtArticles == null)
+            {
+                buyer.BoughtArticles = new List<Article>();
+            }
+            buyer.BoughtArticles.Add(article);
+            this.DbContext.Update(buyer);
+
+            article.Status = ArticleStatus.Sold;
+            this.DbContext.Update(article);
+            await this.DbContext.SaveChangesAsync();
+
+            BidCompletionDto result = new BidCompletionDto
+            {
+                ArticleInfo = new ArticleInfoDto
+                {
+                    Status = ArticleStatus.Sold,
+                    LastPrice = lastBid.MoneyAmount,
+                },
+                CustomerProfile = await ProfileService.GetUserProfile(buyer.Id)
+            };
+
+            return result;
         }
 
         //za testiranje

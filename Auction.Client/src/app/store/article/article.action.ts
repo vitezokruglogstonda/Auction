@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { Article, ArticleInfoDto, ArticleOwners, ArticleStatus, BidItem } from "../../models/article";
+import { UserProfile } from "../../models/user";
 
 export const loadTotalNumberOfArticles = createAction("Load Total Number Of Articles");
 export const loadTotalNumberOfArticlesSuccess = createAction("Load Total Number Of Articles - Success", props<{numberOfArticles: number}>());
@@ -17,6 +18,7 @@ export const changeArticleLastPrice = createAction("Change Article Last Price", 
 
 export const loadArticlesOwners = createAction("Load Articles Owners", props<{creatorId: number, customerId: number | null}>());
 export const loadArticlesOwnersSuccess = createAction("Load Articles Owners - Success", props<{owners: ArticleOwners}>());
+export const addArticleCustomer = createAction("Add Article Customer", props<{customer: UserProfile}>());
 
 export const checkIfCurrentlyBidding = createAction("Check If Currently Bidding", props<{articleId: number}>());
 export const checkIfCurrentlyBiddingSuccess = createAction("Check If Currently Bidding - Success", props<{status: boolean}>());

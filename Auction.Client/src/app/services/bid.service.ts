@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Observable, catchError, of, switchMap } from "rxjs";
-import { BidDto, BidItemDto } from "../models/article";
+import { Observable, Subject, catchError, of, switchMap } from "rxjs";
+import { BidCompletionDto, BidDto, BidItemDto } from "../models/article";
 import { SocketService } from "./socket.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LocalStorageService } from "./local-storage.service";
@@ -11,15 +11,24 @@ import { environment } from "../../environments/environment";
 })
 export class BidService {
 
-    //public bidList: Observable<BidItemDto[]>;
+    private newBidItemSubject: Subject<BidItemDto>;
     public newBidItem: Observable<BidItemDto>;
+    private biddingClosedSubject: Subject<BidCompletionDto>;
+    public biddingClosed: Observable<BidCompletionDto>;
+    
+    public currentArticleId: number | null;
 
     constructor(private socket: SocketService, private http: HttpClient, private localStorage: LocalStorageService) {
-        //this.bidList = this.socket.listen("getBidList"); 
-        this.newBidItem = new Observable<BidItemDto>; 
+        this.newBidItemSubject = new Subject<BidItemDto>();
+        this.newBidItem = this.newBidItemSubject.asObservable(); 
+        this.biddingClosedSubject = new Subject<BidCompletionDto>();
+        this.biddingClosed = this.biddingClosedSubject.asObservable(); 
+        this.currentArticleId = null;
     }
 
     getBidList(articleId: number): Observable<BidItemDto[] | null> {
+        this.currentArticleId = articleId;
+
         let querry: String = `bid/get-bid-list?articleId=${articleId}`;
         const httpOptions = {
             headers: new HttpHeaders({
@@ -37,9 +46,7 @@ export class BidService {
 
         result.subscribe(res =>{
             if(res !== null){
-                this.socket.startConnection(articleId);
-                //this.socket.emit('JoinGroup', articleId);
-                this.newBidItem = this.socket.listen("newBidItem");
+                this.socket.startConnection(articleId, this.newBidItemSubject, this.biddingClosedSubject);
             }
         })
 
@@ -53,6 +60,10 @@ export class BidService {
             amount: amount
         }
         this.socket.emit('Bid', bidDto);
+    }
+
+    closeConnection(){
+        this.socket.closeConnection(this.currentArticleId as number);
     }
 
 }

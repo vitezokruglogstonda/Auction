@@ -8,5 +8,6 @@ namespace Auction.Server.Services.Interfaces
         public Task<User?> GetUser(int id);
         public Task<UserProfile?> GetUserProfile(int id);
         public Task<bool> IsUserACreator(int userId, int articleId);
+        public Task AddFeeToArticleOwner(int articleId, int fee);
     }
 }

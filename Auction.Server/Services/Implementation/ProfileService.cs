@@ -2,6 +2,7 @@
 using Auction.Server.Models.Dto;
 using Auction.Server.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Auction.Server.Services.Implementation
 {
@@ -18,7 +19,12 @@ namespace Auction.Server.Services.Implementation
 
         public async Task<User?> GetUser(int id)
         {
-            return await DbContext.Users.FindAsync(id);
+            //return await DbContext.Users.FindAsync(id);
+            return await DbContext.Users
+                .Where(user => user.Id == id)
+                .Include(user => user.CreatedArticles)
+                .Include(user => user.BoughtArticles)
+                .FirstOrDefaultAsync();
         }
         public async Task<UserProfile?> GetUserProfile(int id)
         {
@@ -43,6 +49,18 @@ namespace Auction.Server.Services.Implementation
             if(user == null || user.CreatedArticles == null) return false;
 
             return user.CreatedArticles.Any(a => article.Id == a.Id);
+        }
+
+        public async Task AddFeeToArticleOwner(int articleId, int fee)
+        {
+            Article? article = await this.DbContext.Articles.FindAsync(articleId);
+            if (article == null) return;
+            User? creator = await this.DbContext.Users.FindAsync(article.CreatorId);
+            if (creator == null) return;
+            creator.Balance += fee;
+            this.DbContext.Update(creator);
+            await this.DbContext.SaveChangesAsync();
+            return;
         }
 
     }
