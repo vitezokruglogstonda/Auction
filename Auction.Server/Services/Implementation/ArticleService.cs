@@ -32,6 +32,9 @@ namespace Auction.Server.Services.Implementation
             if (this.DbContext.Articles.Any(article => article.Title == newArticle.Title))
                 return null;
 
+            //DateTime expiryDateTime = DateTime.Now.AddDays(expiryDate);
+            DateTime expiryDateTime = DateTime.Now.AddMinutes(1);
+
             Article article = new Article()
             {
                 Title = newArticle.Title,
@@ -40,8 +43,7 @@ namespace Auction.Server.Services.Implementation
                 //SoldPrice = null,
                 SoldPrice = newArticle.StartingPrice,
                 Status = ArticleStatus.Pending,
-                //ExpiryDate = new CustomDateTime(DateTime.Now.AddDays(expiryDate)), //vazi 2 dana od sad
-                ExpiryDate = new CustomDateTime(DateTime.Now.AddMinutes(2)),
+                ExpiryDate = new CustomDateTime(expiryDateTime), //vazi 2 dana od sad
                 CreatorId = user.Id,
                 Creator = user,
                 CustomerId = null,
@@ -70,9 +72,7 @@ namespace Auction.Server.Services.Implementation
             DbContext.Update<User>(user);
             await DbContext.SaveChangesAsync();
 
-            //var x = DateTime.Now.AddDays(expiryDate) - DateTime.Now;
-            //DateTimeOffset delay = new (DateTime.Now.AddDays(expiryDate)); 
-            DateTimeOffset delay = new (DateTime.Now.AddMinutes(2)); 
+            DateTimeOffset delay = new (expiryDateTime); 
             BackgroundJob.Schedule<HandleArticleExpirationJob>(job => job.HandleArticleExpiration(article.Id), delay);
 
             return await MakeArticleDto(article);
