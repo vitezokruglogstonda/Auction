@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
-import { Article, ArticleInfoDto, ArticleOwners, ArticleStatus, BidItem } from "../../models/article";
+import { Article, ArticleInfoDto, ArticleOwners, ArticleStatus } from "../../models/article";
 import { UserProfile } from "../../models/user";
+import { BidItem } from "../../models/bid";
 
 export const loadTotalNumberOfArticles = createAction("Load Total Number Of Articles");
 export const loadTotalNumberOfArticlesSuccess = createAction("Load Total Number Of Articles - Success", props<{numberOfArticles: number}>());

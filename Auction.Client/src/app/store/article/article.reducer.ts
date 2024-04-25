@@ -1,7 +1,8 @@
 import { EntityAdapter, createEntityAdapter } from "@ngrx/entity";
-import { Article, ArticleInfo, ArticleListState, ArticleOwners, BidItem, BidListState } from "../../models/article";
+import { Article, ArticleInfo, ArticleListState, ArticleOwners } from "../../models/article";
 import { createReducer, on } from "@ngrx/store";
 import * as Actions from "./article.action";
+import { BidItem, BidListState } from "../../models/bid";
 
 export const initialState: ArticleInfo = {
     articleOwners: {

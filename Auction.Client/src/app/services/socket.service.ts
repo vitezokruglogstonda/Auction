@@ -4,7 +4,7 @@ import { HttpTransportType } from '@microsoft/signalr';
 import { Observable, Subject } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { environment } from '../../environments/environment';
-import { BidCompletionDto, BidItemDto } from '../models/article';
+import { BidItemDto, BidCompletionDto } from '../models/bid';
 
 @Injectable({
     providedIn: 'root',

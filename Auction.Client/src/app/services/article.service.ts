@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, catchError, of, switchMap } from "rxjs";
-import { Article, ArticleInfoDto, ArticleOwners, BidDto, BidItem, BidItemDto } from "../models/article";
+import { Article, ArticleInfoDto, ArticleOwners } from "../models/article";
 import { LocalStorageService } from "./local-storage.service";
 import { environment } from "../../environments/environment";
 

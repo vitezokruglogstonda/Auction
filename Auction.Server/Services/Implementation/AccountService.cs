@@ -227,5 +227,41 @@ namespace Auction.Server.Services.Implementation
             return user.Balance;
         }
 
+        public async Task CreateAdmin()
+        {
+            User? admin = await DbContext.Users
+                .Where(user => user.UserType == UserType.Admin).FirstOrDefaultAsync();
+
+            if (admin != null) return;
+
+            byte[] hash, salt;
+            HashPassword(out hash, out salt, "admin");
+
+            string picturePath = PictureService.AddProfilePicture(null);
+
+            admin = new User
+            {
+                Email = "admin",
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                FirstName = "Admin",
+                LastName = "",
+                BirthDate = new CustomDate
+                {
+                    Day = DateTime.Now.Day,
+                    Month = DateTime.Now.Month,
+                    Year = DateTime.Now.Year,
+                },
+                Gender = "",
+                UserType = UserType.Admin,
+                ProfilePicturePath = picturePath,
+                OnlineStatus = false,
+                ValidatedUser = false,
+                Balance = 0,
+            };
+
+            await DbContext.Users.AddAsync(admin);
+            await DbContext.SaveChangesAsync();
+        }
     }
 }

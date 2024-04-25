@@ -49,8 +49,16 @@
       "PackagePath": "staticwebassets\\Images\\ArticlePictures\\6f5c2b61-b441-4a8f-a884-d05bdc527ce0_sword_2.jpg"
     },
     {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\7c8b0de4-8dbc-4786-8a48-31a300a0a1e7_chess_1.jpg",
+      "PackagePath": "staticwebassets\\Images\\ArticlePictures\\7c8b0de4-8dbc-4786-8a48-31a300a0a1e7_chess_1.jpg"
+    },
+    {
       "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\7f20ac35-3b1f-474b-8df2-19ee6f17111b_sword_1.jpg",
       "PackagePath": "staticwebassets\\Images\\ArticlePictures\\7f20ac35-3b1f-474b-8df2-19ee6f17111b_sword_1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\902034b8-6624-4c55-8207-c395255b849e_chess_2.jpg",
+      "PackagePath": "staticwebassets\\Images\\ArticlePictures\\902034b8-6624-4c55-8207-c395255b849e_chess_2.jpg"
     },
     {
       "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\a3f160e9-e3a3-4c7e-94c4-33ae462f9d9d_katana_1.png",
@@ -79,6 +87,10 @@
     {
       "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\fbeabffd-0d18-4b7a-bad2-df3281e8ca6a__DSC9188.jpg",
       "PackagePath": "staticwebassets\\Images\\ArticlePictures\\fbeabffd-0d18-4b7a-bad2-df3281e8ca6a__DSC9188.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\ff9a32ce-7924-48b4-95fc-dbe6e270bb50_yacht_1.jpg",
+      "PackagePath": "staticwebassets\\Images\\ArticlePictures\\ff9a32ce-7924-48b4-95fc-dbe6e270bb50_yacht_1.jpg"
     },
     {
       "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\0b113c61-aefa-4bfb-b857-20af015e06c6__DSC9246.jpg",

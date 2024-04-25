@@ -3,6 +3,7 @@ using Auction.Server.Models.Dto;
 using Auction.Server.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Auction.Server.Services.Implementation
 {
@@ -61,6 +62,33 @@ namespace Auction.Server.Services.Implementation
             this.DbContext.Update(creator);
             await this.DbContext.SaveChangesAsync();
             return;
+        }
+
+        public async Task<List<User>> GetAllProfiles(int pageSize, int pageIndex)
+        {
+            //List<UserProfile> userProfiles = new List<UserProfile>();
+
+            List<User> users = await this.DbContext.Users
+                .Where(user => user.UserType != UserType.Admin)
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            if (users.Count > 0)
+            {
+                foreach (User user in users)
+                {
+                    user.ProfilePicturePath = PictureService.MakeProfilePictureUrl(user.ProfilePicturePath);
+                    //userProfiles.Add(new UserProfile(user, PictureService.MakeProfilePictureUrl(user.ProfilePicturePath)));
+                }
+            }
+
+            return users;
+        }
+
+        public async Task<int> GetTotalNumberOfUsers()
+        {
+            return await this.DbContext.Users.Where(user => user.UserType != UserType.Admin).CountAsync();
         }
 
     }

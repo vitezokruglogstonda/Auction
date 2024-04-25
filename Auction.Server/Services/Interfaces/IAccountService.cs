@@ -16,5 +16,6 @@ namespace Auction.Server.Services.Interfaces
         public void RefreshAccessToken(HttpContext httpContext);
         public Task<string?> ChangeProfilePicture(User user, IFormFile? picture);
         public Task<decimal?> AddMoneyToBalance(User user, int? amount);
+        public Task CreateAdmin();
     }
 }

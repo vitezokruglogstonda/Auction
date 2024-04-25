@@ -40,6 +40,9 @@ import { ViewArticleGridItemComponent } from './components/view-article-grid-ite
 import { articleReducer, articlesListReducer, bidListReducer } from './store/article/article.reducer';
 import { ArticleEffects } from './store/article/article.effects';
 import { ArticlePageComponent } from './components/article-page/article-page.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { adminInfoReducer, articleListReducer, userListReducer } from './store/admin/admin.reducer';
+import { AdminEffects } from './store/admin/admin.effects';
 
 
 
@@ -61,6 +64,7 @@ import { ArticlePageComponent } from './components/article-page/article-page.com
     ViewArticleListItemComponent,
     ViewArticleGridItemComponent,
     ArticlePageComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,9 +76,12 @@ import { ArticlePageComponent } from './components/article-page/article-page.com
       profileArticlesList: profileArticlesListReducer,
       articlesList: articlesListReducer,
       articleInfo: articleReducer,
-      bidList: bidListReducer
+      bidList: bidListReducer,
+      adminInfo: adminInfoReducer,
+      adminUserList: userListReducer,
+      adminArticleList: articleListReducer,
     }),
-    EffectsModule.forRoot([UserEffects, ProfileEffects, ArticleEffects]),
+    EffectsModule.forRoot([UserEffects, ProfileEffects, ArticleEffects, AdminEffects]),
     BrowserAnimationsModule,
     FormsModule,
     materialComponents,

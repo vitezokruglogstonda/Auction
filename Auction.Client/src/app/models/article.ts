@@ -57,35 +57,8 @@ export interface ArticleOwners{
     customer: UserProfile | null
 }
 
-export interface BidItem{
-    id: string;
-    userProfile: UserProfile,
-    amount: number,
-}
-
-export interface BidItemDto{
-    userProfile: UserProfile,
-    amount: number,
-    
-    articleId: number
-}
-
-export interface BidListState extends EntityState<BidItem>{
-
-}
-
-export interface BidDto{
-    userId: number,
-    articleId: number,
-    amount: number
-}
-
 export interface ArticleInfoDto{
     status: ArticleStatus,
     lastPrice: number
 }
 
-export interface BidCompletionDto{
-    articleInfo: ArticleInfoDto,
-    customerProfile: UserProfile
-}

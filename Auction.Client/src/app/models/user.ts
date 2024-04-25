@@ -1,3 +1,4 @@
+import { EntityState } from "@ngrx/entity";
 import { Article } from "./article";
 
 export interface User {
@@ -52,4 +53,8 @@ export interface UserProfile {
 export interface ProfileResult{
     profile: UserProfile,
     articles: Article[] | null,
+}
+
+export interface UserListState extends EntityState<User>{
+
 }

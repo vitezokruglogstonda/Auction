@@ -17,7 +17,6 @@ export class ViewArticleListItemComponent {
   }
 
   viewArticle(){
-    //ubaci article.id u rutu
     this.router.navigate(["/article", this.article!.id]);
   }
 

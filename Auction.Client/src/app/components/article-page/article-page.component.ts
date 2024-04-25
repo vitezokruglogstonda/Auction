@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, Subscription, first, interval, switchMap, take, takeUntil, takeWhile } from 'rxjs';
 import { AppState } from '../../store/app.state';
-import { Article, ArticleStatus, ArticleViewMethod, BidItem, CustomDateTime } from '../../models/article';
+import { Article, ArticleStatus, ArticleViewMethod, CustomDateTime } from '../../models/article';
 import { selectBidItems, selectCurrentlyBiddingArticle, selectProfilesForArticle, selectSingleArticle } from '../../store/article/article.selector';
 import { changeArticleStatus, checkIfCurrentlyBidding, clearBidList, getBidList, loadArticlesOwners, loadSingleArticle, newBid, startBidding } from '../../store/article/article.action';
 import { UserProfile } from '../../models/user';
@@ -13,6 +13,7 @@ import { selectUserId, selectUserInfo } from '../../store/user/user.selector';
 import { environment } from '../../../environments/environment';
 import { SnackbarService } from '../../services/snackbar.service';
 import { BidService } from '../../services/bid.service';
+import { BidItem } from '../../models/bid';
 
 @Component({
   selector: 'app-article-page',

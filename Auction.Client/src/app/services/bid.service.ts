@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject, catchError, of, switchMap } from "rxjs";
-import { BidCompletionDto, BidDto, BidItemDto } from "../models/article";
 import { SocketService } from "./socket.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LocalStorageService } from "./local-storage.service";
 import { environment } from "../../environments/environment";
+import { BidItemDto, BidCompletionDto, BidDto } from "../models/bid";
 
 @Injectable({
     providedIn: 'root'

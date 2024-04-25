@@ -20,6 +20,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTableModule} from '@angular/material/table';
 
 
 export const materialComponents = [
@@ -45,4 +46,5 @@ export const materialComponents = [
     MatButtonToggleModule,
     MatPaginatorModule,
     MatExpansionModule,
+    MatTableModule,
 ];

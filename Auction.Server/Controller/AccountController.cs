@@ -105,5 +105,20 @@ namespace Auction.Server.Controller
             return Ok();
         }
 
+        [HttpGet]
+        [Route("create-admin")]
+        public async Task<IActionResult> CreateAdmin()
+        {
+            try
+            {
+                await this.AccountService.CreateAdmin();
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

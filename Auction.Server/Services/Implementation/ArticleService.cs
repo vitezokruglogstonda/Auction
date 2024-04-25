@@ -154,6 +154,11 @@ namespace Auction.Server.Services.Implementation
             return await this.DbContext.Articles.Where(article => article.Status == ArticleStatus.Biding || article.Status == ArticleStatus.Pending).CountAsync();
         }
 
+        public async Task<int> GetTotalNumberOfArticles()
+        {
+            return await this.DbContext.Articles.CountAsync();
+        }
+
         public async Task<List<ArticleDto_Response>?> SearchArticlesByTitle(string title)
         {
             List<Article> articleObjects;
@@ -161,6 +166,21 @@ namespace Auction.Server.Services.Implementation
                 .Where(article => 
                     article.Title.ToLower().Contains(title.ToLower()) 
                     && (article.Status == ArticleStatus.Biding || article.Status == ArticleStatus.Pending))
+                .Include(article => article.Pictures)
+                .ToListAsync();
+
+            if (articleObjects.Count == 0)
+                return null;
+
+            return await MakeArticleDto(articleObjects);
+
+        }
+
+        public async Task<List<ArticleDto_Response>?> SearchArticlesByTitle_Admin(string title)
+        {
+            List<Article> articleObjects;
+            articleObjects = await this.DbContext.Articles
+                .Where(article => article.Title.ToLower().Contains(title.ToLower()))
                 .Include(article => article.Pictures)
                 .ToListAsync();
 
@@ -246,6 +266,28 @@ namespace Auction.Server.Services.Implementation
             };
 
             return result;
+        }
+
+        public async Task<List<ArticleDto_Response>> GetAllArticles(int pageSize, int pageIndex)
+        {
+            List<ArticleDto_Response> articleDtos;
+
+            List<Article> articles = await DbContext.Articles
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize)
+                .Include(article => article.Pictures)
+                .ToListAsync();
+
+            if (articles.Count > 0)
+            {
+                articleDtos = await MakeArticleDto(articles);
+            }
+            else
+            {
+                articleDtos = new List<ArticleDto_Response>();
+            }
+
+            return articleDtos;
         }
 
         //za testiranje

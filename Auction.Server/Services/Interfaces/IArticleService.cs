@@ -10,9 +10,12 @@ namespace Auction.Server.Services.Interfaces
         public Task<List<ArticleDto_Response>?> GetArticles(int pageSize, int pageIndex);
         public Task<int> GetNumberOfArticles();
         public Task<List<ArticleDto_Response>?> SearchArticlesByTitle(string title);
+        public Task<List<ArticleDto_Response>?> SearchArticlesByTitle_Admin(string title);        
         public Task<ArticleDto_Response?> GetArticle(int articleId);
         public Task<ArticleOwners?> GetArticleOwners(int creatorId, int? customerId);        
         public Task<BidCompletionDto?> ExpireArticle(int articleId);
+        public Task<List<ArticleDto_Response>> GetAllArticles(int pageSize, int pageIndex);
+        public Task<int> GetTotalNumberOfArticles();
 
         //za testiranje
         //public Task<bool> BuyArticle(User user, int articleId);

@@ -6,7 +6,7 @@ export const selectArticles = createSelector(
     (articlesList) => articlesList.ids.map(id => articlesList.entities[id])
 );
 
-export const selectSingleArticle  = (articleId: number) => createSelector(
+export const selectSingleArticle = (articleId: number) => createSelector(
     selectArticles,
     (articlesList) => articlesList.find((article) => {
         if(article && article.id && article.id === articleId)

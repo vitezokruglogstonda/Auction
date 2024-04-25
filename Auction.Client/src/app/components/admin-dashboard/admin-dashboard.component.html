@@ -1,0 +1,56 @@
+<div class="dashboard-container">
+    <div class="dashboard-subcontainer">
+        <mat-tab-group color="primary" preserveContent class="tab-section">
+            <mat-tab class="tab-body">
+                <ng-template mat-tab-label class="tab-header">
+                    <i class="fa-solid fa-user tab-header-icon"></i>
+                    <p>Users</p>
+                </ng-template>
+                <div class="tab-list-container">
+                    <mat-paginator #paginator class="paginator" (page)="handleUserPaginatorEvent($event)"
+                        [length]="numberOfUsers" [pageSize]="userPaginatorPageSize" [showFirstLastButtons]="true"
+                        [pageSizeOptions]="pageSizeOptions" [hidePageSize]="false" [pageIndex]="userPaginatorPageIndex">
+                    </mat-paginator>
+                    <div class="tab-list-item" *ngFor="let user of userList" (click)="viewUser(user)">
+
+                        <div class="tab-list-item-profile-picture">
+                            <img class="profile-picture" src={{user.profilePicturePath}} /> 
+                        </div>
+                        <div class="tab-list-item-user-name">
+                            <p>{{user.firstName}} {{user.lastName}}</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label class="tab-header">
+                    <i class="fa-solid fa-gavel tab-header-icon"></i>
+                    <p>Articles</p>
+                </ng-template>
+                <div class="tab-list-container">
+                    <div class="search-section">
+                        <div class="search-container">
+                            <div class="search-input-container">
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                <input class="search-input" type="text" [(ngModel)]="searchQuery"
+                                    (input)="onSearchQueryChange()">
+                            </div>
+                            <div class="search-cancel-icon" (click)="cancelSearch()">
+                                <i class="fas fa-times"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <mat-paginator #paginator class="paginator" (page)="handleArticlePaginatorEvent($event)"
+                        [length]="numberOfArticles" [pageSize]="articlePaginatorPageSize" [showFirstLastButtons]="true"
+                        [pageSizeOptions]="pageSizeOptions" [hidePageSize]="false"
+                        [pageIndex]="articlePaginatorPageIndex">
+                    </mat-paginator>
+                    <div class="tab-list-item" *ngFor="let article of articleList">
+
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

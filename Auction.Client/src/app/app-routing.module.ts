@@ -9,6 +9,7 @@ import { UserType } from './models/user';
 import { CreateArticlePageComponent } from './components/create-article-page/create-article-page.component';
 import { RouteService } from './services/route.service';
 import { ArticlePageComponent } from './components/article-page/article-page.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   {
@@ -59,10 +60,18 @@ const routes: Routes = [
       roles: [UserType.Admin, UserType.RegisteredUser] 
     }
   },
+  {
+    path: "admin-dashboard",
+    component: AdminDashboardComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: [UserType.Admin] 
+    }
+  },
   { path: '**', redirectTo: "" } //404 strana
 ];
 
-export const routingComponents = [LogInComponent, RegisterComponent, HomePageComponent, ProfilePageComponent, CreateArticlePageComponent, ArticlePageComponent];
+export const routingComponents = [LogInComponent, RegisterComponent, HomePageComponent, ProfilePageComponent, CreateArticlePageComponent, ArticlePageComponent, AdminDashboardComponent];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],

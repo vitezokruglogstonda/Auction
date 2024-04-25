@@ -4,10 +4,11 @@ import { ArticleService } from "../../services/article.service";
 import { switchMap } from "rxjs";
 import * as ArticleActions from "./article.action";
 import * as UserActions from "../user/user.action";
-import { Article, ArticleInfoDto, ArticleOwners, ArticleStatus, BidCompletionDto, BidItem, BidItemDto } from "../../models/article";
+import { Article, ArticleInfoDto, ArticleOwners, ArticleStatus } from "../../models/article";
 import { environment } from "../../../environments/environment";
 import { v4 as uuidv4 } from 'uuid';
 import { BidService } from "../../services/bid.service";
+import { BidItemDto, BidItem, BidCompletionDto } from "../../models/bid";
 
 @Injectable()
 export class ArticleEffects {
