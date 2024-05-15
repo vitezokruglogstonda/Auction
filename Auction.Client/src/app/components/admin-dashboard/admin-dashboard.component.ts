@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Article } from '../../models/article';
+import { Article, ArticleStatus } from '../../models/article';
 import { User } from '../../models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
@@ -26,7 +26,7 @@ export class AdminDashboardComponent {
   public articlePaginatorPageIndex: number;
   public searchQuery: string;
 
-  constructor(private store: Store<AppState>, private router: Router){
+  constructor(private store: Store<AppState>, private router: Router) {
     this.userList = [];
     this.articleList = [];
     this.pageSizeOptions = environment.view_articles_pageSizeOptions;
@@ -39,24 +39,24 @@ export class AdminDashboardComponent {
     this.searchQuery = "";
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.store.dispatch(loadTotalNumberOfUsers());
     this.store.dispatch(loadTotalNumberOfArticles());
-    this.store.dispatch(loadAllUsers({pageIndex: this.userPaginatorPageIndex, pageSize: this.userPaginatorPageSize}))
-    this.store.dispatch(loadAllArticles({pageIndex: this.articlePaginatorPageIndex, pageSize: this.articlePaginatorPageSize}))
-    
+    this.store.dispatch(loadAllUsers({ pageIndex: this.userPaginatorPageIndex, pageSize: this.userPaginatorPageSize }))
+    this.store.dispatch(loadAllArticles({ pageIndex: this.articlePaginatorPageIndex, pageSize: this.articlePaginatorPageSize }))
+
     this.store.select(selectTotalNumberOfUsers).subscribe(state => {
-      if(state !== undefined)
+      if (state !== undefined)
         this.numberOfUsers = state;
     });
     this.store.select(selectTotalNumberOfArticles).subscribe(state => {
-      if(state !== undefined)
+      if (state !== undefined)
         this.numberOfArticles = state;
     });
 
     this.store.select(selectAdminUserList).subscribe(state => {
       this.userList.splice(0, this.userList.length);
-      if(state && state.length > 0){
+      if (state && state.length > 0) {
         state.forEach(user => {
           this.userList.push(user as User);
         })
@@ -64,7 +64,7 @@ export class AdminDashboardComponent {
     });
     this.store.select(selectAdminArticleList).subscribe(state => {
       this.articleList.splice(0, this.articleList.length);
-      if(state && state.length > 0){
+      if (state && state.length > 0) {
         state.forEach(article => {
           this.articleList.push(article as Article);
         })
@@ -75,34 +75,62 @@ export class AdminDashboardComponent {
   handleUserPaginatorEvent(e: PageEvent) {
     this.userPaginatorPageSize = e.pageSize;
     this.userPaginatorPageIndex = e.pageIndex;
-    this.store.dispatch(loadAllUsers({pageIndex: this.userPaginatorPageIndex, pageSize: this.userPaginatorPageSize}))
+    this.store.dispatch(loadAllUsers({ pageIndex: this.userPaginatorPageIndex, pageSize: this.userPaginatorPageSize }))
   }
 
   handleArticlePaginatorEvent(e: PageEvent) {
     this.articlePaginatorPageSize = e.pageSize;
     this.articlePaginatorPageIndex = e.pageIndex;
-    this.store.dispatch(loadAllArticles({pageIndex: this.articlePaginatorPageIndex, pageSize: this.articlePaginatorPageSize}))
+    this.store.dispatch(loadAllArticles({ pageIndex: this.articlePaginatorPageIndex, pageSize: this.articlePaginatorPageSize }))
   }
 
-  onSearchQueryChange(){
-    if(this.searchQuery.length>0)
-      this.store.dispatch(searchArticlesByTitle({searchQuery: this.searchQuery}));
-    else 
+  onSearchQueryChange() {
+    if (this.searchQuery.length > 0)
+      this.store.dispatch(searchArticlesByTitle({ searchQuery: this.searchQuery }));
+    else
       this.cancelSearch();
   }
 
-  cancelSearch(){
-    this.searchQuery="";
+  cancelSearch() {
+    this.searchQuery = "";
     this.store.dispatch(loadTotalNumberOfArticles());
-    this.store.dispatch(loadAllArticles({pageIndex: this.articlePaginatorPageIndex, pageSize: this.articlePaginatorPageSize}))
+    this.store.dispatch(loadAllArticles({ pageIndex: this.articlePaginatorPageIndex, pageSize: this.articlePaginatorPageSize }))
   }
 
-  viewUser(user: User){
+  viewUser(user: User) {
     this.router.navigate(["/profile", user.id]);
   }
 
   // viewArticle(){
   //   this.router.navigate(["/article", this.article!.id]);
   // }
+
+  getArticleStatusLabel(articleId: number | null): string {
+    let statusValue: ArticleStatus = this.articleList.find(article => article.id === articleId)?.status!;
+    let returnString: string;
+    switch (statusValue) {
+      case 0:
+        returnString = "Pending";
+        break;
+      case 1:
+        returnString = "Biding";
+        break;
+      case 2:
+        returnString = "Sold";
+        break;
+      case 3:
+        returnString = "Expired";
+        break;
+      default:
+        returnString = "";
+        break;
+    }
+    return returnString;
+  }
+
+  articlePendingOrExpired(articleId: number | null): boolean{
+    let statusValue: ArticleStatus = this.articleList.find(article => article.id === articleId)?.status!;
+    return statusValue === ArticleStatus.Biding || statusValue === ArticleStatus.Expired ? true : false;
+  }
 
 }

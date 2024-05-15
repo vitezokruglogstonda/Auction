@@ -12,14 +12,26 @@
                         [pageSizeOptions]="pageSizeOptions" [hidePageSize]="false" [pageIndex]="userPaginatorPageIndex">
                     </mat-paginator>
                     <div class="tab-list-item" *ngFor="let user of userList" (click)="viewUser(user)">
-
                         <div class="tab-list-item-profile-picture">
-                            <img class="profile-picture" src={{user.profilePicturePath}} /> 
+                            <img class="profile-picture" src={{user.profilePicturePath}} />
                         </div>
-                        <div class="tab-list-item-user-name">
-                            <p>{{user.firstName}} {{user.lastName}}</p>
+                        <div class="tab-list-item-info-container">
+                            <div class="tab-list-item-info">
+                                <p>{{user.firstName}} {{user.lastName}}</p>
+                            </div>
+                            <div class="vertical-divider-line">&nbsp;</div>
+                            <div class="tab-list-item-info">
+                                <p>{{user.email}}</p>
+                            </div>
+                            <div class="vertical-divider-line">&nbsp;</div>
+                            <div class="tab-list-item-info">
+                                <p>{{user.gender}}</p>
+                            </div>
+                            <div class="vertical-divider-line">&nbsp;</div>
+                            <div class="tab-list-item-info">
+                                <p>{{user.birthDate.day}}:{{user.birthDate.month}}:{{user.birthDate.year}}</p>
+                            </div>
                         </div>
-                        
                     </div>
                 </div>
             </mat-tab>
@@ -46,8 +58,21 @@
                         [pageSizeOptions]="pageSizeOptions" [hidePageSize]="false"
                         [pageIndex]="articlePaginatorPageIndex">
                     </mat-paginator>
-                    <div class="tab-list-item" *ngFor="let article of articleList">
-
+                    <div class="tab-list-item article-item" *ngFor="let article of articleList">
+                        <div class="tab-list-item-article-picture">
+                            <img class="article-picture" src={{article.pictures[0]}} />
+                        </div>
+                        <div class="tab-list-item-info-container">
+                            <div class="article-info-section">
+                                <p class="article-title">{{article.title}}</p>
+                                <p class="article-info" *ngIf="articlePendingOrExpired(article.id)">Price: ${{article.startingPrice}}</p>
+                                <p class="article-info" *ngIf="!articlePendingOrExpired(article.id)">Price: ${{article.soldPrice}}</p>
+                            </div>
+                            <div class="vertical-divider-line article-divider-line">&nbsp;</div>
+                            <div class="article-info-section">
+                                <p class="article-info">Status: {{getArticleStatusLabel(article.id)}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </mat-tab>

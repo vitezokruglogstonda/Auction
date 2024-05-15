@@ -273,3 +273,12 @@
     font-family: "Century Gothic";
     text-align: center;
 }
+
+:host ::ng-deep .mat-tab-body-wrapper {
+    height: 100%;
+    flex-grow: 1;    
+}
+
+:host ::ng-deep .mat-mdc-tab-body-wrapper{
+    overflow: visible;
+}
