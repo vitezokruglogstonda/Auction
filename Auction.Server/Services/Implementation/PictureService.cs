@@ -59,10 +59,18 @@ namespace Auction.Server.Services.Implementation
             return Path.Combine(Path.Combine(serverUrl, profilePictureFolder), path);
         }
 
-        public bool DeletePhoto(string photoName)
-        {
+        public bool DeleteProfilePicture(string photoName) {
             string profilePictureFolder = Configuration.GetSection("EnvironmentVariables").GetSection("ProfilePicturePath").Value!;
-            string folderPath = Path.Combine(Environment.WebRootPath, profilePictureFolder);
+            return this.DeleteImage(photoName, profilePictureFolder);
+        }
+        public bool DeleteArticlePicture(string photoName){
+            string articlePictureFolder = Configuration.GetSection("EnvironmentVariables").GetSection("ArticlePicturePath").Value!;
+            return this.DeleteImage(photoName, articlePictureFolder);        
+        }
+
+        public bool DeleteImage(string photoName, string pictureFolder)
+        {
+            string folderPath = Path.Combine(Environment.WebRootPath, pictureFolder);
             var filePath = Path.Combine(folderPath, photoName);
 
             if (!System.IO.File.Exists(filePath))

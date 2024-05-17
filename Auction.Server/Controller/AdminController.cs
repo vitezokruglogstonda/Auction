@@ -60,5 +60,19 @@ namespace Auction.Server.Controller
             return Ok(articles);
         }
 
+        [HttpPost]
+        [Route("republish-article")]
+        public async Task<ActionResult<bool>> RepublishArticle([FromQuery] int articleId)
+        {
+            return Ok(await this.ArticleService.RepublishArticle(articleId));
+        }
+
+        [HttpDelete]
+        [Route("remove-article")]
+        public async Task<ActionResult<bool>> RemoveArticle([FromQuery] int articleId)
+        {
+            return Ok(await this.ArticleService.RemoveArticle(articleId));
+        }
+
     }
 }

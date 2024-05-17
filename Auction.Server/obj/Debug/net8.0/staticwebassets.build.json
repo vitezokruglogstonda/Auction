@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1CQzoefLlhy0+srBwLhp0hFpOJDIea8jvT7wSHNb/H8=",
+  "Hash": "3ekphvjUPTFarWTBbR81lzp0tip7ABwH9InRBaZx3DA=",
   "Source": "Auction.Server",
   "BasePath": "_content/Auction.Server",
   "Mode": "Default",
@@ -34,25 +34,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\0fcd44fb-5bfe-4773-9736-9b873a6e61e6_rifle_2.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\1339547c-7d6e-4029-a509-62387c5eee9a__DSC9199.jpg",
-      "SourceId": "Auction.Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\",
-      "BasePath": "_content/Auction.Server",
-      "RelativePath": "Images/ArticlePictures/1339547c-7d6e-4029-a509-62387c5eee9a__DSC9199.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\1339547c-7d6e-4029-a509-62387c5eee9a__DSC9199.jpg"
     },
     {
       "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\253b526b-74f3-4080-b2f3-38d7569d2867_painting_2.jpg",
@@ -148,25 +129,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\33d88791-2f65-48db-8a51-e629551aec51_ship_2.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\3d7975e0-21f1-40fe-b8a8-bcde6c088ae6__DSC9192.jpg",
-      "SourceId": "Auction.Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\",
-      "BasePath": "_content/Auction.Server",
-      "RelativePath": "Images/ArticlePictures/3d7975e0-21f1-40fe-b8a8-bcde6c088ae6__DSC9192.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\3d7975e0-21f1-40fe-b8a8-bcde6c088ae6__DSC9192.jpg"
     },
     {
       "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\48a83a70-aac2-4b4c-b4d7-ff33c2120d86_sword_3.jpg",
@@ -414,25 +376,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\dc88d0f5-3a51-408c-b933-23acf2c90829_statue_2.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\fbeabffd-0d18-4b7a-bad2-df3281e8ca6a__DSC9188.jpg",
-      "SourceId": "Auction.Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\",
-      "BasePath": "_content/Auction.Server",
-      "RelativePath": "Images/ArticlePictures/fbeabffd-0d18-4b7a-bad2-df3281e8ca6a__DSC9188.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\fbeabffd-0d18-4b7a-bad2-df3281e8ca6a__DSC9188.jpg"
     },
     {
       "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\ff9a32ce-7924-48b4-95fc-dbe6e270bb50_yacht_1.jpg",

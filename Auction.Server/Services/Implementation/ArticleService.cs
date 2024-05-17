@@ -290,6 +290,61 @@ namespace Auction.Server.Services.Implementation
             return articleDtos;
         }
 
+        public async Task<bool> RepublishArticle(int articleId)
+        {
+            Article? article = await this.DbContext.Articles
+                .Where(article => article.Id == articleId)
+                .FirstOrDefaultAsync();
+
+            if (article == null)
+                return false;
+
+            int expiryDate = Int32.Parse(Configuration.GetSection("ArticleSettings").GetSection("DefaultExpiryDate").Value!);
+            DateTime expiryDateTime = DateTime.Now.AddDays(expiryDate);
+            article.ExpiryDate = new CustomDateTime(expiryDateTime);
+            article.Status = ArticleStatus.Pending;
+            this.DbContext.Update(article);
+            await this.DbContext.SaveChangesAsync();
+
+            DateTimeOffset delay = new(expiryDateTime);
+            BackgroundJob.Schedule<HandleArticleExpirationJob>(job => job.HandleArticleExpiration(article.Id), delay);
+
+            return true;
+        }
+
+        public async Task<bool> RemoveArticle(int articleId)
+        {
+            Article? article = await this.DbContext.Articles
+                .Where(article => article.Id == articleId)
+                .Include(article => article.Pictures)
+                .FirstOrDefaultAsync();
+
+            if (article == null)
+                return false;
+
+            User? articleCreator = await this.DbContext.Users
+                .Where(user => user.Id == article.CreatorId)
+                .Include(user => user.CreatedArticles)
+                .FirstOrDefaultAsync();
+
+            if (articleCreator == null)
+                return false;
+
+            //articleCreator.CreatedArticles!.Remove(article);
+            //this.DbContext.Update(articleCreator);
+
+            foreach (ArticlePicture picture in article.Pictures)
+            {
+                this.PictureService.DeleteArticlePicture(picture.PicturePath);
+                this.DbContext.Remove(picture);
+            }
+
+            this.DbContext.Remove(article);
+            this.DbContext.Update(articleCreator);
+            await this.DbContext.SaveChangesAsync();
+            return true;
+        }
+
         //za testiranje
         //public async Task<bool> BuyArticle(User user, int articleId)
         //{

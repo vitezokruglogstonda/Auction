@@ -98,5 +98,39 @@ export class AdminService {
         );
     }
 
+    republishArticle(articleId: number): Observable<boolean>{
+        let querry: String = `admin/republish-article?articleId=${articleId}`;
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'JWT': `${this.localStorage.getItem('jwt')}`
+            }),
+        };
+        return this.http.post<boolean>(environment.server_url + querry, httpOptions).pipe(
+            switchMap(response => {
+                return of(response)
+            }),
+            catchError( () => {
+                return of(false);
+            })
+        );
+    }
+
+    removeArticle(articleId: number): Observable<boolean>{
+        let querry: String = `admin/remove-article?articleId=${articleId}`;
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'JWT': `${this.localStorage.getItem('jwt')}`
+            }),
+        };
+        return this.http.delete<boolean>(environment.server_url + querry, httpOptions).pipe(
+            switchMap(response => {
+                return of(response)
+            }),
+            catchError( () => {
+                return of(false);
+            })
+        );
+    }
+
 
 }

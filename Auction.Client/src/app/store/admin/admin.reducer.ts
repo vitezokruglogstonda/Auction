@@ -12,17 +12,17 @@ export const initialAdminInfoState: AdminInfo = {
 
 export const adminInfoReducer = createReducer(
     initialAdminInfoState,
-    on(Actions.loadTotalNumberOfUsers, (state) => ({
+    on(Actions.adminLoadTotalNumberOfUsers, (state) => ({
         ...state
     })),
-    on(Actions.loadTotalNumberOfUsersSuccess, (state, {numberOfUsers}) => ({
+    on(Actions.adminLoadTotalNumberOfUsersSuccess, (state, {numberOfUsers}) => ({
         ...state,
         totalNumberOfUsers: numberOfUsers
     })),
-    on(Actions.loadTotalNumberOfArticles, (state) => ({
+    on(Actions.adminLoadTotalNumberOfArticles, (state) => ({
         ...state
     })),
-    on(Actions.loadTotalNumberOfArticlesSuccess, (state, {numberOfArticles}) => ({
+    on(Actions.adminLoadTotalNumberOfArticlesSuccess, (state, {numberOfArticles}) => ({
         ...state,
         totalNumberOfArticles: numberOfArticles
     })),
@@ -61,5 +61,23 @@ export const articleListReducer = createReducer(
     })),
     on(Actions.searchArticlesByTitleSuccess, (state, {articles}) => {
         return articleListAdapter.addMany(articles, articleListAdapter.removeAll({ ...state }));
+    }),
+    on(Actions.republishArticle, (state, {articleId}) => ({
+        ...state
+    })),
+    on(Actions.republishArticleSuccess, (state, {articleId, status}) => {
+        return articleListAdapter.updateOne(
+            { id: articleId, changes: { status: status } },
+            state
+          );
+    }),
+    on(Actions.removeArticle, (state, {articleId}) => ({
+        ...state
+    })),
+    on(Actions.removeArticleSuccess, (state, {articleId}) => {
+        return articleListAdapter.removeOne( 
+            articleId,
+            state
+          );
     }),
 );

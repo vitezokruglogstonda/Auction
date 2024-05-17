@@ -7,6 +7,8 @@
         public string AddArticlePicture(IFormFile? picture);
         public string MakeProfilePictureUrl(string path);
         public string MakeArticlePictureUrl(string path);
-        public bool DeletePhoto(string photoName);
+        public bool DeleteProfilePicture(string photoName);
+        public bool DeleteArticlePicture(string photoName);
+        public bool DeleteImage(string photoName, string pictureFolder);
     }
 }

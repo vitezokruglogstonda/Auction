@@ -213,7 +213,7 @@ namespace Auction.Server.Services.Implementation
             this.DbContext.Update(user);
             await DbContext.SaveChangesAsync();
             if(!String.Equals(oldPicturePath, Configuration.GetSection("EnvironmentVariables").GetSection("DefaultProfilePicturePath").Value!))
-                this.PictureService.DeletePhoto(oldPicturePath);
+                this.PictureService.DeleteProfilePicture(oldPicturePath);
             return PictureService.MakeProfilePictureUrl(newPicturePath);
         }
 

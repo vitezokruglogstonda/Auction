@@ -3,7 +3,7 @@ import { Article, ArticleStatus } from '../../models/article';
 import { User } from '../../models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
-import { loadAllArticles, loadAllUsers, loadTotalNumberOfArticles, loadTotalNumberOfUsers, searchArticlesByTitle } from '../../store/admin/admin.action';
+import { loadAllArticles, loadAllUsers, adminLoadTotalNumberOfArticles, adminLoadTotalNumberOfUsers, removeArticle, republishArticle, searchArticlesByTitle } from '../../store/admin/admin.action';
 import { environment } from '../../../environments/environment';
 import { PageEvent } from '@angular/material/paginator';
 import { selectAdminArticleList, selectAdminUserList, selectTotalNumberOfArticles, selectTotalNumberOfUsers } from '../../store/admin/admin.selector';
@@ -40,8 +40,8 @@ export class AdminDashboardComponent {
   }
 
   ngOnInit() {
-    this.store.dispatch(loadTotalNumberOfUsers());
-    this.store.dispatch(loadTotalNumberOfArticles());
+    this.store.dispatch(adminLoadTotalNumberOfUsers());
+    this.store.dispatch(adminLoadTotalNumberOfArticles());
     this.store.dispatch(loadAllUsers({ pageIndex: this.userPaginatorPageIndex, pageSize: this.userPaginatorPageSize }))
     this.store.dispatch(loadAllArticles({ pageIndex: this.articlePaginatorPageIndex, pageSize: this.articlePaginatorPageSize }))
 
@@ -93,7 +93,7 @@ export class AdminDashboardComponent {
 
   cancelSearch() {
     this.searchQuery = "";
-    this.store.dispatch(loadTotalNumberOfArticles());
+    this.store.dispatch(adminLoadTotalNumberOfArticles());
     this.store.dispatch(loadAllArticles({ pageIndex: this.articlePaginatorPageIndex, pageSize: this.articlePaginatorPageSize }))
   }
 
@@ -101,9 +101,9 @@ export class AdminDashboardComponent {
     this.router.navigate(["/profile", user.id]);
   }
 
-  // viewArticle(){
-  //   this.router.navigate(["/article", this.article!.id]);
-  // }
+  viewArticle(articleId: number | null){
+    this.router.navigate(["/article", articleId]);
+  }
 
   getArticleStatusLabel(articleId: number | null): string {
     let statusValue: ArticleStatus = this.articleList.find(article => article.id === articleId)?.status!;
@@ -130,7 +130,22 @@ export class AdminDashboardComponent {
 
   articlePendingOrExpired(articleId: number | null): boolean{
     let statusValue: ArticleStatus = this.articleList.find(article => article.id === articleId)?.status!;
-    return statusValue === ArticleStatus.Biding || statusValue === ArticleStatus.Expired ? true : false;
+    return statusValue === ArticleStatus.Pending || statusValue === ArticleStatus.Expired ? true : false;
+  }
+
+  articleExpired(articleId: number | null): boolean{
+    let statusValue: ArticleStatus = this.articleList.find(article => article.id === articleId)?.status!;
+    return statusValue === ArticleStatus.Expired ? true : false;
+  }
+
+  removeArticle(articleId: number | null, event: Event){
+    event.stopPropagation();
+    this.store.dispatch(removeArticle({articleId: articleId as number}));
+  }
+
+  republishArticle(articleId: number | null, event: Event){
+    event.stopPropagation();
+    this.store.dispatch(republishArticle({articleId: articleId as number}));
   }
 
 }

@@ -58,7 +58,7 @@
                         [pageSizeOptions]="pageSizeOptions" [hidePageSize]="false"
                         [pageIndex]="articlePaginatorPageIndex">
                     </mat-paginator>
-                    <div class="tab-list-item article-item" *ngFor="let article of articleList">
+                    <div class="tab-list-item article-item" *ngFor="let article of articleList" (click)="viewArticle(article.id)">
                         <div class="tab-list-item-article-picture">
                             <img class="article-picture" src={{article.pictures[0]}} />
                         </div>
@@ -71,6 +71,14 @@
                             <div class="vertical-divider-line article-divider-line">&nbsp;</div>
                             <div class="article-info-section">
                                 <p class="article-info">Status: {{getArticleStatusLabel(article.id)}}</p>
+                                <div class="article-button-section">
+                                    <div class="article-button" *ngIf="articlePendingOrExpired(article.id)" (click)="removeArticle(article.id, $event)">
+                                        <i class="fa-solid fa-trash article-button-icon"></i>
+                                    </div>
+                                    <div class="article-button" *ngIf="articleExpired(article.id)" (click)="republishArticle(article.id, $event)">
+                                        <i class="fa-solid fa-calendar-plus article-button-icon"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

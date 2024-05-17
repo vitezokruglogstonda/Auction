@@ -4,7 +4,7 @@ import { switchMap } from "rxjs";
 import { User } from "../../models/user";
 import * as AdminActions from "./admin.action";
 import { AdminService } from "../../services/admin.service";
-import { Article } from "../../models/article";
+import { Article, ArticleStatus } from "../../models/article";
 
 @Injectable()
 export class AdminEffects {
@@ -12,13 +12,13 @@ export class AdminEffects {
 
     getTotalNumberOfUsers = createEffect(() =>
     this.actions$.pipe(
-        ofType(AdminActions.loadTotalNumberOfUsers),
+        ofType(AdminActions.adminLoadTotalNumberOfUsers),
         switchMap((action) =>
             this.adminService.loadTotalNumberOfUsers().pipe(
                 switchMap((result: number | null) => {
                     if (!!result) {
                         return [
-                            AdminActions.loadTotalNumberOfUsersSuccess({ numberOfUsers: result }),
+                            AdminActions.adminLoadTotalNumberOfUsersSuccess({ numberOfUsers: result }),
                         ];
                     } 
                     return [];
@@ -47,13 +47,13 @@ export class AdminEffects {
 
     getTotalNumberOfArticles = createEffect(() =>
     this.actions$.pipe(
-        ofType(AdminActions.loadTotalNumberOfArticles),
+        ofType(AdminActions.adminLoadTotalNumberOfArticles),
         switchMap((action) =>
             this.adminService.loadTotalNumberOfArticles().pipe(
                 switchMap((result: number | null) => {
                     if (!!result) {
                         return [
-                            AdminActions.loadTotalNumberOfArticlesSuccess({ numberOfArticles: result }),
+                            AdminActions.adminLoadTotalNumberOfArticlesSuccess({ numberOfArticles: result }),
                         ];
                     } 
                     return [];
@@ -89,6 +89,42 @@ export class AdminEffects {
                         if (!!result && result!.length > 0) {
                             return [
                                 AdminActions.searchArticlesByTitleSuccess({ articles: result }),
+                            ];
+                        } 
+                        return [];
+                    })
+                )
+            )
+        )
+    );
+
+    republishArticle = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.republishArticle),
+            switchMap((action) =>
+                this.adminService.republishArticle(action.articleId).pipe(
+                    switchMap((result: boolean) => {
+                        if (result) {
+                            return [
+                                AdminActions.republishArticleSuccess({ articleId: action.articleId, status: ArticleStatus.Pending }),
+                            ];
+                        } 
+                        return [];
+                    })
+                )
+            )
+        )
+    );
+
+    removeArticle = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AdminActions.removeArticle),
+            switchMap((action) =>
+                this.adminService.removeArticle(action.articleId).pipe(
+                    switchMap((result: boolean) => {
+                        if (result) {
+                            return [
+                                AdminActions.removeArticleSuccess({ articleId: action.articleId }),
                             ];
                         } 
                         return [];
