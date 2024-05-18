@@ -90,6 +90,14 @@ export const environment = {
             permissions: [UserType.Admin]
         },
     ],
+    sidenavIcons_Classes: [
+        "fa-solid fa-right-to-bracket",
+        "fa-solid fa-id-card",
+        "fa-solid fa-house",
+        "fa-solid fa-user",
+        "fa-solid fa-gavel",
+        "fa-solid fa-user-tie"
+    ],
     addMoneyOptions: ["$100", "$200", "$500", "$1000", "$2000", "..."],
     defaultArticleImage: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png",
     defaultFee: 100,

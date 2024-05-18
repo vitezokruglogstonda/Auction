@@ -6,7 +6,7 @@ import { AppState } from '../../store/app.state';
 import { Article, ArticleStatus, ArticleViewMethod, CustomDateTime } from '../../models/article';
 import { selectBidItems, selectCurrentlyBiddingArticle, selectProfilesForArticle, selectSingleArticle } from '../../store/article/article.selector';
 import { changeArticleStatus, checkIfCurrentlyBidding, clearBidList, getBidList, loadArticlesOwners, loadSingleArticle, newBid, startBidding } from '../../store/article/article.action';
-import { UserProfile } from '../../models/user';
+import { UserProfile, UserType } from '../../models/user';
 import { getProfile } from '../../store/profile/profile.action';
 import { selectProfileInfo } from '../../store/profile/profile.selector';
 import { selectUserId, selectUserInfo } from '../../store/user/user.selector';
@@ -24,6 +24,7 @@ export class ArticlePageComponent {
 
   public userId: number;
   public userBalance: number;
+  public userType: UserType;
   private destroy$ = new Subject<void>();
   public articleId: number;
   public article: Article | null;
@@ -49,6 +50,7 @@ export class ArticlePageComponent {
   constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router, private snackbarService: SnackbarService, private bidService: BidService) {
     this.userId = 0;
     this.userBalance = 0;
+    this.userType = UserType.Guest;
     this.articleId = 0;
     this.article = null;
     this.articleViewMethod = ArticleViewMethod.Page
@@ -95,9 +97,11 @@ export class ArticlePageComponent {
     //     this.userId = state;
     // });
     this.store.select(selectUserInfo).subscribe(state => {
-      if (state)
+      if (state){
         this.userId = state.id as number;
         this.userBalance = state.balance;
+        this.userType = state.userType;
+      }
     });    
     this.route.params.pipe(
       switchMap((params) => {
@@ -165,7 +169,7 @@ export class ArticlePageComponent {
               if(!this.currentlyBidding)
                 this.store.dispatch(getBidList({articleId: this.article?.id as number}));
 
-            }else{
+            }else if(this.userType !== UserType.Admin){
               this.showEnrollButton = true;
             }
             this.currentlyBidding = state;

@@ -1,26 +1,36 @@
 <mat-toolbar class="main-toolbar" color="warn" [class.mat-elevation-z8]="true">
-    <button mat-icon-button matTooltip={{menuButtonTooltipText}} (click)="snav.toggle()">
-      <mat-icon class="menu-icon">menu</mat-icon>
-    </button>
-    <h1 class="app-title">{{toolbarCenterText}}</h1>
-    <div class="right-toolbar-element" *ngIf="!accountIcon_Show"></div>
-    <app-account-icon *ngIf="accountIcon_Show" (emitter)="updateAccountInfoCardAppearance($event)" [foreignEvent]="cardTriggeredEvent"></app-account-icon>
-  </mat-toolbar>
+  <button mat-icon-button matTooltip={{menuButtonTooltipText}} (click)="snav.toggle()">
+    <mat-icon class="menu-icon">menu</mat-icon>
+  </button>
+  <h1 class="app-title">{{toolbarCenterText}}</h1>
+  <div class="right-toolbar-element" *ngIf="!accountIcon_Show"></div>
+  <app-account-icon *ngIf="accountIcon_Show" (emitter)="updateAccountInfoCardAppearance($event)"
+    [foreignEvent]="cardTriggeredEvent"></app-account-icon>
+</mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #snav mode="over" class="sidenav">
   
-      <mat-selection-list [multiple]="false" >
-        <mat-list-item class="sidenav-list-option" *ngFor="let item of sidenavItems" routerLink="{{item?.route}}">{{item?.title}}
-          <mat-divider></mat-divider>
-        </mat-list-item>
-      </mat-selection-list>
-  
-    </mat-sidenav>
-  
-    <mat-sidenav-content class="content-container">
-      <router-outlet></router-outlet>
-      <app-account-info-card *ngIf="showAccountInfoCard" (accountInfoCardEmitter)="cardTriggeredHide()"></app-account-info-card>      
-    </mat-sidenav-content>
-  
+  <mat-sidenav #snav mode="over" class="sidenav">
+    <mat-selection-list [multiple]="false">
+      <mat-list-item class="sidenav-list-option" *ngFor="let item of sidenavItems; let i = index"
+        routerLink="{{item?.route}}">
+        <div class="sidenav-list-option-container">
+          <div class="sidenav-list-option-icon">
+            <i class="{{sidenavIcons[i]}}"></i>
+          </div>
+          <div class="sidenav-list-option-title">
+            {{item?.title}}
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-selection-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content-container">
+    <router-outlet></router-outlet>
+    <app-account-info-card *ngIf="showAccountInfoCard"
+      (accountInfoCardEmitter)="cardTriggeredHide()"></app-account-info-card>
+  </mat-sidenav-content>
+
 </mat-sidenav-container>

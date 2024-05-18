@@ -77,9 +77,11 @@ export class ProfilePageComponent {
             this.soldItemsList?.push(item as Article);
           })
           this.no_soldItems = false;
+          this.numberOfItemsSold = this.soldItemsList.length;
         }
         else{
           this.no_soldItems = true;
+          this.numberOfItemsSold = 0;
         }        
       });
       this.store.select(selectSellingArticles).subscribe(state => {

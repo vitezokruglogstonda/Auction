@@ -24,6 +24,7 @@ export class AppComponent {
   public toolbarCenterText: String;
   public menuButtonTooltipText: String;
   public sidenavItems: SidenavListItem[] = [];
+  public sidenavIcons: string[] = [];
   public accountIcon_Show: boolean;
   public showAccountInfoCard: boolean;
   public cardTriggeredEvent: Subject<number>;
@@ -71,10 +72,16 @@ export class AppComponent {
   
   populateSidenavList(userType: UserType): void{
     this.sidenavItems.splice(0, this.sidenavItems.length);
+    this.sidenavIcons.splice(0, this.sidenavIcons.length);
     this.sidenavItems = environment.sidenavItems.filter(item => [userType].some(role => item.permissions.includes(role)));
     if(userType != UserType.Guest){
       this.sidenavItems.find(item => item.title === "My Profile")!.route = `profile/${this.userId}`;
     }
+    this.sidenavItems.map(chosenItem => 
+      environment.sidenavItems.findIndex(item => item.title === chosenItem.title)
+    ).map(index => 
+      this.sidenavIcons.push(environment.sidenavIcons_Classes[index])
+    );    
   }
 
   updateAccountInfoCardAppearance(ev: boolean) {
