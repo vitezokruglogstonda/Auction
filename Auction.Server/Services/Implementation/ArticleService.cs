@@ -242,6 +242,7 @@ namespace Auction.Server.Services.Implementation
 
             User? buyer = await ProfileService.GetUser(lastBid.UserId);
 
+            buyer!.Balance -= lastBid.MoneyAmount;
             article.SoldPrice = lastBid.MoneyAmount;
             article.Customer = buyer;
             if (buyer!.BoughtArticles == null)

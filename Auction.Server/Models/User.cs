@@ -56,10 +56,6 @@ namespace Auction.Server.Models
         [Column("Online")]
         public bool OnlineStatus { get; set; }
 
-        [JsonIgnore]
-        [Column("Validated")]
-        public bool ValidatedUser { get; set; }
-
         [Column("Balance")]
         public decimal Balance { get; set; }
 

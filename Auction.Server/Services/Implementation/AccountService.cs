@@ -86,7 +86,7 @@ namespace Auction.Server.Services.Implementation
 
                 User? user = await DbContext.Users.FindAsync(userId);
 
-                if (user != null && user.OnlineStatus /*&& user.ValidatedUser*/)
+                if (user != null && user.OnlineStatus)
                 {
                     httpContext.Items["User"] = user;
                 }
@@ -167,7 +167,6 @@ namespace Auction.Server.Services.Implementation
                 UserType = UserType.RegisteredUser,
                 ProfilePicturePath = picturePath,
                 OnlineStatus = false,
-                ValidatedUser = false,
                 Balance = 0,
             };
 
@@ -256,7 +255,6 @@ namespace Auction.Server.Services.Implementation
                 UserType = UserType.Admin,
                 ProfilePicturePath = picturePath,
                 OnlineStatus = false,
-                ValidatedUser = false,
                 Balance = 0,
             };
 
