@@ -1,65 +1,67 @@
 <div class="profile-container">
     <div class="profile-header">
-        <mat-card mat-card-image class="profile-picture-card">
-            <div class="profile-picture-container">
-                <img class="profile-picture" src="{{profile!.profilePicturePath}}">
-                <button class="profile-picture-button" *ngIf="myProfile" (click)="openChangeProfilePhotoDialog()">
-                    <i class="fas fa-camera camera-icon"></i>
-                </button>
+        <div class="profile-header-container">
+            <div class="profile-picture-card">
+                <div class="profile-picture-container">
+                    <img class="profile-picture" src="{{profile!.profilePicturePath}}">
+                    <button class="profile-picture-button" *ngIf="myProfile" (click)="openChangeProfilePhotoDialog()">
+                        <i class="fas fa-camera camera-icon"></i>
+                    </button>
+                </div>
+                <p id="username">{{combineUserName()}}</p>
             </div>
-            <p id="username">{{combineUserName()}}</p>
-        </mat-card>
-        <div class="profile-info">
-            <div class="info-field-container">
-                <div class="info-icon-container">
-                    <i class="info-icon fas fa-envelope"></i>
+            <div class="profile-info">
+                <div class="info-field-container">
+                    <div class="info-icon-container">
+                        <i class="info-icon fas fa-envelope"></i>
+                    </div>
+                    <div class="info-field">
+                        <p><span class="value-text">{{profile?.email}}</span></p>
+                        <p class="info-field-label">Mail address</p>
+                    </div>
                 </div>
-                <div class="info-field">
-                    <p><span class="value-text">{{profile?.email}}</span></p>
-                    <p class="info-field-label">Mail address</p>
+                <div class="info-field-container">
+                    <div class="info-icon-container">
+                        <i class="info-icon fas fa-cake-candles"></i>
+                    </div>
+                    <div class="info-field">
+                        <p><span class="value-text">{{customDateToString()}}</span></p>
+                        <p class="info-field-label">Birth date</p>
+                    </div>
                 </div>
-            </div>
-            <div class="info-field-container">
-                <div class="info-icon-container">
-                    <i class="info-icon fas fa-cake-candles"></i>
+                <div class="info-field-container">
+                    <div class="info-icon-container">
+                        <i class="info-icon fas fa-venus-mars"></i>
+                    </div>
+                    <div class="info-field">
+                        <p><span class="value-text">{{profile?.gender}}</span></p>
+                        <p class="info-field-label">Gender</p>
+                    </div>
                 </div>
-                <div class="info-field">
-                    <p><span class="value-text">{{customDateToString()}}</span></p>
-                    <p class="info-field-label">Birth date</p>
+                <div class="info-field-container">
+                    <div class="info-icon-container">
+                        <!-- <i class="info-icon fas fa-cart-shopping"></i> -->
+                        <i class="info-icon fa-solid fa-handshake"></i>
+                    </div>
+                    <div class="info-field">
+                        <p><span class="value-text">{{numberOfItemsSold}}</span></p>
+                        <p class="info-field-label">Number of sales</p>
+                    </div>
                 </div>
-            </div>
-            <div class="info-field-container">
-                <div class="info-icon-container">
-                    <i class="info-icon fas fa-venus-mars"></i>
-                </div>
-                <div class="info-field">
-                    <p><span class="value-text">{{profile?.gender}}</span></p>
-                    <p class="info-field-label">Gender</p>
-                </div>
-            </div>
-            <div class="info-field-container">
-                <div class="info-icon-container">
-                    <!-- <i class="info-icon fas fa-cart-shopping"></i> -->
-                    <i class="info-icon fa-solid fa-handshake"></i>
-                </div>
-                <div class="info-field">
-                    <p><span class="value-text">{{numberOfItemsSold}}</span></p>
-                    <p class="info-field-label">Number of sales</p>
-                </div>
-            </div>
-            <div class="info-field-container" *ngIf="myProfile">
-                <div class="info-icon-container">
-                    <i class="info-icon fas fa-money-bill"></i>
-                </div>
-                <div class="info-field">
-                    <p><span class="value-text money-label">${{balance}}</span></p>
-                    <p class="info-field-label">Money balance</p>
+                <div class="info-field-container" *ngIf="myProfile">
+                    <div class="info-icon-container">
+                        <i class="info-icon fas fa-money-bill"></i>
+                    </div>
+                    <div class="info-field">
+                        <p><span class="value-text money-label">${{balance}}</span></p>
+                        <p class="info-field-label">Money balance</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="option-container" *ngIf="myProfile">
-        <mat-card class="option" (click)="openAddMoneyDialog()">
+        <mat-card class="option option-add-money" (click)="openAddMoneyDialog()">
             <div class="option-info-container">
                 <div class="option-info-icon">
                     <i class="fa-solid fa-money-bill option-icon" id="money-button-icon"></i>
@@ -72,7 +74,7 @@
                 <i class="fa-solid fa-plus button-icon"></i>
             </div>
         </mat-card>
-        <mat-card class="option" (click)="redirectToCreateArticlePage()">
+        <mat-card class="option option-new-article" (click)="redirectToCreateArticlePage()">
             <div class="option-info-container">
                 <div class="option-info-icon">
                     <i class="fa-solid fa-gavel option-icon" id="article-button-icon"></i>

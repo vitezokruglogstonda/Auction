@@ -9,7 +9,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
-  
+
   <mat-sidenav #snav mode="over" class="sidenav">
     <mat-selection-list [multiple]="false">
       <mat-list-item class="sidenav-list-option" *ngFor="let item of sidenavItems; let i = index"
@@ -27,10 +27,33 @@
     </mat-selection-list>
   </mat-sidenav>
 
-  <mat-sidenav-content class="content-container">
-    <router-outlet></router-outlet>
+  <mat-sidenav-content class="content-container" (scroll)="onWindowScroll($event)">
+    <div class="content-wrap">
+      <router-outlet class="content-wrap"></router-outlet>
+    </div>
     <app-account-info-card *ngIf="showAccountInfoCard"
       (accountInfoCardEmitter)="cardTriggeredHide()"></app-account-info-card>
+    <div class="footer">
+      <div class="footer-content">
+        <div class="footer-authors">
+          <div class="author-container">
+            <div class="author-name">Andrija Đorđević</div>
+            <div class="author-label">Student</div>
+          </div>
+          <div class="author-container author-container-right">
+            <div class="author-name">Ivan Petković</div>
+            <div class="author-label">Mentor</div>
+          </div>
+        </div>
+        <div class="footer-copyright">&copy; 2024 Elektronski Fakultet Niš. All rights reserved.</div>
+        <div class="elfak-logo-container" (click)="openSite('https://www.elfak.ni.ac.rs/')">
+          <img class="elfak-logo" src="assets/Icons/elfak_logo.png">
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!viewAtTop" class="scroll-to-top-button" (click)="scrollToTop()" mat-ripple [matRippleCentered]=true [matRippleUnbounded]=true>
+      <i class="fa-solid fa-chevron-up"></i>
+    </div>
   </mat-sidenav-content>
 
 </mat-sidenav-container>

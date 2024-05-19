@@ -30,6 +30,7 @@ export class AppComponent {
   public cardTriggeredEvent: Subject<number>;
   public userId: number | null;
   public userType: UserType;
+  public viewAtTop: boolean;
 
   constructor(private store: Store<AppState>, private router: Router, private localStorage: LocalStorageService, private routeService: RouteService){
     this.toolbarCenterText = environment.app_title;
@@ -39,6 +40,7 @@ export class AppComponent {
     this.cardTriggeredEvent = new Subject<number>();
     this.userId = null;
     this.userType = UserType.Guest;
+    this.viewAtTop = true;
     this.populateSidenavList(this.userType);
   }
   
@@ -67,7 +69,7 @@ export class AppComponent {
         })
       }
       this.router.navigate([`${route}`]);
-    });    
+    });  
   }
   
   populateSidenavList(userType: UserType): void{
@@ -90,6 +92,21 @@ export class AppComponent {
 
   cardTriggeredHide() {
     this.cardTriggeredEvent.next(1);
+  }
+
+  openSite(url: string): void {
+    window.open(url, '_blank');
+  }
+
+  scrollToTop() {
+    document.querySelector(".content-container")?.scrollTo(0, 0);
+  }
+
+  onWindowScroll(ev: any) {
+    if(ev.target.scrollTop != 0)
+      this.viewAtTop = false;
+    else
+      this.viewAtTop = true;
   }
 
 }

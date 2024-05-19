@@ -66,12 +66,14 @@
     width: 35%;
     font-family: "Century Gothic";
     font-size: small;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 #my-profile-button{
     background-color: orange;
     &:hover {
         background-color: green;
+        color: white;
     }
 }
 
@@ -79,5 +81,6 @@
     background-color: orange;
     &:hover {
         background-color: red;
+        color: white;
     }
 }
