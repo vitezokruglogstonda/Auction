@@ -84,3 +84,9 @@
         color: white;
     }
 }
+
+@media screen and (max-width: 1366px){
+    .card-container{
+        width: 25vw;
+    }
+}

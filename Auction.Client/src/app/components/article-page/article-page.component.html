@@ -1,83 +1,85 @@
 <div class="article-page-container" *ngIf="article">
     <div class="article-page-upper">
-        <div class="picture-slide-container">
-            <app-article-picture-slider class="picture-slide" [viewMethod]="articleViewMethod"
-                [pictures]="article!.pictures"></app-article-picture-slider>
-        </div>
-        <!-- <div class="vertical-line"></div> -->
-        <div class="article-info-container">
-            <div class="article-info-title">
-                <p>{{article.title}}</p>
+        <div class="article-page-upper-wrap">
+            <div class="picture-slide-container">
+                <app-article-picture-slider class="picture-slide" [viewMethod]="articleViewMethod"
+                    [pictures]="article!.pictures"></app-article-picture-slider>
             </div>
-            <div class="info-container">
-                <div class="info-subcontainer">
-                    <div class="info-image-container" (click)="goToProfile(articleCreator?.id)">
-                        <img class="info-image" src={{articleCreator?.profilePicturePath}} />
+            <!-- <div class="vertical-line"></div> -->
+            <div class="article-info-container">
+                <div class="article-info-title">
+                    <p>{{article.title}}</p>
+                </div>
+                <div class="info-container">
+                    <div class="info-subcontainer">
+                        <div class="info-image-container" (click)="goToProfile(articleCreator?.id)">
+                            <img class="info-image" src={{articleCreator?.profilePicturePath}} />
+                        </div>
+                        <div class="info-label-container" (click)="goToProfile(articleCreator?.id)">
+                            <p class="info-value article-info-user-name">{{articleCreator?.firstName}}
+                                {{articleCreator?.lastName}}</p>
+                            <p class="info-label article-info-label">Publisher</p>
+                        </div>
                     </div>
-                    <div class="info-label-container" (click)="goToProfile(articleCreator?.id)">
-                        <p class="info-value article-info-user-name">{{articleCreator?.firstName}}
-                            {{articleCreator?.lastName}}</p>
-                        <p class="info-label article-info-label">Publisher</p>
+                    <div *ngIf="articleCustomer!==null" class="info-subcontainer info-subcontainer-right">
+                        <div class="info-label-container info-label-container-right"
+                            (click)="goToProfile(articleCustomer.id)">
+                            <p class="info-value article-info-user-name">{{articleCustomer.firstName}}
+                                {{articleCustomer.lastName}}</p>
+                            <p class="info-label article-info-label">Buyer</p>
+                        </div>
+                        <div class="info-image-container" (click)="goToProfile(articleCustomer.id)">
+                            <img class="info-image" src={{articleCustomer.profilePicturePath}} />
+                        </div>
+                    </div>
+                    <div *ngIf="articleCustomer===null" class="info-subcontainer info-subcontainer-right">
+                        <div class="info-label-container info-label-container-right">
+                            <p class="info-value">{{articleStatusLabel}}</p>
+                            <p class="info-label">Status</p>
+                        </div>
+                        <div class="label-icon-container">
+                            <i class="fa-solid fa-circle-info label-icon"></i>
+                        </div>
                     </div>
                 </div>
-                <div *ngIf="articleCustomer!==null" class="info-subcontainer info-subcontainer-right">
-                    <div class="info-label-container info-label-container-right"
-                        (click)="goToProfile(articleCustomer.id)">
-                        <p class="info-value article-info-user-name">{{articleCustomer.firstName}}
-                            {{articleCustomer.lastName}}</p>
-                        <p class="info-label article-info-label">Buyer</p>
+                <div class="info-container" *ngIf="showExpiryDate">
+                    <div class="info-subcontainer">
+                        <div class="label-icon-container">
+                            <i class="fa-solid fa-calendar-days label-icon"></i>
+                        </div>
+                        <div class="info-label-container ">
+                            <p class="info-value">{{expiryDateLabel}}</p>
+                            <p class="info-label">Expires</p>
+                        </div>
                     </div>
-                    <div class="info-image-container" (click)="goToProfile(articleCustomer.id)">
-                        <img class="info-image" src={{articleCustomer.profilePicturePath}} />
-                    </div>
-                </div>
-                <div *ngIf="articleCustomer===null" class="info-subcontainer info-subcontainer-right">
-                    <div class="info-label-container info-label-container-right">
-                        <p class="info-value">{{articleStatusLabel}}</p>
-                        <p class="info-label">Status</p>
-                    </div>
-                    <div class="label-icon-container">
-                        <i class="fa-solid fa-circle-info label-icon"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="info-container" *ngIf="showExpiryDate">
-                <div class="info-subcontainer">
-                    <div class="label-icon-container">
-                        <i class="fa-solid fa-calendar-days label-icon"></i>
-                    </div>
-                    <div class="info-label-container ">
-                        <p class="info-value">{{expiryDateLabel}}</p>
-                        <p class="info-label">Expires</p>
+                    <div class="info-subcontainer info-subcontainer-right" *ngIf="showExpiryTimeLeft">
+                        <div class="info-label-container info-label-container-right">
+                            <p class="info-value">{{expiryTimeLeft}}</p>
+                            <p class="info-label">Time left</p>
+                        </div>
+                        <div class="label-icon-container">
+                            <i class="fa-solid fa-stopwatch label-icon"></i>
+                        </div>
                     </div>
                 </div>
-                <div class="info-subcontainer info-subcontainer-right" *ngIf="showExpiryTimeLeft">
-                    <div class="info-label-container info-label-container-right">
-                        <p class="info-value">{{expiryTimeLeft}}</p>
-                        <p class="info-label">Time left</p>
+                <div class="info-container">
+                    <div class="info-subcontainer">
+                        <div class="label-icon-container">
+                            <i class="fas fa-money-bill label-icon"></i>
+                        </div>
+                        <div class="info-label-container">
+                            <p class="info-value">${{article.startingPrice}}</p>
+                            <p class="info-label">Start price</p>
+                        </div>
                     </div>
-                    <div class="label-icon-container">
-                        <i class="fa-solid fa-stopwatch label-icon"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="info-container">
-                <div class="info-subcontainer">
-                    <div class="label-icon-container">
-                        <i class="fas fa-money-bill label-icon"></i>
-                    </div>
-                    <div class="info-label-container">
-                        <p class="info-value">${{article.startingPrice}}</p>
-                        <p class="info-label">Start price</p>
-                    </div>
-                </div>
-                <div class="info-subcontainer info-subcontainer-right" *ngIf="showCurrentPrice">
-                    <div class="info-label-container info-label-container-right">
-                        <p class="info-value">${{article.soldPrice}}</p>
-                        <p class="info-label">Last price</p>
-                    </div>
-                    <div class="label-icon-container">
-                        <i class="fas fa-money-bill label-icon current-price-icon"></i>
+                    <div class="info-subcontainer info-subcontainer-right" *ngIf="showCurrentPrice">
+                        <div class="info-label-container info-label-container-right">
+                            <p class="info-value">${{article.soldPrice}}</p>
+                            <p class="info-label">Last price</p>
+                        </div>
+                        <div class="label-icon-container">
+                            <i class="fas fa-money-bill label-icon current-price-icon"></i>
+                        </div>
                     </div>
                 </div>
             </div>
