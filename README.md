@@ -22,7 +22,9 @@ Web app for auction
         -StackExchange.Redis (2.7.17)
         -System.IdentityModel.TokensJwt (7.2.0)
 -Making docker image:
-    -
+    -For client app, run following commands:
+        docker build -t auction-client .
+        docker run --name AuctionClient -p 4200:4200 auction-client
 -Starting app:
     -First run redis (port: 6379) and postgres database (port: 5432)
         -credentials for db are in the appsettings.json file on server

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -23,7 +23,7 @@
     "@angular/platform-server": "^17.0.0",
     "@angular/router": "^17.0.0",
     "@angular/ssr": "^17.0.10",
-    "@microsoft/signalr": "^8.0.0",
+    "@microsoft/signalr": "^7.0.14",
     "@ngrx/effects": "^17.1.0",
     "@ngrx/entity": "^17.1.0",
     "@ngrx/store": "^17.1.0",
