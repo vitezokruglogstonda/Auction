@@ -82,13 +82,13 @@ export class AdminEffects {
 
     getArticlesByTitle = createEffect(() =>
         this.actions$.pipe(
-            ofType(AdminActions.searchArticlesByTitle),
+            ofType(AdminActions.adminSearchArticlesByTitle),
             switchMap((action) =>
                 this.adminService.getArticlesByTitle(action.searchQuery).pipe(
                     switchMap((result: Article[] | null) => {
                         if (!!result && result!.length > 0) {
                             return [
-                                AdminActions.searchArticlesByTitleSuccess({ articles: result }),
+                                AdminActions.adminSearchArticlesByTitleSuccess({ articles: result }),
                             ];
                         } 
                         return [];

@@ -20,7 +20,7 @@
 }
 
 .profile-header-container{
-    width: 30vw;
+    width: 26vw;
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -168,7 +168,7 @@
 }
 
 .option{
-    width: 30vw;
+    width: 26vw;
     height: 100%;
     border-radius: 15px;
     display: flex;
@@ -316,5 +316,13 @@
     .profile-picture-container {
         width: 13em;
         height: 13em;
+    }
+
+    .profile-header-container{
+        width: 33vw;
+    }
+
+    .option{
+        width: 33vw;
     }
 }

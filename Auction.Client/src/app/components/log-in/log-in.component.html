@@ -24,7 +24,7 @@
             <div *ngIf="loginError || passwordWrongError">
                 <p id="loginErrorLabel">You must enter your credentials in order to log in.</p>
             </div>
-            <div mat-raised-button class="submit-button" id="login-button" color="primary" (click)="logIn()">
+            <div mat-raised-button class="submit-button" id="login-button" color="primary" (click)="logIn()" tabindex="0">
                 <i class="fa-solid fa-right-to-bracket"></i>
                 <p>Log in</p>
             </div>

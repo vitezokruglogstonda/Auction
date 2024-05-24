@@ -3,7 +3,7 @@ import { Article, ArticleStatus } from '../../models/article';
 import { User } from '../../models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
-import { loadAllArticles, loadAllUsers, adminLoadTotalNumberOfArticles, adminLoadTotalNumberOfUsers, removeArticle, republishArticle, searchArticlesByTitle } from '../../store/admin/admin.action';
+import { loadAllArticles, loadAllUsers, adminLoadTotalNumberOfArticles, adminLoadTotalNumberOfUsers, removeArticle, republishArticle, adminSearchArticlesByTitle } from '../../store/admin/admin.action';
 import { environment } from '../../../environments/environment';
 import { PageEvent } from '@angular/material/paginator';
 import { selectAdminArticleList, selectAdminUserList, selectTotalNumberOfArticles, selectTotalNumberOfUsers } from '../../store/admin/admin.selector';
@@ -86,7 +86,7 @@ export class AdminDashboardComponent {
 
   onSearchQueryChange() {
     if (this.searchQuery.length > 0)
-      this.store.dispatch(searchArticlesByTitle({ searchQuery: this.searchQuery }));
+      this.store.dispatch(adminSearchArticlesByTitle({ searchQuery: this.searchQuery }));
     else
       this.cancelSearch();
   }

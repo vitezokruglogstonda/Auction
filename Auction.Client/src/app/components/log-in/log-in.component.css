@@ -59,6 +59,7 @@
     align-items: center;
     text-align: center;
     width: 20%;
+    min-width: 160px;
     height: 3em;
     border-radius: 20px;
     border-style: solid;
@@ -108,3 +109,9 @@
 /* ::ng-deep .mdc-text-field--outlined{
     border-color: orange;
 } */
+
+@media screen and (max-width: 1366px) {
+    .card-container{
+        height: 70vh;
+    }
+}

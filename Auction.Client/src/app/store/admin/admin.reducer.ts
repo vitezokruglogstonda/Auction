@@ -56,10 +56,10 @@ export const articleListReducer = createReducer(
     on(Actions.loadAllArticlesSuccess, (state, {articles}) => {
         return articleListAdapter.addMany(articles, articleListAdapter.removeAll({ ...state }));
     }),
-    on(Actions.searchArticlesByTitle, (state, {searchQuery}) => ({
+    on(Actions.adminSearchArticlesByTitle, (state, {searchQuery}) => ({
         ...state
     })),
-    on(Actions.searchArticlesByTitleSuccess, (state, {articles}) => {
+    on(Actions.adminSearchArticlesByTitleSuccess, (state, {articles}) => {
         return articleListAdapter.addMany(articles, articleListAdapter.removeAll({ ...state }));
     }),
     on(Actions.republishArticle, (state, {articleId}) => ({

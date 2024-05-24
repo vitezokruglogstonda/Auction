@@ -11,8 +11,8 @@ export const adminLoadTotalNumberOfArticles = createAction("Admin - Load Total N
 export const adminLoadTotalNumberOfArticlesSuccess = createAction("Admin - Load Total Number Of Articles - Success", props<{numberOfArticles: number}>());
 export const loadAllArticles = createAction("Load All Articles", props<{pageSize : number, pageIndex: number}>());
 export const loadAllArticlesSuccess = createAction("Load All Articles Success", props<{articles : Article[]}>());
-export const searchArticlesByTitle = createAction("Search Articles By Title", props<{searchQuery: string}>());
-export const searchArticlesByTitleSuccess = createAction("Search Articles By Title - Success", props<{articles : Article[]}>());
+export const adminSearchArticlesByTitle = createAction("Admin - Search Articles By Title", props<{searchQuery: string}>());
+export const adminSearchArticlesByTitleSuccess = createAction("Admin - Search Articles By Title - Success", props<{articles : Article[]}>());
 
 export const republishArticle = createAction("Republish Article", props<{articleId : number}>());
 export const republishArticleSuccess = createAction("Republish Article - Success", props<{articleId : number, status: ArticleStatus}>());
