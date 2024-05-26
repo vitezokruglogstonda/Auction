@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auction.Server", "Auction.Server.csproj", "{5747CD10-0761-4631-90B3-223B061160E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auction.Server", "Auction.Server\Auction.Server.csproj", "{BE3F9629-60C9-41A8-8CF4-A6B13A0A30E3}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{93AA3FC0-6D27-4E9F-B949-35C1048D989F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5747CD10-0761-4631-90B3-223B061160E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5747CD10-0761-4631-90B3-223B061160E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5747CD10-0761-4631-90B3-223B061160E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5747CD10-0761-4631-90B3-223B061160E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE3F9629-60C9-41A8-8CF4-A6B13A0A30E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE3F9629-60C9-41A8-8CF4-A6B13A0A30E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE3F9629-60C9-41A8-8CF4-A6B13A0A30E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE3F9629-60C9-41A8-8CF4-A6B13A0A30E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93AA3FC0-6D27-4E9F-B949-35C1048D989F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93AA3FC0-6D27-4E9F-B949-35C1048D989F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93AA3FC0-6D27-4E9F-B949-35C1048D989F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93AA3FC0-6D27-4E9F-B949-35C1048D989F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3996C9F7-CB7E-44BB-AF82-453CAECAE4A5}
 	EndGlobalSection
 EndGlobal

@@ -7,6 +7,7 @@ Web app for auction
     -Node.JS 20.9.0
     -npm 10.1.0
     -postgres 16 (and pgAdmin 4)
+    -redis
 -Setup:
     -In angular application run command: npm install
     -In .NET application install NuGet packages:
@@ -25,7 +26,11 @@ Web app for auction
     -For client app, run following commands:
         docker build -t auction-client .
         docker run --name AuctionClient -p 4200:4200 auction-client
--Starting app:
+    -For server, redis cache and postgres database:
+        -docker-compose creates the containers automatically, just insert a auctiondb.sql file into postgres container with following commands:
+            docker cp auctiondb.sql auction.database:/auctiondb.sql   
+            docker exec -it auction.database psql -U postgres -d AuctionDB -f /auctiondb.sql
+-Starting app (without docker):
     -First run redis (port: 6379) and postgres database (port: 5432)
         -credentials for db are in the appsettings.json file on server
     -Server build&run command: dotnet run
