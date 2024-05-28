@@ -1,0 +1,89 @@
+name: dockercompose2774075780580336238
+services:
+  auction.cache:
+    container_name: auction.cache
+    image: redis:latest
+    networks:
+      auction.net: null
+    ports:
+    - mode: ingress
+      target: 6379
+      published: "6379"
+      protocol: tcp
+    restart: always
+  auction.client:
+    build:
+      context: C:\Users\Andrija\Desktop\Fax\Diplomski\Auction\Project_files\Auction.Client
+      dockerfile: dockerfile
+    container_name: auction.client
+    image: auction-client
+    networks:
+      auction.net: null
+    ports:
+    - mode: ingress
+      target: 4200
+      published: "4200"
+      protocol: tcp
+  auction.database:
+    container_name: auction.database
+    environment:
+      POSTGRES_DB: AuctionDB
+      POSTGRES_PASSWORD: test
+      POSTGRES_USER: postgres
+    image: postgres:latest
+    networks:
+      auction.net: null
+    ports:
+    - mode: ingress
+      target: 5432
+      published: "5432"
+      protocol: tcp
+  auction.server:
+    build:
+      context: C:\Users\Andrija\Desktop\Fax\Diplomski\Auction\Project_files
+      dockerfile: Auction.Server/Dockerfile
+    container_name: auction.server
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: test
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/aspnetapp.pfx
+      ASPNETCORE_URLS: https://+:7287;
+    image: auction-server
+    networks:
+      auction.net: null
+    ports:
+    - mode: ingress
+      target: 7287
+      published: "7287"
+      protocol: tcp
+    - mode: ingress
+      target: 8080
+      protocol: tcp
+    - mode: ingress
+      target: 8081
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\Andrija\AppData\Roaming/ASP.NET/Https
+      target: /home/app/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Andrija\AppData\Roaming/Microsoft/UserSecrets
+      target: /home/app/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Andrija\.aspnet\https
+      target: /https
+      read_only: true
+      bind:
+        create_host_path: true
+networks:
+  auction.net:
+    name: dockercompose2774075780580336238_auction.net
+    driver: bridge

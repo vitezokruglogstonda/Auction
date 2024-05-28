@@ -27,7 +27,18 @@ Web app for auction
         docker build -t auction-client .
         docker run --name AuctionClient -p 4200:4200 auction-client
     -For server, redis cache and postgres database:
-        -docker-compose creates the containers automatically, just insert a auctiondb.sql file into postgres container with following commands:
+        -create SSL certificate:
+			-for windows:
+				dotnet dev-certs https --clean
+				dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p test
+				dotnet dev-certs https --trust
+			-for linux:
+				dotnet dev-certs https --clean
+				dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p test
+				dotnet dev-certs https --trust
+        -create and run docker images (you must first navigate to the project directory):
+            docker compose up --build
+        -insert a auctiondb.sql file into postgres container with following commands:
             docker cp auctiondb.sql auction.database:/auctiondb.sql   
             docker exec -it auction.database psql -U postgres -d AuctionDB -f /auctiondb.sql
 -Starting app (without docker):
