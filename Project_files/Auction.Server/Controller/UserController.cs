@@ -16,7 +16,7 @@ namespace Auction.Server.Controller
         private readonly IProfileService ProfileService;
         private readonly IArticleService ArticleService;
 
-        public UserController(IProfileService _profileService, IArticleService articleService)
+        public UserController(IProfileService _profileService, IArticleService articleService, )
         {
             ProfileService = _profileService;
             ArticleService = articleService;
@@ -44,6 +44,16 @@ namespace Auction.Server.Controller
         public async Task<ActionResult<ArticleDto_Response>> GetProfileArticles([FromQuery] int id)
         {
             List<ArticleDto_Response>? articles = await ArticleService.GetUsersArticles(id);
+            List<ArticleDto_Response>? biddingArticles = await ArticleService.GetUsersCurrentlyBiddingArticles(id);
+            if(biddingArticles != null)
+            {
+                if (articles == null)
+                    articles = new();
+                foreach (ArticleDto_Response article in biddingArticles)
+                {
+                    articles.Add(article);
+                }
+            }
             if (articles == null)
                 return NotFound();
             return Ok(articles);

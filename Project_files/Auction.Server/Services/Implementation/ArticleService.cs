@@ -93,6 +93,26 @@ namespace Auction.Server.Services.Implementation
             return await MakeArticleDto(articleObjects);
         }
 
+        public async Task<List<ArticleDto_Response>?> GetUsersCurrentlyBiddingArticles(int userId)
+        {
+            List<SubscriberNode>? biddingList = await this.BiddingService.GetUsersBiddingList(userId);
+
+            if(biddingList == null)
+                return null;
+
+            List<ArticleDto_Response> returnList = new();
+            foreach (SubscriberNode node in biddingList)
+            {
+                if(!node.ArticleId.HasValue)
+                    continue;
+                ArticleDto_Response? article = await this.GetArticle(node.ArticleId.Value);
+                if(article != null)
+                    returnList.Add(article);
+            }
+
+            return returnList;
+        }
+
         public async Task<List<ArticleDto_Response>?> GetArticles(int pageSize, int pageIndex)
         {
             List<Article> articleObjects;

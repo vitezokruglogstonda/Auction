@@ -107,6 +107,7 @@ export class ProfilePageComponent {
           this.no_boughtItems = true;
         }
       });
+      //select za currentlyBidding i Waiting
 
     });
   }

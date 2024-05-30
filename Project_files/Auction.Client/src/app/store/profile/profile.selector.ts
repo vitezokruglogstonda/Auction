@@ -26,3 +26,8 @@ export const selectBoughtArticles = (userId: number) => createSelector(
     selectProfileArticles,
     (profileArticlesList) => profileArticlesList.filter(article => article?.status === ArticleStatus.Sold && article.customerId === userId)
 );
+
+export const selectCurrentlyBiddingArticles = (userId: number) => createSelector(
+    selectProfileArticles,
+    (profileArticlesList) => profileArticlesList.filter(article => (article?.status === ArticleStatus.Biding || article?.status === ArticleStatus.WaitingForTransaction) && article.creatorId !== userId)
+);

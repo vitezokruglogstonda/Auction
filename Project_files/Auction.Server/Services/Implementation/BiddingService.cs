@@ -43,21 +43,25 @@ namespace Auction.Server.Services.Implementation
             await ProfileService.AddFeeToArticleOwner(articleId, fee);
             await this.DbContext.SaveChangesAsync();
 
-            BidListHead? head = await GetHead(articleId);
-            if (head == null)
+            BidListHead? articleBidListHead = await GetBidListHead(articleId);
+            if (articleBidListHead == null)
                 return null;
 
-            SubscriberNode newNode = new(user.Id);
-            newNode.Next = head.Subs;
-            head.Subs = "a_" + articleId.ToString() + "_u_" + user.Id.ToString();
+            SubscriberNode newNode = new(user.Id, articleId);
+            newNode.Next = articleBidListHead.Subs;
+            articleBidListHead.Subs = "a_" + articleId.ToString() + "_u_" + user.Id.ToString();
 
-            await this.Redis.StringSetAsync(head.Subs, JsonSerializer.Serialize<SubscriberNode>(newNode));
-            await this.Redis.StringSetAsync("a_" + articleId.ToString(), JsonSerializer.Serialize<BidListHead>(head));
+            UsersBiddingListHead? usersBidListHead = await GetUserBiddingListHead(user.Id);
+            usersBidListHead!.SubsPointers.Add(articleBidListHead.Subs);
+
+            await this.Redis.StringSetAsync(articleBidListHead.Subs, JsonSerializer.Serialize<SubscriberNode>(newNode));
+            await this.Redis.StringSetAsync("a_" + articleId.ToString(), JsonSerializer.Serialize<BidListHead>(articleBidListHead));
+            await this.Redis.StringSetAsync("u_" + user.Id.ToString(), JsonSerializer.Serialize<UsersBiddingListHead>(usersBidListHead));
 
             return new ArticleInfoDto()
             {
                 Status = ArticleStatus.Biding,
-                LastPrice = (decimal)head.LastPrice!
+                LastPrice = (decimal)articleBidListHead.LastPrice!
             };
         }
 
@@ -74,7 +78,7 @@ namespace Auction.Server.Services.Implementation
 
             int fee = Int32.Parse(this.Configuration.GetSection("BidFee").Value!);
            
-            BidListHead? head = await GetHead(articleId, false);
+            BidListHead? head = await GetBidListHead(articleId, false);
             if (head == null)
                 return null;
 
@@ -96,7 +100,7 @@ namespace Auction.Server.Services.Implementation
 
         public async Task<List<BidItem>?> GetBidList(int articleId)
         {
-            BidListHead? head = await GetHead(articleId, false);
+            BidListHead? head = await GetBidListHead(articleId, false);
             //if (head == null || head!.Bids == null)
             //    return null;
 
@@ -123,7 +127,7 @@ namespace Auction.Server.Services.Implementation
             return list;
         }
 
-        private async Task<BidListHead?> GetHead(int articleId, bool makeNew = true)
+        private async Task<BidListHead?> GetBidListHead(int articleId, bool makeNew = true)
         {
             BidListHead? head = null;
 
@@ -149,6 +153,49 @@ namespace Auction.Server.Services.Implementation
             else
             {
                 head = JsonSerializer.Deserialize<BidListHead>(headSerialized!);
+            }
+            return head;
+        }
+
+        public async Task<List<SubscriberNode>?> GetUsersBiddingList(int userId)
+        {
+            UsersBiddingListHead? head = await GetUserBiddingListHead(userId, false);
+
+            if (head == null)
+                return null;
+
+            List<SubscriberNode> returnList = new();
+
+            string? serializedNode;
+            SubscriberNode node;
+            foreach (string subscription in head.SubsPointers)
+            {
+                serializedNode = await this.Redis.StringGetAsync(subscription);
+                if (serializedNode == null)
+                    continue;
+                node = JsonSerializer.Deserialize<SubscriberNode>(serializedNode)!;
+                returnList.Add(node);
+            }
+            return returnList;
+        }
+
+        private async Task<UsersBiddingListHead?> GetUserBiddingListHead(int userId, bool makeNew = true)
+        {
+            UsersBiddingListHead? head = null;
+
+            string? headSerialized = await this.Redis.StringGetAsync("u_" + userId.ToString());
+
+            if (headSerialized.IsNullOrEmpty())
+            {
+                if (!makeNew)
+                    return null;
+
+                head = new(userId);
+                await this.Redis.StringSetAsync("u_" + userId.ToString(), JsonSerializer.Serialize<UsersBiddingListHead>(head));
+            }
+            else
+            {
+                head = JsonSerializer.Deserialize<UsersBiddingListHead>(headSerialized!);
             }
             return head;
         }
@@ -193,7 +240,7 @@ namespace Auction.Server.Services.Implementation
 
         public async Task<BidNode?> GetLastBid(int articleId)
         {
-            BidListHead? head = await GetHead(articleId, false);
+            BidListHead? head = await GetBidListHead(articleId, false);
             if (head == null)
                 return null;
 
@@ -208,7 +255,7 @@ namespace Auction.Server.Services.Implementation
 
         public async Task<BidNode?> GetLastPossibleBid(int articleId)
         {
-            BidListHead? head = await GetHead(articleId, false);
+            BidListHead? head = await GetBidListHead(articleId, false);
             if (head == null)
                 return null;
 
@@ -239,7 +286,7 @@ namespace Auction.Server.Services.Implementation
 
         public async Task ClearBidList(int articleId)
         {
-            BidListHead? head = await GetHead(articleId, false);
+            BidListHead? head = await GetBidListHead(articleId, false);
             if (head == null)
                 return;
             await this.Redis.KeyDeleteAsync("a_" + articleId.ToString());
@@ -258,6 +305,8 @@ namespace Auction.Server.Services.Implementation
 
                 await this.Redis.KeyDeleteAsync(next);
 
+                await RemoveSubFromUsersBidList(subNode.UserId, serializedNode);
+
                 next = subNode.Next;
             }
 
@@ -274,6 +323,17 @@ namespace Auction.Server.Services.Implementation
                 next = bidNode.Next;
             }
 
+        }
+
+        private async Task RemoveSubFromUsersBidList(int userId, string subKey)
+        {
+            UsersBiddingListHead? head = await GetUserBiddingListHead(userId, false);
+
+            if (head == null)
+                return;
+
+            head.SubsPointers.Remove(subKey);
+            await this.Redis.StringSetAsync("u_" + userId.ToString(), JsonSerializer.Serialize<UsersBiddingListHead>(head));
         }
 
         #region Testing

@@ -23,18 +23,21 @@ namespace Auction.Server.Models
     public class SubscriberNode
     {
         public int UserId { get; set; }
+        public int? ArticleId{ get; set; }
         public string? Next { get; set; }
 
-        public SubscriberNode(int userId)
+        public SubscriberNode(int userId, int? articleId)
         {
             this.UserId = userId;
+            this.ArticleId = articleId;
             this.Next = null;
         }
 
         [JsonConstructor]
-        public SubscriberNode(int userId, string? next)
+        public SubscriberNode(int userId, int? articleId, string? next)
         {
             this.UserId = userId;
+            this.ArticleId = articleId;
             this.Next = next;
         }
     }
@@ -58,6 +61,30 @@ namespace Auction.Server.Models
             this.LastPrice = lastPrice;
             this.Bids = bids;
             this.Subs = subs;
+        }
+
+    }
+
+    public class UsersBiddingListHead
+    {
+        public int UserId { get; set; }
+        public List<string> SubsPointers{ get; set; }
+
+        public UsersBiddingListHead(int userId)
+        {
+            this.UserId = userId;
+            this.SubsPointers = new();
+        }
+
+        [JsonConstructor]
+        public UsersBiddingListHead(int userId, List<string> subsPointers)
+        {
+            this.UserId = userId;
+            this.SubsPointers = new();
+            foreach (string pointer in subsPointers)
+            {
+                this.SubsPointers.Add(pointer);
+            }
         }
 
     }

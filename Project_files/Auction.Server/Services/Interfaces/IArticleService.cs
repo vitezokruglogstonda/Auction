@@ -7,6 +7,7 @@ namespace Auction.Server.Services.Interfaces
     {
         public Task<ArticleDto_Response?> PublishArticle(User user, ArticleDto_Request newArticle, List<IFormFile> pictures);
         public Task<List<ArticleDto_Response>?> GetUsersArticles(int userId);
+        public Task<List<ArticleDto_Response>?> GetUsersCurrentlyBiddingArticles(int userId);
         public Task<List<ArticleDto_Response>?> GetArticles(int pageSize, int pageIndex);
         public Task<int> GetNumberOfArticles();
         public Task<List<ArticleDto_Response>?> SearchArticlesByTitle(string title);
