@@ -14,6 +14,7 @@ namespace Auction.Server.Services.Interfaces
         public Task<ArticleDto_Response?> GetArticle(int articleId);
         public Task<ArticleOwners?> GetArticleOwners(int creatorId, int? customerId);        
         public Task<BidCompletionDto?> ExpireArticle(int articleId);
+        public Task FinishTransaction(int articleId);
         public Task<List<ArticleDto_Response>> GetAllArticles(int pageSize, int pageIndex);
         public Task<int> GetTotalNumberOfArticles();
         public Task<bool> RepublishArticle(int articleId);

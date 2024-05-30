@@ -203,12 +203,41 @@ namespace Auction.Server.Services.Implementation
 
             BidNode node = JsonSerializer.Deserialize<BidNode>(lastBidSerialized)!;
 
-            await ClearBidList(articleId);
-
             return node;
         }
 
-        private async Task ClearBidList(int articleId)
+        public async Task<BidNode?> GetLastPossibleBid(int articleId)
+        {
+            BidListHead? head = await GetHead(articleId, false);
+            if (head == null)
+                return null;
+
+            User? user;
+            BidNode tmpNode;
+            string? lastBidSerialized, next;
+
+            next = head.Bids;
+            while (next != null)
+            {
+                lastBidSerialized = await this.Redis.StringGetAsync(next);
+                if (lastBidSerialized == null)
+                    return null;
+
+                tmpNode = JsonSerializer.Deserialize<BidNode>(lastBidSerialized)!;
+                user = await ProfileService.GetUser(tmpNode.UserId);
+                if (user!.Balance < tmpNode.MoneyAmount)
+                {
+                    next = tmpNode.Next;
+                    continue;
+                }
+
+                return tmpNode;
+            }
+
+            return null;
+        }
+
+        public async Task ClearBidList(int articleId)
         {
             BidListHead? head = await GetHead(articleId, false);
             if (head == null)

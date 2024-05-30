@@ -24,5 +24,10 @@ namespace Auction.Server.Jobs
                 await HubContext.Clients.Group(articleId.ToString()).SendAsync("ArticleSold", message);
         }
 
+        public async Task HandleTransaction(int articleId)
+        {
+            await ArticleService.FinishTransaction(articleId);
+        }
+
     }
 }

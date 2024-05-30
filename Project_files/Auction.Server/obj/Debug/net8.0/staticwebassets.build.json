@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Bp2M+et6YgtuFrdTZZNW0htrzADC7qAnY2WaK2I9MDE=",
+  "Hash": "L99jTFMsNXSTBZ82OotOC+TENd5LafFiIuU0fegLwoU=",
   "Source": "Auction.Server",
   "BasePath": "_content/Auction.Server",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Auction.Server\\wwwroot",
       "Source": "Auction.Server",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\0fcd44fb-5bfe-4773-9736-9b873a6e61e6_rifle_2.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\0fcd44fb-5bfe-4773-9736-9b873a6e61e6_rifle_2.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/0fcd44fb-5bfe-4773-9736-9b873a6e61e6_rifle_2.jpg",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\0fcd44fb-5bfe-4773-9736-9b873a6e61e6_rifle_2.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\253b526b-74f3-4080-b2f3-38d7569d2867_painting_2.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\253b526b-74f3-4080-b2f3-38d7569d2867_painting_2.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/253b526b-74f3-4080-b2f3-38d7569d2867_painting_2.jpg",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\253b526b-74f3-4080-b2f3-38d7569d2867_painting_2.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\2a867e75-373d-4229-b7f2-1c507eacfb6a_ship_3.jpeg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\2a867e75-373d-4229-b7f2-1c507eacfb6a_ship_3.jpeg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/2a867e75-373d-4229-b7f2-1c507eacfb6a_ship_3.jpeg",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\2a867e75-373d-4229-b7f2-1c507eacfb6a_ship_3.jpeg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\2aa608fe-378d-4eff-b31b-8e8f9e33fe7b_rifle_1.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\2aa608fe-378d-4eff-b31b-8e8f9e33fe7b_rifle_1.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/2aa608fe-378d-4eff-b31b-8e8f9e33fe7b_rifle_1.jpg",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\2aa608fe-378d-4eff-b31b-8e8f9e33fe7b_rifle_1.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\337f3701-8781-49d4-a9c5-fe0a130b4ba5_sword_4.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\337f3701-8781-49d4-a9c5-fe0a130b4ba5_sword_4.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/337f3701-8781-49d4-a9c5-fe0a130b4ba5_sword_4.jpg",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\337f3701-8781-49d4-a9c5-fe0a130b4ba5_sword_4.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\33d88791-2f65-48db-8a51-e629551aec51_ship_2.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\33d88791-2f65-48db-8a51-e629551aec51_ship_2.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/33d88791-2f65-48db-8a51-e629551aec51_ship_2.jpg",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\33d88791-2f65-48db-8a51-e629551aec51_ship_2.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\48a83a70-aac2-4b4c-b4d7-ff33c2120d86_sword_3.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\48a83a70-aac2-4b4c-b4d7-ff33c2120d86_sword_3.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/48a83a70-aac2-4b4c-b4d7-ff33c2120d86_sword_3.jpg",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\48a83a70-aac2-4b4c-b4d7-ff33c2120d86_sword_3.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\4c5b0435-c22f-4e93-879a-e514170df96f_statue_1.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\4c5b0435-c22f-4e93-879a-e514170df96f_statue_1.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/4c5b0435-c22f-4e93-879a-e514170df96f_statue_1.jpg",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\4c5b0435-c22f-4e93-879a-e514170df96f_statue_1.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\549bf15a-09c4-4be6-bbcf-df79e8761229_painting_1.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\549bf15a-09c4-4be6-bbcf-df79e8761229_painting_1.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/549bf15a-09c4-4be6-bbcf-df79e8761229_painting_1.jpg",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\549bf15a-09c4-4be6-bbcf-df79e8761229_painting_1.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\6f5c2b61-b441-4a8f-a884-d05bdc527ce0_sword_2.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\6f5c2b61-b441-4a8f-a884-d05bdc527ce0_sword_2.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/6f5c2b61-b441-4a8f-a884-d05bdc527ce0_sword_2.jpg",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\6f5c2b61-b441-4a8f-a884-d05bdc527ce0_sword_2.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\7c8b0de4-8dbc-4786-8a48-31a300a0a1e7_chess_1.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\7c8b0de4-8dbc-4786-8a48-31a300a0a1e7_chess_1.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/7c8b0de4-8dbc-4786-8a48-31a300a0a1e7_chess_1.jpg",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\7c8b0de4-8dbc-4786-8a48-31a300a0a1e7_chess_1.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\7f20ac35-3b1f-474b-8df2-19ee6f17111b_sword_1.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\7f20ac35-3b1f-474b-8df2-19ee6f17111b_sword_1.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/7f20ac35-3b1f-474b-8df2-19ee6f17111b_sword_1.jpg",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\7f20ac35-3b1f-474b-8df2-19ee6f17111b_sword_1.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\902034b8-6624-4c55-8207-c395255b849e_chess_2.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\902034b8-6624-4c55-8207-c395255b849e_chess_2.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/902034b8-6624-4c55-8207-c395255b849e_chess_2.jpg",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\902034b8-6624-4c55-8207-c395255b849e_chess_2.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\a3f160e9-e3a3-4c7e-94c4-33ae462f9d9d_katana_1.png",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\a3f160e9-e3a3-4c7e-94c4-33ae462f9d9d_katana_1.png",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/a3f160e9-e3a3-4c7e-94c4-33ae462f9d9d_katana_1.png",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\a3f160e9-e3a3-4c7e-94c4-33ae462f9d9d_katana_1.png"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\a8250576-034c-48fd-b582-56560ad3841f_statue_3.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\a8250576-034c-48fd-b582-56560ad3841f_statue_3.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/a8250576-034c-48fd-b582-56560ad3841f_statue_3.jpg",
       "AssetKind": "All",
@@ -302,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\a8250576-034c-48fd-b582-56560ad3841f_statue_3.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\b71e67d4-53c6-43d0-9f03-8fa020d93ddc_monitor_1.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\b71e67d4-53c6-43d0-9f03-8fa020d93ddc_monitor_1.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/b71e67d4-53c6-43d0-9f03-8fa020d93ddc_monitor_1.jpg",
       "AssetKind": "All",
@@ -321,10 +321,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\b71e67d4-53c6-43d0-9f03-8fa020d93ddc_monitor_1.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\be2c1c98-d4c9-40ad-b8ec-7fc764a4c745_ship_1.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\be2c1c98-d4c9-40ad-b8ec-7fc764a4c745_ship_1.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/be2c1c98-d4c9-40ad-b8ec-7fc764a4c745_ship_1.jpg",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\be2c1c98-d4c9-40ad-b8ec-7fc764a4c745_ship_1.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\c0e36791-fc45-4929-a9f3-0fc150a5872d_katana_2.jpeg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\c0e36791-fc45-4929-a9f3-0fc150a5872d_katana_2.jpeg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/c0e36791-fc45-4929-a9f3-0fc150a5872d_katana_2.jpeg",
       "AssetKind": "All",
@@ -359,10 +359,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\c0e36791-fc45-4929-a9f3-0fc150a5872d_katana_2.jpeg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\d51c3f52-eb5f-438e-9880-8d3c5c287ff6_ship_4.jpeg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\d51c3f52-eb5f-438e-9880-8d3c5c287ff6_ship_4.jpeg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/d51c3f52-eb5f-438e-9880-8d3c5c287ff6_ship_4.jpeg",
       "AssetKind": "All",
@@ -378,10 +378,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\d51c3f52-eb5f-438e-9880-8d3c5c287ff6_ship_4.jpeg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\dc88d0f5-3a51-408c-b933-23acf2c90829_statue_2.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\dc88d0f5-3a51-408c-b933-23acf2c90829_statue_2.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/dc88d0f5-3a51-408c-b933-23acf2c90829_statue_2.jpg",
       "AssetKind": "All",
@@ -397,10 +397,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\dc88d0f5-3a51-408c-b933-23acf2c90829_statue_2.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\ff9a32ce-7924-48b4-95fc-dbe6e270bb50_yacht_1.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\ff9a32ce-7924-48b4-95fc-dbe6e270bb50_yacht_1.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ArticlePictures/ff9a32ce-7924-48b4-95fc-dbe6e270bb50_yacht_1.jpg",
       "AssetKind": "All",
@@ -416,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\ff9a32ce-7924-48b4-95fc-dbe6e270bb50_yacht_1.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\0b113c61-aefa-4bfb-b857-20af015e06c6__DSC9246.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\0b113c61-aefa-4bfb-b857-20af015e06c6__DSC9246.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ProfilePictures/0b113c61-aefa-4bfb-b857-20af015e06c6__DSC9246.jpg",
       "AssetKind": "All",
@@ -435,10 +435,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ProfilePictures\\0b113c61-aefa-4bfb-b857-20af015e06c6__DSC9246.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\26b4e418-8465-489e-a7fd-b2d3e0d85bc6_andrija.png",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\26b4e418-8465-489e-a7fd-b2d3e0d85bc6_andrija.png",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ProfilePictures/26b4e418-8465-489e-a7fd-b2d3e0d85bc6_andrija.png",
       "AssetKind": "All",
@@ -454,10 +454,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ProfilePictures\\26b4e418-8465-489e-a7fd-b2d3e0d85bc6_andrija.png"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\7cec09b2-c76b-4b09-a8f8-dd6f481330fd__DSC9273.jpg",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\7cec09b2-c76b-4b09-a8f8-dd6f481330fd__DSC9273.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ProfilePictures/7cec09b2-c76b-4b09-a8f8-dd6f481330fd__DSC9273.jpg",
       "AssetKind": "All",
@@ -473,10 +473,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\ProfilePictures\\7cec09b2-c76b-4b09-a8f8-dd6f481330fd__DSC9273.jpg"
     },
     {
-      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\account_icon.png",
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\account_icon.png",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Auction.Server\\Auction.Server\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
       "BasePath": "_content/Auction.Server",
       "RelativePath": "Images/ProfilePictures/account_icon.png",
       "AssetKind": "All",

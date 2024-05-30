@@ -212,9 +212,14 @@ export class ArticleEffects {
         this.bidService.biddingClosed.pipe(
             switchMap((result: BidCompletionDto) => {
                 this.bidService.closeConnection();
+                if(result.customerProfile !== null)
+                    return [
+                        ArticleActions.changeArticleStatus({id: this.bidService.currentArticleId as number, articleInfoDto: result.articleInfo}),
+                        ArticleActions.addArticleCustomer({customer: result.customerProfile!}),
+                        ArticleActions.clearBidList()
+                    ];
                 return [
                     ArticleActions.changeArticleStatus({id: this.bidService.currentArticleId as number, articleInfoDto: result.articleInfo}),
-                    ArticleActions.addArticleCustomer({customer: result.customerProfile}),
                     ArticleActions.clearBidList()
                 ];
             })

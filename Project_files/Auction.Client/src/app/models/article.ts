@@ -18,7 +18,8 @@ export enum ArticleStatus{
     Pending,
     Biding,
     Sold,
-    Expired
+    Expired,
+    WaitingForTransaction
 }
 
 export enum ArticleViewMethod{

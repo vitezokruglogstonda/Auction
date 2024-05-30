@@ -26,5 +26,5 @@ export interface BidDto{
 
 export interface BidCompletionDto{
     articleInfo: ArticleInfoDto,
-    customerProfile: UserProfile
+    customerProfile: UserProfile | null
 }

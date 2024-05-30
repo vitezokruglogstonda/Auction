@@ -5,6 +5,7 @@
         Pending,
         Biding,
         Sold,
-        Expired
+        Expired,
+        WaitingForTransaction
     }
 }

@@ -217,6 +217,8 @@ namespace Auction.Server.Services.Implementation
 
         public async Task<BidCompletionDto?> ExpireArticle(int articleId)
         {
+            BidCompletionDto result;
+
             Article? article = await this.DbContext.Articles
                     .Where(article => article.Id == articleId)
                     .Include(article => article.Creator)
@@ -242,6 +244,27 @@ namespace Auction.Server.Services.Implementation
 
             User? buyer = await ProfileService.GetUser(lastBid.UserId);
 
+            if (buyer!.Balance < lastBid.MoneyAmount)
+            {
+                article.Status = ArticleStatus.WaitingForTransaction;
+                this.DbContext.Update(article);
+                await this.DbContext.SaveChangesAsync();
+                //javi mu mejlom / notifikacijom
+                ResceduleArticleSelling(articleId);
+
+                result = new BidCompletionDto
+                {
+                    ArticleInfo = new ArticleInfoDto
+                    {
+                        Status = article.Status,
+                        LastPrice = lastBid.MoneyAmount,
+                    },
+                    //CustomerProfile = await ProfileService.GetUserProfile(buyer.Id)
+                    CustomerProfile = null
+                };
+                return result;
+            }
+
             buyer!.Balance -= lastBid.MoneyAmount;
             article.SoldPrice = lastBid.MoneyAmount;
             article.Customer = buyer;
@@ -252,11 +275,17 @@ namespace Auction.Server.Services.Implementation
             buyer.BoughtArticles.Add(article);
             this.DbContext.Update(buyer);
 
+            User? seller = await ProfileService.GetUser(article.Creator!.Id);
+            seller!.Balance += lastBid.MoneyAmount;
+            this.DbContext.Update(seller);
+
             article.Status = ArticleStatus.Sold;
             this.DbContext.Update(article);
             await this.DbContext.SaveChangesAsync();
 
-            BidCompletionDto result = new BidCompletionDto
+            await BiddingService.ClearBidList(articleId);
+
+            result = new BidCompletionDto
             {
                 ArticleInfo = new ArticleInfoDto
                 {
@@ -267,6 +296,56 @@ namespace Auction.Server.Services.Implementation
             };
 
             return result;
+        }
+
+        private void ResceduleArticleSelling(int articleId)
+        {
+            DateTime expiryDateTime = DateTime.Now.AddMinutes(1);
+            DateTimeOffset delay = new(expiryDateTime);
+            BackgroundJob.Schedule<HandleArticleExpirationJob>(job => job.HandleTransaction(articleId), delay);
+        }
+
+        public async Task FinishTransaction(int articleId)
+        {
+            Article? article = await this.DbContext.Articles
+                    .Where(article => article.Id == articleId)
+                    .Include(article => article.Creator)
+                    .FirstOrDefaultAsync();
+
+            if (article == null)
+                return;
+            
+            BidNode? lastBid = await BiddingService.GetLastPossibleBid(articleId);
+
+            if (lastBid == null)
+            {
+                article.Status = ArticleStatus.Expired;
+                this.DbContext.Update(article);
+                await this.DbContext.SaveChangesAsync();
+                return;
+            }
+
+            User? buyer = await ProfileService.GetUser(lastBid.UserId);
+
+            buyer!.Balance -= lastBid.MoneyAmount;
+            article.SoldPrice = lastBid.MoneyAmount;
+            article.Customer = buyer;
+            if (buyer!.BoughtArticles == null)
+            {
+                buyer.BoughtArticles = new List<Article>();
+            }
+            buyer.BoughtArticles.Add(article);
+            this.DbContext.Update(buyer);
+
+            User? seller = await ProfileService.GetUser(article.Creator!.Id);
+            seller!.Balance += lastBid.MoneyAmount;
+            this.DbContext.Update(seller);
+
+            article.Status = ArticleStatus.Sold;
+            this.DbContext.Update(article);
+            await this.DbContext.SaveChangesAsync();
+
+            await BiddingService.ClearBidList(articleId);
         }
 
         public async Task<List<ArticleDto_Response>> GetAllArticles(int pageSize, int pageIndex)

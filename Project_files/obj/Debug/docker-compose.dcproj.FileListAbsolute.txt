@@ -1,1 +1,2 @@
 C:\Users\Andrija\Desktop\Fax\Diplomski\Auction\Auction.Server\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+C:\Users\Andrija\Desktop\Fax\Diplomski\Auction\Project_files\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
