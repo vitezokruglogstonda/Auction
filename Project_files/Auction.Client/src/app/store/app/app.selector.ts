@@ -40,3 +40,8 @@ export const selectLoadArticlesListError = createSelector(
     selectAppInfo,
     (state) => state.loadArticlesListError
 );
+
+export const selectNumberOfNewNotifications = createSelector(
+    selectAppInfo,
+    (state) => state.numberOfNewNotifications
+);

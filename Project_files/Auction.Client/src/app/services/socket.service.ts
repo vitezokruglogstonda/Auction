@@ -10,56 +10,65 @@ import { BidItemDto, BidCompletionDto } from '../models/bid';
     providedIn: 'root',
 })
 export class SocketService {
-    private hubConnection: signalR.HubConnection | null;
+    private hubConnections: { [key: string]: signalR.HubConnection } = {};
 
-    constructor(private localStorage: LocalStorageService) {
-        this.hubConnection = null;
-    }
+    constructor(private localStorage: LocalStorageService) {}
 
-    startConnection(articleId: number, newBidItemSubject: Subject<BidItemDto>, biddingClosedSubject: Subject<BidCompletionDto>) {
-        if(this.hubConnection !== null)
+    startConnection(hubName: string, hubUrl: string, groupName: string, groupId: number, eventHandlers: { [key: string]: Subject<any> }) {
+        if (!!this.hubConnections[hubName]) {
             return;
-        this.hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl(environment.server_url + 'bid-hub', {
-            accessTokenFactory: () => this.localStorage.getItem("jwt") as string,
-        })
-        .build();
-        this.hubConnection
+        }
+
+        let hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl(environment.server_url + hubUrl, {
+                accessTokenFactory: () => this.localStorage.getItem("jwt") as string,
+            })
+            .build();
+
+        hubConnection
             .start()
             .then(() => {
-                console.log('Connection started');
-                this.emit('JoinGroup', articleId);
-                this.hubConnection!.on("NewBidItem", (data: BidItemDto) => {
-                    if (data !== null)
-                        newBidItemSubject.next(data);
-                });
-                this.hubConnection!.on("ArticleSold", (data: BidCompletionDto) => {
-                    if (data !== null)
-                        biddingClosedSubject.next(data);
-                });
+                console.log(`Connection to ${hubName} started`);
+                this.emit(hubName, groupName, groupId);
+                for (const event in eventHandlers) {
+                    hubConnection.on(event, (data: any) => {
+                        if (data !== null)
+                            eventHandlers[event].next(data);
+                    });
+                }
             })
-            .catch(err => console.log('Error while starting connection: ' + err));
+            .catch(err => console.log(`Error while starting connection to ${hubName}: ${err}`));
+
+        this.hubConnections[hubName] = hubConnection;
     }
 
-    closeConnection(articleId: number){
-        if(!!this.hubConnection){
-            this.emit('LeaveGroup', articleId);
-            this.hubConnection.stop();
-            this.hubConnection = null;
+    closeConnection(hubName: string, groupName: string, groupId: number){
+        let hubConnection = this.hubConnections[hubName];
+        if(!!hubConnection){
+            this.emit(hubName, groupName, groupId);
+            hubConnection.stop().then(() => {
+                console.log(`Connection to ${hubName} stopped`);
+                delete this.hubConnections[hubName];
+            }).catch(err => console.log(`Error while stopping connection to ${hubName}: ${err}`));
         }
     }
 
-    listen(endpoint: string): Observable<any> {
+    emit(hubName: string, endpoint: string, data: any): void {
+        const hubConnection = this.hubConnections[hubName];
+        if (hubConnection) {
+            hubConnection.invoke(endpoint, data).catch(err => console.error(err));
+        }
+    }
+
+    listen(hubName: string, endpoint: string): Observable<any> {
         return new Observable<any>((observer) => {
-            this.hubConnection!.on(endpoint, (data: any) => {
-                if (data !== null)
-                    observer.next(data);
-            });
+            const hubConnection = this.hubConnections[hubName];
+            if (hubConnection) {
+                hubConnection.on(endpoint, (data: any) => {
+                    if (data !== null)
+                        observer.next(data);
+                });
+            }
         });
     }
-
-    emit(endpoint: string, data: any): void {
-        this.hubConnection!.invoke(endpoint, data);
-    }
-
 }

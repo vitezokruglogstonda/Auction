@@ -16,7 +16,7 @@ import {materialComponents} from './app.material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { RegisterComponent } from './components/register/register.component';
-import { userReducer } from './store/user/user.reducer';
+import { notificationListReducer, userReducer } from './store/user/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user/user.effects';
 import { HomePageComponent } from './components/home-page/home-page.component';
@@ -43,6 +43,7 @@ import { ArticlePageComponent } from './components/article-page/article-page.com
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { adminInfoReducer, articleListReducer, userListReducer } from './store/admin/admin.reducer';
 import { AdminEffects } from './store/admin/admin.effects';
+import { NotificationCardComponent } from './components/notification-card/notification-card.component';
 
 
 
@@ -65,6 +66,7 @@ import { AdminEffects } from './store/admin/admin.effects';
     ViewArticleGridItemComponent,
     ArticlePageComponent,
     AdminDashboardComponent,
+    NotificationCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,7 @@ import { AdminEffects } from './store/admin/admin.effects';
       adminInfo: adminInfoReducer,
       adminUserList: userListReducer,
       adminArticleList: articleListReducer,
+      notificationList: notificationListReducer
     }),
     EffectsModule.forRoot([UserEffects, ProfileEffects, ArticleEffects, AdminEffects]),
     BrowserAnimationsModule,

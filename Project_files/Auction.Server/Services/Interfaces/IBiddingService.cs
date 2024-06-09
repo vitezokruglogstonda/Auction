@@ -8,6 +8,7 @@ namespace Auction.Server.Services.Interfaces
         public Task<ArticleInfoDto?> StartBidding(User user, int articleId);
         public Task<BidItem?> NewBid(int userId, int articleId, decimal amount);
         public Task<List<BidItem>?> GetBidList(int articleId);
+        public Task<List<SubscriberNode>?> GetSubscriberList(int articleId);
         public Task<List<SubscriberNode>?> GetUsersBiddingList(int userId); 
         public Task<decimal?> GetLastArticlePrice(int articleId);
         public Task<bool> CheckIfUserIsBidding(int userId, int articleId);

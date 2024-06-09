@@ -5,6 +5,7 @@ export const environment = {
     app_title: 'Auction',
     account_icon_tooltip_text: "Account",
     toolbar_menu_button_tooltip_text: "Menu",
+    toolbar_notification_button_tooltip_text: "Notifications",
     login_card_fieldError: "This field is required!",
     login_card_example_email: "name@example.com",
     email_pattern: `^[a-zA-Z0-9_\\-\\.]+@[a-zA-Z0-9_\\-\\.]+\\.[a-zA-Z]{2,5}$`,
@@ -100,4 +101,22 @@ export const environment = {
     addMoneyOptions: ["$100", "$200", "$500", "$1000", "$2000", "..."],
     defaultArticleImage: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png",
     defaultFee: 100,
+    socketSettings:{
+        bidSocketSettings:{
+            hubName: 'BidHub',
+            hubUrl: 'bid-hub',
+            groupEndpoints:{
+                join:'JoinBidingGroup',
+                leave:'LeaveBidingGroup'
+            }
+        },
+        notificationSocketSettings:{
+            hubName: 'NotificationHub',
+            hubUrl: 'notification-hub',
+            groupEndpoints:{
+                join:'JoinNotificationGroup',
+                leave:'LeaveNotificationGroup'
+            }
+        }
+    }
 };

@@ -14,7 +14,7 @@ export const loadArticlesFailed = createAction("Load Articles - Failed");
 export const loadSingleArticle = createAction("Load Single Article", props<{articleId: number}>());
 export const loadSingleArticleSuccess = createAction("Load Single Article - Success", props<{item: Article}>());
 export const loadSingleArticleFailed = createAction("Load Single Article - Failed");
-export const changeArticleStatus = createAction("Change Article Status", props<{id: number, articleInfoDto: ArticleInfoDto}>());
+export const changeArticleStatus = createAction("Change Article Status", props<{id: number, status: ArticleStatus}>());
 export const changeArticleLastPrice = createAction("Change Article Last Price", props<{id: number, lastPrice: number}>());
 
 export const loadArticlesOwners = createAction("Load Articles Owners", props<{creatorId: number, customerId: number | null}>());

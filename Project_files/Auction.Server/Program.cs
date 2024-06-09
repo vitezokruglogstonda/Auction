@@ -26,20 +26,9 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IPictureService, PictureService>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddHttpContextAccessor();
-
-//builder.Services.AddCors(options =>
-//{
-//    options.AddDefaultPolicy(policy =>
-//    {
-//        policy.AllowAnyOrigin();
-//        policy.AllowAnyHeader();
-//        policy.AllowAnyMethod();
-//        policy.WithExposedHeaders("JWT", "RefreshToken");
-//    });
-
-//});
 
 builder.Services.AddCors(options =>
 {
@@ -53,9 +42,6 @@ builder.Services.AddCors(options =>
                    .WithExposedHeaders("JWT", "RefreshToken");
         });
 });
-
-//var configuration = ConfigurationOptions.Parse("localhost:6379");
-//var redisConnection = ConnectionMultiplexer.Connect(configuration);
 
 builder.Services.AddHangfire(config =>
 {
@@ -83,15 +69,11 @@ app.UseMiddleware<AuthMiddleware>();
 
 app.UseAuthorization();
 
-//app.MapControllers();
-//app.MapHub<BidHub>("/bidding");
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapHub<BidHub>("/bid-hub");
+    endpoints.MapHub<NotificationHub>("/notification-hub");
 });
 
 app.Run();
-
-//redisConnection.Close();

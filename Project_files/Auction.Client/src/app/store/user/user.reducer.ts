@@ -1,6 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
-import { User, UserType } from "../../models/user";
+import { Notification, NotificationListState, NotificationStatus, User, UserType } from "../../models/user";
 import * as Actions from "./user.action";
+import { EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
 export const initialState: User = {
     id: 0,
@@ -62,3 +63,26 @@ export const userReducer = createReducer(
     })),
 );
 
+export const notificationListAdapter: EntityAdapter<Notification> = createEntityAdapter<Notification>();
+
+export const initialNotificationListState: NotificationListState = notificationListAdapter.getInitialState({
+});
+
+export const notificationListReducer = createReducer(
+    initialNotificationListState,
+    on(Actions.addNotifications, (state, {notifications}) => {
+        return notificationListAdapter.addMany(notifications, notificationListAdapter.removeAll({ ...state }));
+    }),
+    on(Actions.addNewNotification, (state, {notification}) => {
+        return notificationListAdapter.addOne(notification, state);
+    }),
+    on(Actions.markAllNotificationsRead, (state)=>({
+        ...state
+    })),   
+    on(Actions.markAllNotificationsReadSuccess, (state) => {
+        return notificationListAdapter.map(notification => ({...notification, status: NotificationStatus.Read}), state)
+    }),
+    on(Actions.clearNotificationList, (state) => {
+        return notificationListAdapter.removeAll({ ...state });
+    })
+);

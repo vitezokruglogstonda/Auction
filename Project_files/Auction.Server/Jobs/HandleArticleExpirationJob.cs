@@ -1,4 +1,5 @@
 ﻿using Auction.Server.Hubs;
+using Auction.Server.Models;
 using Auction.Server.Models.Dto;
 using Auction.Server.Services.Interfaces;
 using Microsoft.AspNetCore.SignalR;
@@ -19,9 +20,9 @@ namespace Auction.Server.Jobs
 
         public async Task HandleArticleExpiration(int articleId)
         {
-            BidCompletionDto? message = await ArticleService.ExpireArticle(articleId); 
+            BidCompletionDto? message = await ArticleService.ExpireArticle(articleId);
             if (message != null)
-                await HubContext.Clients.Group(articleId.ToString()).SendAsync("ArticleSold", message);
+                await HubContext.Clients.Group(articleId.ToString()).SendAsync("ArticleStatusChanged", message);            
         }
 
         public async Task HandleTransaction(int articleId)

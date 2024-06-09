@@ -15,13 +15,15 @@ namespace Auction.Server.Services.Implementation
         private readonly IConfiguration Configuration;
         private readonly IProfileService ProfileService;
         private readonly IBiddingService BiddingService;
-        public ArticleService(AuctionContext context, IPictureService pictureService, IConfiguration _configuration, IProfileService profileService, IBiddingService biddingService)
+        private readonly INotificationService NotificationService;
+        public ArticleService(AuctionContext context, IPictureService pictureService, IConfiguration _configuration, IProfileService profileService, IBiddingService biddingService, INotificationService notificationService)
         {
             PictureService = pictureService;
             DbContext = context;
             Configuration = _configuration;
             ProfileService = profileService;
             BiddingService = biddingService;
+            NotificationService = notificationService;
         }
         public async Task<ArticleDto_Response?> PublishArticle(User user, ArticleDto_Request newArticle, List<IFormFile> pictures)
         {
@@ -33,7 +35,8 @@ namespace Auction.Server.Services.Implementation
                 return null;
 
             //DateTime expiryDateTime = DateTime.Now.AddDays(expiryDate);
-            DateTime expiryDateTime = DateTime.Now.AddMinutes(1);
+            //DateTime expiryDateTime = DateTime.Now.AddMinutes(1);
+            DateTime expiryDateTime = DateTime.Now.AddSeconds(30);
 
             Article article = new Article()
             {
@@ -43,7 +46,7 @@ namespace Auction.Server.Services.Implementation
                 //SoldPrice = null,
                 SoldPrice = newArticle.StartingPrice,
                 Status = ArticleStatus.Pending,
-                ExpiryDate = new CustomDateTime(expiryDateTime), //vazi 2 dana od sad
+                ExpiryDate = new CustomDateTime(expiryDateTime),
                 CreatorId = user.Id,
                 Creator = user,
                 CustomerId = null,
@@ -247,29 +250,51 @@ namespace Auction.Server.Services.Implementation
             if (article == null)
                 return null;
 
-            if(article.Status == ArticleStatus.Pending)
+            BidNode? lastBid = await BiddingService.GetLastBid(articleId);
+
+            if (article.Status == ArticleStatus.Pending || (article.Status == ArticleStatus.Biding && lastBid == null))
             {
                 article.Status = ArticleStatus.Expired;
                 this.DbContext.Update(article);
                 await this.DbContext.SaveChangesAsync();
-                return null;
+                //javi kreatoru da je istekao
+                await this.NotificationService.AddNotification(article.CreatorId, articleId, article.StartingPrice, NotificationType.ArticleExpired, null);
+
+                return new BidCompletionDto
+                {
+                    ArticleInfo = new ArticleInfoDto
+                    {
+                        Status = ArticleStatus.Expired,
+                        LastPrice = 0,
+                    },
+                    CustomerProfile = null
+                };
             }
 
             if (article.Status != ArticleStatus.Biding)
                 return null;
 
-            BidNode? lastBid = await BiddingService.GetLastBid(articleId);
-
-            if (lastBid == null) return null;
-
             User? buyer = await ProfileService.GetUser(lastBid.UserId);
+
+            List<int> notificationGroupIds = new();
+            List<SubscriberNode>? subs = await this.BiddingService.GetSubscriberList(articleId);
+            foreach (var sub in subs!)
+            {
+                if (sub.UserId == buyer!.Id) continue;
+                notificationGroupIds.Add(sub.UserId);
+            }
+            await this.NotificationService.Notify(notificationGroupIds, articleId, lastBid.MoneyAmount, NotificationType.BidEnd);
 
             if (buyer!.Balance < lastBid.MoneyAmount)
             {
                 article.Status = ArticleStatus.WaitingForTransaction;
                 this.DbContext.Update(article);
                 await this.DbContext.SaveChangesAsync();
-                //javi mu mejlom / notifikacijom
+
+                CustomDateTime date = new(DateTime.Now.AddMinutes(1));
+                await this.NotificationService.AddNotification(buyer.Id, articleId, lastBid.MoneyAmount, NotificationType.InvalidTransaction, date);
+                await this.NotificationService.AddNotification(article.CreatorId, articleId, lastBid.MoneyAmount, NotificationType.BidEnd);
+
                 ResceduleArticleSelling(articleId);
 
                 result = new BidCompletionDto
@@ -279,7 +304,6 @@ namespace Auction.Server.Services.Implementation
                         Status = article.Status,
                         LastPrice = lastBid.MoneyAmount,
                     },
-                    //CustomerProfile = await ProfileService.GetUserProfile(buyer.Id)
                     CustomerProfile = null
                 };
                 return result;
@@ -314,6 +338,9 @@ namespace Auction.Server.Services.Implementation
                 },
                 CustomerProfile = await ProfileService.GetUserProfile(buyer.Id)
             };
+
+            await this.NotificationService.AddNotification(article.CreatorId, articleId, lastBid.MoneyAmount, NotificationType.TransactionComplete);
+            await this.NotificationService.AddNotification(buyer.Id, articleId, lastBid.MoneyAmount, NotificationType.TransactionComplete);
 
             return result;
         }
@@ -366,7 +393,23 @@ namespace Auction.Server.Services.Implementation
             await this.DbContext.SaveChangesAsync();
 
             await BiddingService.ClearBidList(articleId);
+
+            //javi kupcu i prodavcu notifikacijom
+            await this.NotificationService.AddNotification(article.CreatorId, articleId, lastBid.MoneyAmount, NotificationType.TransactionComplete);
+            await this.NotificationService.AddNotification(buyer.Id, articleId, lastBid.MoneyAmount, NotificationType.TransactionComplete);
         }
+
+        //private async void NotifyThatBidHasEnded(Article article)
+        //{
+        //    List<int> notificationGroupIds = new();
+        //    notificationGroupIds.Add(article.CreatorId);
+        //    List<SubscriberNode>? subs = await this.BiddingService.GetSubscriberList(article.Id);
+        //    foreach (var sub in subs!)
+        //    {
+        //        notificationGroupIds.Add(sub.UserId);
+        //    }
+        //    this.NotificationService.Notify(notificationGroupIds, article.Id, lastBid.MoneyAmount, NotificationType.BidEnd);
+        //}
 
         public async Task<List<ArticleDto_Response>> GetAllArticles(int pageSize, int pageIndex)
         {

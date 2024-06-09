@@ -7,6 +7,7 @@ export interface AppInfo{
     publishArticleError: boolean,
     totalNumberOfArticles: number;
     loadArticlesListError: boolean;
+    numberOfNewNotifications: number;
 }
 
 export enum LoginStatus {

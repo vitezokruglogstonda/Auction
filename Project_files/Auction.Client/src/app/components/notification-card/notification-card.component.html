@@ -1,0 +1,29 @@
+<div class="card-container">
+  <div *ngIf="notificationList.length == 0" class="empty-container-text-container">
+    <div class="empty-container-text">
+      No notifications right now
+    </div>
+  </div>
+  <div *ngFor="let notification of notificationList" class="notification-container">
+    <div class="notification-subcontainer" (click)="viewArticle(notification)">
+      <div class="notification-icon-container">
+        <i *ngIf="checkNotificationType(notification.type, 0)" class="fa-solid fa-calendar-xmark notification-icon"></i>
+        <i *ngIf="checkNotificationType(notification.type, 1)" class="fa-solid fa-gavel notification-icon"></i>
+        <i *ngIf="checkNotificationType(notification.type, 2)" class="fa-solid fa-circle-check notification-icon"></i>
+        <i *ngIf="checkNotificationType(notification.type, 3)"
+          class="fa-solid fa-triangle-exclamation notification-icon notification-icon-red"></i>
+      </div>
+      <div class="main-notification-info">
+        <div class="notificaiton-text">{{notification.text}}</div>
+        <div class="notification-article-info">
+          <div class="article-title">{{printArticleInfoText(notification)}}</div>
+        </div>
+        <div class="notification-timestamp">{{getTimeDifferenceString(notification.timestamp)}}</div>
+      </div>
+      <div class="indicator-container">
+        <div *ngIf="isNewNotification(notification)" class="indicator"></div>
+      </div>
+    </div>
+    <div class="divider-line"></div>
+  </div>
+</div>

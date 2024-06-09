@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { selectUserId, selectUserInfo, selectUserProfilePicturePath } from '../../store/user/user.selector';
 import { UserProfile } from '../../models/user';
 import { getProfile, loadProfileArticles } from '../../store/profile/profile.action';
-import { selectBoughtArticles, selectSellingArticles, selectProfileInfo, selectSoldArticles } from '../../store/profile/profile.selector';
+import { selectBoughtArticles, selectSellingArticles, selectProfileInfo, selectSoldArticles, selectCurrentlyBiddingArticles } from '../../store/profile/profile.selector';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadPictureDialogComponent } from '../upload-picture-dialog/upload-picture-dialog.component';
@@ -27,9 +27,11 @@ export class ProfilePageComponent {
   public balance: number;
   private destroy$ = new Subject<void>();
   public soldItemsList: Article[];
+  public currentlyBiddingItemsList: Article[];
   public sellingItemsList: Article[];
   public boughtItemsList: Article[];
   public no_soldItems: boolean;
+  public no_currentlyBiddingItems: boolean;
   public no_sellingItems: boolean;
   public no_boughtItems: boolean;
 
@@ -40,9 +42,11 @@ export class ProfilePageComponent {
     this.numberOfItemsSold = 0;
     this.balance = 0;
     this.soldItemsList = [];
+    this.currentlyBiddingItemsList = [];
     this.sellingItemsList = [];
     this.boughtItemsList = [];
     this.no_soldItems = true;
+    this.no_currentlyBiddingItems = true;
     this.no_sellingItems = true;
     this.no_boughtItems = true;
   }
@@ -107,8 +111,18 @@ export class ProfilePageComponent {
           this.no_boughtItems = true;
         }
       });
-      //select za currentlyBidding i Waiting
-
+      this.store.select(selectCurrentlyBiddingArticles(this.userId)).subscribe(state => {
+        if(state.length !== 0){
+          this.currentlyBiddingItemsList.splice(0, this.currentlyBiddingItemsList.length);
+          state.forEach(item => {
+            this.currentlyBiddingItemsList?.push(item as Article);
+          })
+          this.no_currentlyBiddingItems = false;
+        }
+        else{
+          this.no_currentlyBiddingItems = true;
+        }
+      });
     });
   }
 

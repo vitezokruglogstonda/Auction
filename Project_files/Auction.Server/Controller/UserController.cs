@@ -16,7 +16,7 @@ namespace Auction.Server.Controller
         private readonly IProfileService ProfileService;
         private readonly IArticleService ArticleService;
 
-        public UserController(IProfileService _profileService, IArticleService articleService, )
+        public UserController(IProfileService _profileService, IArticleService articleService)
         {
             ProfileService = _profileService;
             ArticleService = articleService;

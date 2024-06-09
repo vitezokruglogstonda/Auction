@@ -106,6 +106,7 @@ export class ArticlePageComponent {
     this.route.params.pipe(
       switchMap((params) => {
         this.articleId = Number(params['articleId']);
+        this.bidService.startConnection(this.articleId);
         return this.store.select(selectSingleArticle(this.articleId));
       }),
       takeUntil(this.destroy$)
@@ -219,9 +220,8 @@ export class ArticlePageComponent {
     if (expiryDate <= currentDate) {
       this.expiryTimeLeftSubscription!.unsubscribe();
 
-      this.article!.status = ArticleStatus.Expired;
+      //this.article!.status = ArticleStatus.Expired;
       this.showExpiryTimeLeft = false;
-      //ovo mora da se azurira negde
 
       return "Expired";
     }

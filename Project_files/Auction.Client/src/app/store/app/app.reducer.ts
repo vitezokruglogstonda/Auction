@@ -13,6 +13,7 @@ export const initialState: AppInfo = {
     publishArticleError: false,
     totalNumberOfArticles: 0,
     loadArticlesListError: false,
+    numberOfNewNotifications: 0
 };
 
 export const appReducer = createReducer(
@@ -73,5 +74,14 @@ export const appReducer = createReducer(
         ...state,
         loadArticlesListError: true
     })),   
-      
+    on(AppActions.addNumberOfNotifications, (state, {number})=>({
+        ...state,
+        numberOfNewNotifications: state.numberOfNewNotifications + number
+    })),   
+    on(AppActions.resetNumberOfNotifications, (state)=>({
+        ...state,
+        numberOfNewNotifications: 0
+    })),   
+    
 );
+

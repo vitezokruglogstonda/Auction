@@ -20,8 +20,16 @@ body {
     z-index: 8;
 }
 
+.app-title-container{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .app-title {
     letter-spacing: .2rem;
+    font-size: larger;
     font-family: "Century Gothic";
     padding: 2px;
     border-width: 1px;
@@ -29,11 +37,24 @@ body {
     border-left: none;
     border-right: none;
     color: black;
+    width: 5em;
 }
 
 .app-title:hover {
     color: #c6cad6;
     cursor: pointer;
+}
+
+.menu-icon-container{
+    width: 5.5%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.menu-icon-button {
+    width: 48px;
+    height: 48px;
 }
 
 .menu-icon {
@@ -44,10 +65,53 @@ body {
     color: #c6cad6;
 }
 
-.right-toolbar-element {
+.right-toolbar-element-empty{
     width: 2.5%;
     /* height: 64px;
     width: 64px; */
+}
+
+.right-toolbar-element {
+    width: 5.5%;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.notification-icon-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    position: relative;
+}
+
+.notification-icon{
+    color: black;
+    font-size: x-large;
+    transition: color 0.5s ease;
+}
+
+.notification-icon:hover{
+    cursor: pointer;
+    color: white;
+}
+
+.notification-indicator{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 5px;
+    right: 5px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: orange;
+    font-size: small;
 }
 
 .sidenav-container {
@@ -255,13 +319,24 @@ body {
     border-radius: 60px;
 }
 
-@media screen and (max-width: 600px) {
-    .sidenav-container {
+@media screen and (max-width: 1366px) {
+    /* .sidenav-container {
         height: calc(100% - 56px);
-    }
+    } */
 
     .sidenav {
-        background-color: #446ccf;
-        width: 40%;
+        width: 20%;
+    }
+
+    .menu-icon-button-container{
+        width: 5.5%;
+    }
+
+    .right-toolbar-element{
+        width: 7.5%;
+    }
+
+    .notification-indicator{
+        right: 5px;
     }
 }

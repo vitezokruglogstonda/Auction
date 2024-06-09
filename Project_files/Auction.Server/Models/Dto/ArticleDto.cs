@@ -54,4 +54,18 @@ namespace Auction.Server.Models.Dto
         public ArticleStatus Status { get; set; }
         public decimal LastPrice { get; set; }  
     }
+
+    public class NotificationArticleInfo
+    {
+        public int ArticleId { get; set; }
+        public string Title { get; set; }
+        public decimal LastPrice { get; set; }
+
+        public NotificationArticleInfo(int articleId, string title, decimal lastPrice) 
+        {            
+            ArticleId = articleId;
+            Title = title;
+            LastPrice = lastPrice;
+        }
+    }
 }

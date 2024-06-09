@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { LoginDto, RegisterDto, User } from "../../models/user";
+import { LoginDto, RegisterDto, User, Notification } from "../../models/user";
 import { ArticleDto } from "../../models/article";
 
 export const logIn = createAction("Log In", props<{loginDto : LoginDto}>());
@@ -17,3 +17,8 @@ export const addMoneyToAccountSuccess = createAction("Add Money To Account - Suc
 export const addMoneyToAccountFailed = createAction("Add Money To Account - Failed");
 export const publishArticle = createAction("Publish Article", props<{articleDto : ArticleDto}>());
 export const substractMoneyFromAccount = createAction("Substract Money From Account", props<{amount: number}>());
+export const addNotifications = createAction("Add Notifications", props<{notifications: Notification[]}>());
+export const addNewNotification = createAction("Add New Notifications", props<{notification: Notification}>());
+export const clearNotificationList = createAction("Clear Notification List");
+export const markAllNotificationsRead = createAction("Mark All Notifications Read");
+export const markAllNotificationsReadSuccess = createAction("Mark All Notifications Read - Success");

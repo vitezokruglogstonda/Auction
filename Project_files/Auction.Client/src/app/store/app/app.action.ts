@@ -10,3 +10,5 @@ export const changeProfilePicture = createAction("Change Profile Picture", props
 export const publishArticleSuccess = createAction("Publish Article - Success");
 export const publishArticleFailed = createAction("Publish Article - Failed");
 export const resetPublishArticleError = createAction("Reset Publish Article Error");
+export const addNumberOfNotifications = createAction("Add Number Of Notifications", props<{number: number}>());
+export const resetNumberOfNotifications = createAction("Reset Number Of Notifications");

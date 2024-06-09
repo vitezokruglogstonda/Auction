@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LocalStorageService } from "./local-storage.service";
 import { environment } from "../../environments/environment";
 import { BidItemDto, BidCompletionDto, BidDto } from "../models/bid";
+import { ArticleStatus } from "../models/article";
 
 @Injectable({
     providedIn: 'root'
@@ -13,21 +14,35 @@ export class BidService {
 
     private newBidItemSubject: Subject<BidItemDto>;
     public newBidItem: Observable<BidItemDto>;
-    private biddingClosedSubject: Subject<BidCompletionDto>;
-    public biddingClosed: Observable<BidCompletionDto>;
-    
+    private articleStatusChangedSubject: Subject<BidCompletionDto>;
+    public articleStatusChanged: Observable<BidCompletionDto>;    
     public currentArticleId: number | null;
 
     constructor(private socket: SocketService, private http: HttpClient, private localStorage: LocalStorageService) {
         this.newBidItemSubject = new Subject<BidItemDto>();
         this.newBidItem = this.newBidItemSubject.asObservable(); 
-        this.biddingClosedSubject = new Subject<BidCompletionDto>();
-        this.biddingClosed = this.biddingClosedSubject.asObservable(); 
+        this.articleStatusChangedSubject = new Subject<BidCompletionDto>();
+        this.articleStatusChanged = this.articleStatusChangedSubject.asObservable(); 
         this.currentArticleId = null;
     }
 
-    getBidList(articleId: number): Observable<BidItemDto[] | null> {
+    startConnection(articleId: number){
         this.currentArticleId = articleId;
+
+        this.socket.startConnection(
+            environment.socketSettings.bidSocketSettings.hubName,
+            environment.socketSettings.bidSocketSettings.hubUrl,
+            environment.socketSettings.bidSocketSettings.groupEndpoints.join,
+            articleId,
+            {
+                "NewBidItem": this.newBidItemSubject,
+                "ArticleStatusChanged": this.articleStatusChangedSubject,
+            }
+        );
+    }
+
+    getBidList(articleId: number): Observable<BidItemDto[] | null> {
+        // this.currentArticleId = articleId;
 
         let querry: String = `bid/get-bid-list?articleId=${articleId}`;
         const httpOptions = {
@@ -44,11 +59,21 @@ export class BidService {
             })
         );
 
-        result.subscribe(res =>{
-            if(res !== null){
-                this.socket.startConnection(articleId, this.newBidItemSubject, this.biddingClosedSubject);
-            }
-        })
+        // result.subscribe(res =>{
+        //     if(res !== null){
+        //         this.socket.startConnection(
+        //             environment.socketSettings.bidSocketSettings.hubName,
+        //             environment.socketSettings.bidSocketSettings.hubUrl,
+        //             environment.socketSettings.bidSocketSettings.groupEndpoints.join,
+        //             articleId,
+        //             {
+        //                 "NewBidItem": this.newBidItemSubject,
+        //                 "ArticleSold": this.biddingClosedSubject,
+        //                 "ArticleExpired": this.articleExpiredSubject,
+        //             }
+        //         );
+        //     }
+        // })
 
         return result;
     }
@@ -59,11 +84,19 @@ export class BidService {
             articleId: articleId,
             amount: amount
         }
-        this.socket.emit('Bid', bidDto);
+        this.socket.emit(
+            environment.socketSettings.bidSocketSettings.hubName,
+            'Bid', 
+            bidDto
+        );
     }
 
     closeConnection(){
-        this.socket.closeConnection(this.currentArticleId as number);
+        this.socket.closeConnection(
+            environment.socketSettings.bidSocketSettings.hubName,
+            environment.socketSettings.bidSocketSettings.groupEndpoints.leave,
+            this.currentArticleId as number
+        );
     }
 
 }

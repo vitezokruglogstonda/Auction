@@ -4,17 +4,19 @@ import { switchMap } from "rxjs";
 import * as UserActions from "./user.action";
 import * as AppActions from "../app/app.action";
 import * as ProfileActions from "../profile/profile.action";
-import { User } from "../../models/user";
+import { NotificationDto, User, Notification, NotificationStatus } from "../../models/user";
 import { LoginStatus } from "../../models/app-info";
 import { UserService } from "../../services/user.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "../app.state";
 import { LocalStorageService } from "../../services/local-storage.service";
 import { Article } from "../../models/article";
+import { NotificationService } from "../../services/notification.service";
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UserEffects {
-    constructor(private actions$: Actions, private userService: UserService, private store: Store<AppState>, private localStorage: LocalStorageService) { }
+    constructor(private actions$: Actions, private userService: UserService, private store: Store<AppState>, private localStorage: LocalStorageService, private notificationService: NotificationService) { }
 
     logIn = createEffect(() =>
         this.actions$.pipe(
@@ -23,10 +25,23 @@ export class UserEffects {
                 this.userService.logIn(action.loginDto).pipe(
                     switchMap((user: User|null) => {
                         if (user) {
-                            return [
-                                UserActions.logInSuccess({ user: user }),
-                                AppActions.changeStatus({ loginStatus: LoginStatus.Online, imagePath: user.profilePicturePath })
-                            ];
+                            return this.notificationService.startConnection(user?.id as number).pipe(
+                                switchMap((notificationList: Notification[] | null)=>{
+                                    if(!!notificationList){
+                                        let numberOfNewNotifications: number = notificationList.filter(notification => notification.status === NotificationStatus.NotRead).length;
+                                        return [
+                                            UserActions.logInSuccess({ user: user }),
+                                            AppActions.changeStatus({ loginStatus: LoginStatus.Online, imagePath: user.profilePicturePath }),
+                                            UserActions.addNotifications({notifications: notificationList}),
+                                            AppActions.addNumberOfNotifications({number: numberOfNewNotifications})
+                                        ];
+                                    }
+                                    return [
+                                        UserActions.logInSuccess({ user: user }),
+                                        AppActions.changeStatus({ loginStatus: LoginStatus.Online, imagePath: user.profilePicturePath })
+                                    ];
+                                })
+                            )
                         } else {
                             return [AppActions.loginFail()];
                         }
@@ -43,10 +58,23 @@ export class UserEffects {
                 this.userService.logInWithToken().pipe(
                     switchMap((user: User|null) => {
                         if (user) {
-                            return [
-                                UserActions.logInSuccess({ user: user }),
-                                AppActions.changeStatus({ loginStatus: LoginStatus.Online, imagePath: user.profilePicturePath })
-                            ];
+                            return this.notificationService.startConnection(user?.id as number).pipe(
+                                switchMap((notificationList: Notification[] | null)=>{
+                                    if(!!notificationList){
+                                        let numberOfNewNotifications: number = notificationList.filter(notification => notification.status === NotificationStatus.NotRead).length;
+                                        return [
+                                            UserActions.logInSuccess({ user: user }),
+                                            AppActions.changeStatus({ loginStatus: LoginStatus.Online, imagePath: user.profilePicturePath }),
+                                            UserActions.addNotifications({notifications: notificationList}),
+                                            AppActions.addNumberOfNotifications({number: numberOfNewNotifications})
+                                        ];
+                                    }
+                                    return [
+                                        UserActions.logInSuccess({ user: user }),
+                                        AppActions.changeStatus({ loginStatus: LoginStatus.Online, imagePath: user.profilePicturePath })
+                                    ];
+                                })
+                            )
                         } else {
                             return [AppActions.loginFail()];
                         }
@@ -101,7 +129,9 @@ export class UserEffects {
                     this.localStorage.clear();
                     return [
                         UserActions.signOutSuccess(),
-                        AppActions.logout()
+                        AppActions.logout(),
+                        UserActions.clearNotificationList(),
+                        AppActions.resetNumberOfNotifications()
                     ];
                 })
             )
@@ -167,5 +197,36 @@ export class UserEffects {
             )
         )
     ));
+
+    markAllNotificationsRead = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UserActions.markAllNotificationsRead),
+            switchMap((action) =>
+                this.notificationService.markAllNotificationsRead().pipe(
+                    switchMap((result: boolean) => {
+                        if(result)
+                            return [
+                                UserActions.markAllNotificationsReadSuccess(),
+                                AppActions.resetNumberOfNotifications()
+                            ];
+                        return [];
+                    })
+                )
+            )
+        ));
+
+    newNotification = createEffect(() => 
+        this.notificationService.notification$.pipe(
+            switchMap((result: NotificationDto) => {
+                let notification: Notification = {
+                    id: uuidv4(),
+                    ...result
+                };
+                return [
+                    UserActions.addNewNotification({notification: notification}),
+                    AppActions.addNumberOfNotifications({number: 1})
+                ];
+            })
+    ))
 
 }

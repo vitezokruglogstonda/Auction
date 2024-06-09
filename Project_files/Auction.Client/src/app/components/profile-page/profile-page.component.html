@@ -101,6 +101,14 @@
             </mat-tab>
             <mat-tab>
                 <ng-template mat-tab-label class="tab-header">
+                    <i class="info-icon fas fa-cart-shopping tab-header-icon"></i>
+                    <p>Currently Bidding Articles</p>
+                </ng-template>
+                <app-view-articles *ngIf="!no_currentlyBiddingItems" [articles]="currentlyBiddingItemsList!" [numberOfArticles]="currentlyBiddingItemsList.length"></app-view-articles>
+                <div *ngIf="no_currentlyBiddingItems" class="no-items-box">No items to show.</div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label class="tab-header">
                     <i class="fa-solid fa-handshake tab-header-icon"></i>
                     <p>Sold Articles</p>
                 </ng-template>

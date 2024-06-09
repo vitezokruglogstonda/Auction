@@ -9,6 +9,7 @@ import { environment } from "../../../environments/environment";
 import { v4 as uuidv4 } from 'uuid';
 import { BidService } from "../../services/bid.service";
 import { BidItemDto, BidItem, BidCompletionDto } from "../../models/bid";
+import { TypedAction } from "@ngrx/store/src/models";
 
 @Injectable()
 export class ArticleEffects {
@@ -143,7 +144,8 @@ export class ArticleEffects {
                         if (result !== null) {
                             return [
                                 ArticleActions.checkIfCurrentlyBiddingSuccess({ status: true }),
-                                ArticleActions.changeArticleStatus({ id: action.articleId, articleInfoDto: result }),
+                                ArticleActions.changeArticleStatus({ id: action.articleId, status: result.status }),
+                                ArticleActions.changeArticleLastPrice({ id: action.articleId, lastPrice: result.lastPrice }),
                                 UserActions.substractMoneyFromAccount({ amount: environment.defaultFee })
                             ];
                         } else {
@@ -208,20 +210,27 @@ export class ArticleEffects {
             })
     ))
 
-    biddingClosed = createEffect(() => 
-        this.bidService.biddingClosed.pipe(
+    articleStatusChanged = createEffect(() => 
+        this.bidService.articleStatusChanged.pipe(
             switchMap((result: BidCompletionDto) => {
-                this.bidService.closeConnection();
-                if(result.customerProfile !== null)
-                    return [
-                        ArticleActions.changeArticleStatus({id: this.bidService.currentArticleId as number, articleInfoDto: result.articleInfo}),
-                        ArticleActions.addArticleCustomer({customer: result.customerProfile!}),
-                        ArticleActions.clearBidList()
-                    ];
-                return [
-                    ArticleActions.changeArticleStatus({id: this.bidService.currentArticleId as number, articleInfoDto: result.articleInfo}),
-                    ArticleActions.clearBidList()
-                ];
+                let returnActions = [];
+                returnActions.push(ArticleActions.changeArticleStatus({id: this.bidService.currentArticleId as number, status: result.articleInfo.status}))
+                if(result.articleInfo.lastPrice !== 0)
+                    returnActions.push(ArticleActions.changeArticleLastPrice({id: this.bidService.currentArticleId as number, lastPrice: result.articleInfo.lastPrice}))
+                if(!!result.customerProfile)
+                    returnActions.push(ArticleActions.addArticleCustomer({customer: result.customerProfile!}))
+
+                if(result.articleInfo.status !== ArticleStatus.Biding){
+                    this.bidService.closeConnection();
+                    returnActions.push(ArticleActions.clearBidList())                
+                }
+
+                return returnActions;
+
+                // return [
+                //     ArticleActions.articleExpired({id: this.bidService.currentArticleId as number, status: ArticleStatus.Expired}),
+                //     ArticleActions.clearBidList()
+                // ];
             })
         )
     )

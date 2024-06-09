@@ -1,5 +1,5 @@
 import { EntityState } from "@ngrx/entity";
-import { Article } from "./article";
+import { Article, CustomDateTime } from "./article";
 
 export interface User {
     id: number | null;
@@ -56,5 +56,49 @@ export interface ProfileResult{
 }
 
 export interface UserListState extends EntityState<User>{
+
+}
+
+export interface NotificationDto{
+    text: string;
+    timestamp: CustomDateTime;
+    type: NotificationType;
+    status: NotificationStatus;
+    endDate: CustomDateTime;
+    articleInfo: NotificationArticleInfo;
+    next: string | null;
+}
+
+
+export interface Notification{
+    id: string;
+    text: string;
+    timestamp: CustomDateTime;
+    type: NotificationType;
+    status: NotificationStatus;
+    endDate: CustomDateTime;
+    articleInfo: NotificationArticleInfo;
+}
+
+export enum NotificationType{
+    ArticleExpired,
+    BidEnd,
+    TransactionComplete,
+    InvalidTransaction
+}
+
+export enum NotificationStatus
+{
+    NotRead,
+    Read
+}
+
+export interface NotificationArticleInfo{
+    articleId: number;
+    title: string;
+    lastPrice: number;
+}
+
+export interface NotificationListState extends EntityState<Notification>{
 
 }

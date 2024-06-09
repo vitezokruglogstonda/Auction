@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\Images\\ArticlePictures\\253b526b-74f3-4080-b2f3-38d7569d2867_painting_2.jpg"
     },
     {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\266a0589-7c43-4bba-af77-654056d47872_Nike-By-You.webp",
+      "PackagePath": "staticwebassets\\Images\\ArticlePictures\\266a0589-7c43-4bba-af77-654056d47872_Nike-By-You.webp"
+    },
+    {
       "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\2a867e75-373d-4229-b7f2-1c507eacfb6a_ship_3.jpeg",
       "PackagePath": "staticwebassets\\Images\\ArticlePictures\\2a867e75-373d-4229-b7f2-1c507eacfb6a_ship_3.jpeg"
     },
@@ -23,6 +27,14 @@
     {
       "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\33d88791-2f65-48db-8a51-e629551aec51_ship_2.jpg",
       "PackagePath": "staticwebassets\\Images\\ArticlePictures\\33d88791-2f65-48db-8a51-e629551aec51_ship_2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\38e42cfc-046b-4768-9ed3-84479089731c_Nike-By-You.webp",
+      "PackagePath": "staticwebassets\\Images\\ArticlePictures\\38e42cfc-046b-4768-9ed3-84479089731c_Nike-By-You.webp"
+    },
+    {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\3f3792e6-be8e-4a9f-8618-4697b22dd625_Nike-By-You.webp",
+      "PackagePath": "staticwebassets\\Images\\ArticlePictures\\3f3792e6-be8e-4a9f-8618-4697b22dd625_Nike-By-You.webp"
     },
     {
       "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\48a83a70-aac2-4b4c-b4d7-ff33c2120d86_sword_3.jpg",
@@ -61,16 +73,16 @@
       "PackagePath": "staticwebassets\\Images\\ArticlePictures\\a8250576-034c-48fd-b582-56560ad3841f_statue_3.jpg"
     },
     {
-      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\b71e67d4-53c6-43d0-9f03-8fa020d93ddc_monitor_1.jpg",
-      "PackagePath": "staticwebassets\\Images\\ArticlePictures\\b71e67d4-53c6-43d0-9f03-8fa020d93ddc_monitor_1.jpg"
-    },
-    {
       "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\be2c1c98-d4c9-40ad-b8ec-7fc764a4c745_ship_1.jpg",
       "PackagePath": "staticwebassets\\Images\\ArticlePictures\\be2c1c98-d4c9-40ad-b8ec-7fc764a4c745_ship_1.jpg"
     },
     {
       "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\c0e36791-fc45-4929-a9f3-0fc150a5872d_katana_2.jpeg",
       "PackagePath": "staticwebassets\\Images\\ArticlePictures\\c0e36791-fc45-4929-a9f3-0fc150a5872d_katana_2.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\cf71877b-90fe-404c-af7d-abd87583726c_Nike-By-You.webp",
+      "PackagePath": "staticwebassets\\Images\\ArticlePictures\\cf71877b-90fe-404c-af7d-abd87583726c_Nike-By-You.webp"
     },
     {
       "Id": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\d51c3f52-eb5f-438e-9880-8d3c5c287ff6_ship_4.jpeg",

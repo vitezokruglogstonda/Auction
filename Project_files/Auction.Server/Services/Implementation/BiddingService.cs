@@ -1,6 +1,8 @@
-﻿using Auction.Server.Models;
+﻿using Auction.Server.Hubs;
+using Auction.Server.Models;
 using Auction.Server.Models.Dto;
 using Auction.Server.Services.Interfaces;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
@@ -17,13 +19,15 @@ namespace Auction.Server.Services.Implementation
         private readonly IDatabase Redis;
         private readonly IConfiguration Configuration;
         private readonly IProfileService ProfileService;
+        private readonly IHubContext<BidHub> HubContext;
 
-        public BiddingService(IConnectionMultiplexer redis, IConfiguration configuration, AuctionContext dbContext, IProfileService profileService)
+        public BiddingService(IConnectionMultiplexer redis, IConfiguration configuration, AuctionContext dbContext, IProfileService profileService, IHubContext<BidHub> hubContext)
         {
             DbContext = dbContext;
             Redis = redis.GetDatabase();
             Configuration = configuration;
             ProfileService = profileService;
+            HubContext = hubContext;
         }
 
         public async Task<ArticleInfoDto?> StartBidding(User user, int articleId)
@@ -41,7 +45,25 @@ namespace Auction.Server.Services.Implementation
             user.Balance -= fee;
             this.DbContext.Update(user);
             await ProfileService.AddFeeToArticleOwner(articleId, fee);
+            if(article.Status == ArticleStatus.Pending)
+            {
+                article.Status = ArticleStatus.Biding;
+                this.DbContext.Update(article);
+                await HubContext.Clients.Group(articleId.ToString()).SendAsync(
+                    "ArticleStatusChanged", 
+                    new BidCompletionDto
+                    {
+                        ArticleInfo = new ArticleInfoDto
+                        {
+                            Status = ArticleStatus.Biding,
+                            LastPrice = article.StartingPrice,
+                        },
+                        CustomerProfile = null
+                    }
+                );
+            }
             await this.DbContext.SaveChangesAsync();
+
 
             BidListHead? articleBidListHead = await GetBidListHead(articleId);
             if (articleBidListHead == null)
@@ -120,6 +142,33 @@ namespace Auction.Server.Services.Implementation
                 node = JsonSerializer.Deserialize<BidNode>(serializedNode)!;
 
                 list.Add(new BidItem((await this.ProfileService.GetUserProfile(node.UserId))!, node.MoneyAmount, articleId));
+
+                next = node.Next;
+            }
+
+            return list;
+        }
+
+        public async Task<List<SubscriberNode>?> GetSubscriberList(int articleId)
+        {
+            BidListHead? head = await GetBidListHead(articleId, false);
+
+            if (head == null)
+                return null;
+
+            List<SubscriberNode> list = new();
+            string? next = head!.Subs;
+            string? serializedNode;
+            SubscriberNode node;
+
+            while (next != null)
+            {
+                serializedNode = await this.Redis.StringGetAsync(next);
+                if (serializedNode == null)
+                    break;
+                node = JsonSerializer.Deserialize<SubscriberNode>(serializedNode)!;
+
+                list.Add(node);
 
                 next = node.Next;
             }
@@ -244,6 +293,9 @@ namespace Auction.Server.Services.Implementation
             if (head == null)
                 return null;
 
+            if (head.Bids == null)
+                return null;
+
             string? lastBidSerialized = await this.Redis.StringGetAsync(head.Bids);
             if (lastBidSerialized == null)
                 return null;
@@ -333,7 +385,14 @@ namespace Auction.Server.Services.Implementation
                 return;
 
             head.SubsPointers.Remove(subKey);
-            await this.Redis.StringSetAsync("u_" + userId.ToString(), JsonSerializer.Serialize<UsersBiddingListHead>(head));
+            if(head.SubsPointers.Count > 0)
+            {
+                await this.Redis.StringSetAsync("u_" + userId.ToString(), JsonSerializer.Serialize<UsersBiddingListHead>(head));
+            }
+            else
+            {
+                await this.Redis.StringGetDeleteAsync("u_" + userId.ToString());
+            }
         }
 
         #region Testing

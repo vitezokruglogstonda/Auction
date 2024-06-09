@@ -20,3 +20,8 @@ export const selectUserProfilePicturePath = createSelector(
     selectUserInfo,
     (userInfo) => userInfo.profilePicturePath
 );
+
+export const selectNotifications = createSelector(
+    (state: AppState) => state.notificationList,
+    (notificationList) => notificationList.ids.map(id => notificationList.entities[id])
+);

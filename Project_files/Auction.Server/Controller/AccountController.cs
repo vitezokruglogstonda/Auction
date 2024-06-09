@@ -14,10 +14,12 @@ namespace Auction.Server.Controller
     public class AccountController : ControllerBase
     {
         private readonly IAccountService AccountService;
+        private readonly INotificationService NotificationService;
 
-        public AccountController(IAccountService _accountService)
+        public AccountController(IAccountService _accountService, INotificationService notificationService)
         {
             AccountService = _accountService;
+            NotificationService = notificationService;
         }
 
         [HttpPost]
@@ -118,6 +120,23 @@ namespace Auction.Server.Controller
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [Auth]
+        [HttpGet]
+        [Route("get-notifications")]
+        public async Task<List<NotificationNode>?> GetNotifications([FromQuery] int userId)
+        {
+            return await this.NotificationService.GetNotificationList(userId);
+        }
+
+        [Auth]
+        [HttpGet]
+        [Route("mark-all-notifications-read")]
+        public async Task<IActionResult> MarkNotifications([FromQuery] int userId)
+        {
+            await this.NotificationService.MarkAllNotificationsRead(userId);
+            return Ok();
         }
 
     }

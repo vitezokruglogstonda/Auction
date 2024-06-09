@@ -1,11 +1,24 @@
 <mat-toolbar class="main-toolbar" color="warn" [class.mat-elevation-z8]="true">
-  <button mat-icon-button matTooltip={{menuButtonTooltipText}} (click)="snav.toggle()">
-    <mat-icon class="menu-icon">menu</mat-icon>
-  </button>
-  <h1 class="app-title">{{toolbarCenterText}}</h1>
-  <div class="right-toolbar-element" *ngIf="!accountIcon_Show"></div>
-  <app-account-icon *ngIf="accountIcon_Show" (emitter)="updateAccountInfoCardAppearance($event)"
+  <div class="menu-icon-container">
+    <button class="menu-icon-button" mat-icon-button matTooltip={{menuButtonTooltipText}} (click)="snav.toggle()">
+      <mat-icon class="menu-icon">menu</mat-icon>
+    </button>
+  </div>
+
+  <div class="app-title-container">
+    <p class="app-title">{{toolbarCenterText}}</p>
+  </div>
+  <div class="right-toolbar-element-empty" *ngIf="!showRightToolbarElement"></div>
+  <div class="right-toolbar-element" *ngIf="showRightToolbarElement">
+    <button class="notification-icon-container" mat-icon-button matTooltip={{notificationButtonTooltipText}} (click)="toggleNotificationCardApperiance()">
+      <i class="fa-regular fa-bell notification-icon"></i>
+      <div class="notification-indicator" *ngIf="showNotificationsNumber">
+        <p>{{numberOfNewNotifications}}</p>
+      </div>
+    </button>
+    <app-account-icon (emitter)="updateAccountInfoCardAppearance($event)"
     [foreignEvent]="cardTriggeredEvent"></app-account-icon>
+  </div>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
@@ -33,6 +46,8 @@
     </div>
     <app-account-info-card *ngIf="showAccountInfoCard"
       (accountInfoCardEmitter)="cardTriggeredHide()"></app-account-info-card>
+    <app-notification-card *ngIf="showNotificationCard"
+      (notificationCardEmitter)="notificationCardTriggeredHide()"></app-notification-card>
     <div class="footer">
       <div class="footer-content">
         <div class="footer-authors">

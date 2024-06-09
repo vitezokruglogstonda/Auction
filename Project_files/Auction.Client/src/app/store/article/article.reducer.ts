@@ -64,9 +64,9 @@ export const articlesListReducer = createReducer(
     on(Actions.loadSingleArticleFailed, (state) => {
         return articlesListAdapter.removeAll({ ...state });
     }),
-    on(Actions.changeArticleStatus, (state, {id, articleInfoDto}) => {
+    on(Actions.changeArticleStatus, (state, {id, status}) => {
         return articlesListAdapter.updateOne(
-            { id: id, changes: { status: articleInfoDto.status, soldPrice: articleInfoDto.lastPrice } },
+            { id: id, changes: { status: status } },
             state
           );
     }),
@@ -75,7 +75,7 @@ export const articlesListReducer = createReducer(
             { id: id, changes: { soldPrice: lastPrice } },
             state
           );
-    }),
+    })
 );
 
 export const bidListAdapter: EntityAdapter<BidItem> = createEntityAdapter<BidItem>();
