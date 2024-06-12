@@ -11,6 +11,8 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Auction.Server.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using System.Reflection;
 
 namespace Auction.Server.Services.Implementation
 {
@@ -22,15 +24,17 @@ namespace Auction.Server.Services.Implementation
 
     public class AccountService : IAccountService
     {
+        private readonly ICacheService CacheService;
         private readonly AuctionContext DbContext;
         private readonly IPictureService PictureService;
         private readonly IConfiguration Configuration;
 
-        public AccountService(AuctionContext dbContext, IPictureService pictureService, IConfiguration configuration)
+        public AccountService(AuctionContext dbContext, IPictureService pictureService, IConfiguration configuration, ICacheService cacheService)
         {
             DbContext = dbContext;
             PictureService = pictureService;
             Configuration = configuration;
+            CacheService = cacheService;
         }
 
         public bool CheckPassword(string email, string passwordString)
@@ -84,7 +88,8 @@ namespace Auction.Server.Services.Implementation
                 if (jwtToken.ValidTo < DateTime.UtcNow)
                     return;
 
-                User? user = await DbContext.Users.FindAsync(userId);
+                //User? user = await DbContext.Users.FindAsync(userId);
+                User? user = await this.CacheService.GetUser(userId);
 
                 if (user != null && user.OnlineStatus)
                 {
@@ -154,21 +159,19 @@ namespace Auction.Server.Services.Implementation
             HashPassword(out hash, out salt, dto.Password);
 
             string picturePath = PictureService.AddProfilePicture(picture);
-
-            User user = new User
-            {
-                Email = dto.Email!,
-                PasswordHash = hash,
-                PasswordSalt = salt,
-                FirstName = dto.FirstName!,
-                LastName = dto.LastName!,
-                BirthDate = dto.BirthDate!,
-                Gender = dto.Gender!,
-                UserType = UserType.RegisteredUser,
-                ProfilePicturePath = picturePath,
-                OnlineStatus = false,
-                Balance = 0,
-            };
+            User user = new User(
+                dto.Email!,
+                hash,
+                salt,
+                dto.FirstName!,
+                dto.LastName!,
+                dto.BirthDate!,
+                dto.Gender!,
+                UserType.RegisteredUser,
+                picturePath,
+                false,
+                0
+            );
 
             await DbContext.Users.AddAsync(user);
             await DbContext.SaveChangesAsync();
@@ -176,21 +179,22 @@ namespace Auction.Server.Services.Implementation
             return true;
         }
 
-        public async Task<User> LogUserIn(string email, HttpContext httpContext)
+        public async Task<UserDto> LogUserIn(string email, HttpContext httpContext)
         {
-            User? user = await DbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+            User? user = await DbContext.Users.FirstOrDefaultAsync(x => x.Email == email);            
             user!.OnlineStatus = true;
             DbContext.Update(user);
             await DbContext.SaveChangesAsync();
             user.ProfilePicturePath = PictureService.MakeProfilePictureUrl(user.ProfilePicturePath!);
             GenerateJwtToken(user, httpContext, TokenType.AccessToken);
             GenerateJwtToken(user, httpContext, TokenType.RefreshToken);
-            return user;
+            await this.CacheService.StoreUserToCache(user!);
+            return new UserDto(user);
         }
 
         public async Task<bool> LogUserOut(int userId)
         {
-            User? user = await DbContext.Users.FindAsync(userId);
+            User? user = await this.CacheService.GetUser(userId);
             if (user == null)
                 return false;
             if (user.OnlineStatus)
@@ -199,6 +203,7 @@ namespace Auction.Server.Services.Implementation
                 DbContext.Update(user);
                 await DbContext.SaveChangesAsync();
             }
+            await this.CacheService.RemoveUserFromCache(userId);
             return true;
         }
 
@@ -238,25 +243,24 @@ namespace Auction.Server.Services.Implementation
 
             string picturePath = PictureService.AddProfilePicture(null);
 
-            admin = new User
-            {
-                Email = "admin",
-                PasswordHash = hash,
-                PasswordSalt = salt,
-                FirstName = "Admin",
-                LastName = "",
-                BirthDate = new CustomDate
+            admin = new User(
+                "admin",
+                hash,
+                salt,
+                "Admin",
+                "",
+                new CustomDate
                 {
                     Day = DateTime.Now.Day,
                     Month = DateTime.Now.Month,
                     Year = DateTime.Now.Year,
                 },
-                Gender = "",
-                UserType = UserType.Admin,
-                ProfilePicturePath = picturePath,
-                OnlineStatus = false,
-                Balance = 0,
-            };
+                "",
+                UserType.Admin,
+                picturePath,
+                false,
+                0
+            );
 
             await DbContext.Users.AddAsync(admin);
             await DbContext.SaveChangesAsync();

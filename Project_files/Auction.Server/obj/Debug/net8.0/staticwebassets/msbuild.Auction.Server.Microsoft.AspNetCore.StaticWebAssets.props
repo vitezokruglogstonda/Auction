@@ -16,6 +16,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\0fcd44fb-5bfe-4773-9736-9b873a6e61e6_rifle_2.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\1636cc79-f2b7-4560-8543-f9f3c6787da7_Nike-By-You.webp))">
+      <SourceType>Package</SourceType>
+      <SourceId>Auction.Server</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Auction.Server</BasePath>
+      <RelativePath>Images/ArticlePictures/1636cc79-f2b7-4560-8543-f9f3c6787da7_Nike-By-You.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\1636cc79-f2b7-4560-8543-f9f3c6787da7_Nike-By-You.webp))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\253b526b-74f3-4080-b2f3-38d7569d2867_painting_2.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>Auction.Server</SourceId>
@@ -144,6 +160,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\3f3792e6-be8e-4a9f-8618-4697b22dd625_Nike-By-You.webp))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\3feb57d5-77ee-42e4-bae2-d73dbe85b288_Nike-By-You.webp))">
+      <SourceType>Package</SourceType>
+      <SourceId>Auction.Server</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Auction.Server</BasePath>
+      <RelativePath>Images/ArticlePictures/3feb57d5-77ee-42e4-bae2-d73dbe85b288_Nike-By-You.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\3feb57d5-77ee-42e4-bae2-d73dbe85b288_Nike-By-You.webp))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\48a83a70-aac2-4b4c-b4d7-ff33c2120d86_sword_3.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>Auction.Server</SourceId>
@@ -159,6 +191,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\48a83a70-aac2-4b4c-b4d7-ff33c2120d86_sword_3.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\4c1b4973-d492-465e-a87f-7a4d6e510ac5_Nike-By-You.webp))">
+      <SourceType>Package</SourceType>
+      <SourceId>Auction.Server</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Auction.Server</BasePath>
+      <RelativePath>Images/ArticlePictures/4c1b4973-d492-465e-a87f-7a4d6e510ac5_Nike-By-You.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\4c1b4973-d492-465e-a87f-7a4d6e510ac5_Nike-By-You.webp))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\4c5b0435-c22f-4e93-879a-e514170df96f_statue_1.jpg))">
       <SourceType>Package</SourceType>
@@ -239,6 +287,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\7f20ac35-3b1f-474b-8df2-19ee6f17111b_sword_1.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\83184c07-bdda-4d3b-b1ad-31ad0ad68e84_Nike-By-You.webp))">
+      <SourceType>Package</SourceType>
+      <SourceId>Auction.Server</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Auction.Server</BasePath>
+      <RelativePath>Images/ArticlePictures/83184c07-bdda-4d3b-b1ad-31ad0ad68e84_Nike-By-You.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\83184c07-bdda-4d3b-b1ad-31ad0ad68e84_Nike-By-You.webp))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\902034b8-6624-4c55-8207-c395255b849e_chess_2.jpg))">
       <SourceType>Package</SourceType>
@@ -368,6 +432,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\dc88d0f5-3a51-408c-b933-23acf2c90829_statue_2.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\f885f191-c15b-4915-a917-f88bbd70df75_Nike-By-You.webp))">
+      <SourceType>Package</SourceType>
+      <SourceId>Auction.Server</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Auction.Server</BasePath>
+      <RelativePath>Images/ArticlePictures/f885f191-c15b-4915-a917-f88bbd70df75_Nike-By-You.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\f885f191-c15b-4915-a917-f88bbd70df75_Nike-By-You.webp))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ArticlePictures\ff9a32ce-7924-48b4-95fc-dbe6e270bb50_yacht_1.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>Auction.Server</SourceId>
@@ -416,6 +496,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ProfilePictures\26b4e418-8465-489e-a7fd-b2d3e0d85bc6_andrija.png))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ProfilePictures\55659df7-bf72-4cba-b870-e82d25a9bc4f_andrija.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>Auction.Server</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Auction.Server</BasePath>
+      <RelativePath>Images/ProfilePictures/55659df7-bf72-4cba-b870-e82d25a9bc4f_andrija.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ProfilePictures\55659df7-bf72-4cba-b870-e82d25a9bc4f_andrija.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ProfilePictures\7cec09b2-c76b-4b09-a8f8-dd6f481330fd__DSC9273.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>Auction.Server</SourceId>
@@ -447,6 +543,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\ProfilePictures\account_icon.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\MailTemplates\Notification.html))">
+      <SourceType>Package</SourceType>
+      <SourceId>Auction.Server</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Auction.Server</BasePath>
+      <RelativePath>MailTemplates/Notification.html</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\MailTemplates\Notification.html))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

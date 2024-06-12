@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4P8TFkDY77Bas07yDQO98h7F9St65wJK1iwp/hyTcOo=",
+  "Hash": "GUNWtQDyZrqMQuw3LCKMVMdF486h+kmCXZCZNrKpxS8=",
   "Source": "Auction.Server",
   "BasePath": "_content/Auction.Server",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\0fcd44fb-5bfe-4773-9736-9b873a6e61e6_rifle_2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\1636cc79-f2b7-4560-8543-f9f3c6787da7_Nike-By-You.webp",
+      "SourceId": "Auction.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
+      "BasePath": "_content/Auction.Server",
+      "RelativePath": "Images/ArticlePictures/1636cc79-f2b7-4560-8543-f9f3c6787da7_Nike-By-You.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\1636cc79-f2b7-4560-8543-f9f3c6787da7_Nike-By-You.webp"
     },
     {
       "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\253b526b-74f3-4080-b2f3-38d7569d2867_painting_2.jpg",
@@ -188,6 +207,25 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\3f3792e6-be8e-4a9f-8618-4697b22dd625_Nike-By-You.webp"
     },
     {
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\3feb57d5-77ee-42e4-bae2-d73dbe85b288_Nike-By-You.webp",
+      "SourceId": "Auction.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
+      "BasePath": "_content/Auction.Server",
+      "RelativePath": "Images/ArticlePictures/3feb57d5-77ee-42e4-bae2-d73dbe85b288_Nike-By-You.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\3feb57d5-77ee-42e4-bae2-d73dbe85b288_Nike-By-You.webp"
+    },
+    {
       "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\48a83a70-aac2-4b4c-b4d7-ff33c2120d86_sword_3.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
@@ -205,6 +243,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\48a83a70-aac2-4b4c-b4d7-ff33c2120d86_sword_3.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\4c1b4973-d492-465e-a87f-7a4d6e510ac5_Nike-By-You.webp",
+      "SourceId": "Auction.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
+      "BasePath": "_content/Auction.Server",
+      "RelativePath": "Images/ArticlePictures/4c1b4973-d492-465e-a87f-7a4d6e510ac5_Nike-By-You.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\4c1b4973-d492-465e-a87f-7a4d6e510ac5_Nike-By-You.webp"
     },
     {
       "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\4c5b0435-c22f-4e93-879a-e514170df96f_statue_1.jpg",
@@ -300,6 +357,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\7f20ac35-3b1f-474b-8df2-19ee6f17111b_sword_1.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\83184c07-bdda-4d3b-b1ad-31ad0ad68e84_Nike-By-You.webp",
+      "SourceId": "Auction.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
+      "BasePath": "_content/Auction.Server",
+      "RelativePath": "Images/ArticlePictures/83184c07-bdda-4d3b-b1ad-31ad0ad68e84_Nike-By-You.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\83184c07-bdda-4d3b-b1ad-31ad0ad68e84_Nike-By-You.webp"
     },
     {
       "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\902034b8-6624-4c55-8207-c395255b849e_chess_2.jpg",
@@ -454,6 +530,25 @@
       "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\dc88d0f5-3a51-408c-b933-23acf2c90829_statue_2.jpg"
     },
     {
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\f885f191-c15b-4915-a917-f88bbd70df75_Nike-By-You.webp",
+      "SourceId": "Auction.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
+      "BasePath": "_content/Auction.Server",
+      "RelativePath": "Images/ArticlePictures/f885f191-c15b-4915-a917-f88bbd70df75_Nike-By-You.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\ArticlePictures\\f885f191-c15b-4915-a917-f88bbd70df75_Nike-By-You.webp"
+    },
+    {
       "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ArticlePictures\\ff9a32ce-7924-48b4-95fc-dbe6e270bb50_yacht_1.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
@@ -511,6 +606,25 @@
       "OriginalItemSpec": "wwwroot\\Images\\ProfilePictures\\26b4e418-8465-489e-a7fd-b2d3e0d85bc6_andrija.png"
     },
     {
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\55659df7-bf72-4cba-b870-e82d25a9bc4f_andrija.png",
+      "SourceId": "Auction.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
+      "BasePath": "_content/Auction.Server",
+      "RelativePath": "Images/ProfilePictures/55659df7-bf72-4cba-b870-e82d25a9bc4f_andrija.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\ProfilePictures\\55659df7-bf72-4cba-b870-e82d25a9bc4f_andrija.png"
+    },
+    {
       "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\Images\\ProfilePictures\\7cec09b2-c76b-4b09-a8f8-dd6f481330fd__DSC9273.jpg",
       "SourceId": "Auction.Server",
       "SourceType": "Discovered",
@@ -547,6 +661,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\ProfilePictures\\account_icon.png"
+    },
+    {
+      "Identity": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\MailTemplates\\Notification.html",
+      "SourceId": "Auction.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Andrija\\Desktop\\Fax\\Diplomski\\Auction\\Project_files\\Auction.Server\\wwwroot\\",
+      "BasePath": "_content/Auction.Server",
+      "RelativePath": "MailTemplates/Notification.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\MailTemplates\\Notification.html"
     }
   ]
 }

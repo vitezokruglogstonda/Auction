@@ -24,7 +24,7 @@ namespace Auction.Server.Controller
 
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult<User>> Register([FromForm] string jsonDto, [FromForm] IFormFile? picture)
+        public async Task<ActionResult<UserDto>> Register([FromForm] string jsonDto, [FromForm] IFormFile? picture)
         {
             RegisterDto? userDto = JsonConvert.DeserializeObject<RegisterDto>(jsonDto);
 
@@ -47,7 +47,7 @@ namespace Auction.Server.Controller
 
         [HttpPut]
         [Route("log-in")]
-        public async Task<ActionResult<User>> LogIn([FromBody] LogInDto dto)
+        public async Task<ActionResult<UserDto>> LogIn([FromBody] LogInDto dto)
         {
             if(dto == null) 
                 return BadRequest("Invalid login data.");
@@ -61,7 +61,7 @@ namespace Auction.Server.Controller
         [Auth]
         [HttpPut]
         [Route("log-in-with-token")]
-        public async Task<ActionResult<User>> LogInWithToken()
+        public async Task<ActionResult<UserDto>> LogInWithToken()
         {
             return Ok(await this.AccountService.LogUserIn((HttpContext.Items["User"] as User)!.Email, HttpContext));
         }

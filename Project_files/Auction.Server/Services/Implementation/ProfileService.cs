@@ -64,9 +64,11 @@ namespace Auction.Server.Services.Implementation
             return;
         }
 
-        public async Task<List<User>> GetAllProfiles(int pageSize, int pageIndex)
+        public async Task<List<UserDto>> GetAllProfiles(int pageSize, int pageIndex)
         {
             //List<UserProfile> userProfiles = new List<UserProfile>();
+
+            List<UserDto> userDtos = new();
 
             List<User> users = await this.DbContext.Users
                 .Where(user => user.UserType != UserType.Admin)
@@ -80,10 +82,11 @@ namespace Auction.Server.Services.Implementation
                 {
                     user.ProfilePicturePath = PictureService.MakeProfilePictureUrl(user.ProfilePicturePath);
                     //userProfiles.Add(new UserProfile(user, PictureService.MakeProfilePictureUrl(user.ProfilePicturePath)));
+                    userDtos.Add(new UserDto(user));
                 }
             }
 
-            return users;
+            return userDtos;
         }
 
         public async Task<int> GetTotalNumberOfUsers()

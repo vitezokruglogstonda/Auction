@@ -82,5 +82,12 @@ namespace Auction.Server.Controller
             return Ok(await this.BiddingService.CheckIfUserIsBidding((HttpContext.Items["User"] as User)!.Id, articleId));
         }
 
+        [HttpGet]
+        [Route("redirect/{articleId}")]
+        public async Task<IActionResult> RedirectToArticle(int articleId)
+        {
+            return Redirect("https://localhost:4200/article/" + articleId);
+        }
+
     }
 }

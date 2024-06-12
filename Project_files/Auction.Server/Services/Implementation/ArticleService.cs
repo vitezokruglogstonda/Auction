@@ -27,6 +27,9 @@ namespace Auction.Server.Services.Implementation
         }
         public async Task<ArticleDto_Response?> PublishArticle(User user, ArticleDto_Request newArticle, List<IFormFile> pictures)
         {
+            //User? user = await this.DbContext.Users.FindAsync(_user.Id);
+
+
             int minimalStartingPrice = Int32.Parse(Configuration.GetSection("ArticleSettings").GetSection("MinimalStartingPrice").Value!);
             int expiryDate = Int32.Parse(Configuration.GetSection("ArticleSettings").GetSection("DefaultExpiryDate").Value!);
             if (string.IsNullOrEmpty(newArticle.Title) || string.IsNullOrEmpty(newArticle.Description) || newArticle.StartingPrice < minimalStartingPrice || pictures == null || !pictures.Any())

@@ -20,12 +20,12 @@ namespace Auction.Server.Models
         [Required]
         [DataType(DataType.Password)]
         [Column("Password Hash")]
-        [JsonIgnore]
+        //[JsonIgnore]
         public byte[] PasswordHash { get; set; } = [];
 
         [Required]
         //[Column("Password Salt")]
-        [JsonIgnore]
+        //[JsonIgnore]
         public byte[]? PasswordSalt { get; set; }
 
         [Required]
@@ -52,7 +52,7 @@ namespace Auction.Server.Models
         [Column("Profile Picture")]
         public string ProfilePicturePath { get; set; } = string.Empty;
 
-        [JsonIgnore]
+        //[JsonIgnore]
         [Column("Online")]
         public bool OnlineStatus { get; set; }
 
@@ -65,5 +65,40 @@ namespace Auction.Server.Models
         //[NotMapped]
         public virtual List<Article>? BoughtArticles { get; set; } = new List<Article>();
 
+        public User(string Email, byte[] PasswordHash, byte[]? PasswordSalt, string FirstName, string LastName, CustomDate BirthDate, string Gender, UserType UserType, string ProfilePicturePath, bool OnlineStatus, decimal Balance)
+        {
+            this.Email = Email;
+            this.PasswordHash = PasswordHash;
+            this.PasswordSalt = PasswordSalt;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.BirthDate = BirthDate;
+            this.Gender = Gender;
+            this.UserType = UserType;
+            this.ProfilePicturePath = ProfilePicturePath;
+            this.OnlineStatus = OnlineStatus;
+            this.Balance = Balance;
+        }
+
+        [JsonConstructor]
+        public User(int Id, string Email, byte[] PasswordHash, byte[]? PasswordSalt, string FirstName, string LastName, CustomDate BirthDate, string Gender, UserType UserType, string ProfilePicturePath, bool OnlineStatus, decimal Balance, List<Article>? CreatedArticles, List<Article>? BoughtArticles)
+        {
+            this.Id = Id;
+            this.Email = Email;
+            this.PasswordHash = PasswordHash;
+            this.PasswordSalt = PasswordSalt;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.BirthDate = BirthDate;
+            this.Gender = Gender;
+            this.UserType = UserType;
+            this.ProfilePicturePath = ProfilePicturePath;
+            this.OnlineStatus = OnlineStatus;
+            this.Balance = Balance;
+            this.CreatedArticles = CreatedArticles;
+            this.BoughtArticles = BoughtArticles;
+        }
+
     }
+
 }

@@ -36,9 +36,9 @@ namespace Auction.Server.Controller
 
         [HttpGet]
         [Route("get-all-users")]
-        public async Task<ActionResult<List<User>>> GetAllUsers([FromQuery] int pageSize, [FromQuery] int pageIndex)
+        public async Task<ActionResult<List<UserDto>>> GetAllUsers([FromQuery] int pageSize, [FromQuery] int pageIndex)
         {
-            List<User> users = await this.ProfileService.GetAllProfiles(pageSize, pageIndex);
+            List<UserDto> users = await this.ProfileService.GetAllProfiles(pageSize, pageIndex);
             return Ok(users);
         }
 

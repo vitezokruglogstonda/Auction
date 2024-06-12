@@ -11,7 +11,7 @@ namespace Auction.Server.Services.Interfaces
         public void GenerateJwtToken(User user, HttpContext httpContext, TokenType tokenType);
         public bool CheckIfEmailExists(string email);
         public Task<bool> AddNewUser(RegisterDto dto, IFormFile? picture);
-        public Task<User> LogUserIn(string email, HttpContext httpContext);
+        public Task<UserDto> LogUserIn(string email, HttpContext httpContext);
         public Task<bool> LogUserOut(int userId);
         public void RefreshAccessToken(HttpContext httpContext);
         public Task<string?> ChangeProfilePicture(User user, IFormFile? picture);

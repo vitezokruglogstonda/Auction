@@ -18,14 +18,18 @@ namespace Auction.Server.Services.Implementation
         private readonly IConfiguration Configuration;
         private readonly IProfileService ProfileService;
         private readonly IHubContext<NotificationHub> HubContext;
+        private readonly IMailService MailService;
+        private readonly ICacheService CacheService;
 
-        public NotificationService(IConnectionMultiplexer redis, IConfiguration configuration, AuctionContext dbContext, IProfileService profileService, IHubContext<NotificationHub> hubContext)
+        public NotificationService(IConnectionMultiplexer redis, IConfiguration configuration, AuctionContext dbContext, IProfileService profileService, IHubContext<NotificationHub> hubContext, IMailService mailService, ICacheService cacheService)
         {
             DbContext = dbContext;
             Redis = redis.GetDatabase();
             Configuration = configuration;
             ProfileService = profileService;
             HubContext = hubContext;
+            MailService = mailService;
+            CacheService = cacheService;
         }
 
         private async Task<NotificationListHead?> GetNotificationListHead(int userId, bool makeNew = true)
@@ -120,8 +124,11 @@ namespace Auction.Server.Services.Implementation
             await this.Redis.StringSetAsync(newNotificationKey, JsonSerializer.Serialize<NotificationNode>(newNotification));
             await this.Redis.StringSetAsync("n_u_" + userId.ToString(), JsonSerializer.Serialize<NotificationListHead>(head));
 
-            //javi kroz sokete
+            //posalji notifikaciju kroz soket
             await HubContext.Clients.Group("n_u_" + userId.ToString()).SendAsync("NewNotification", newNotification);
+            //javi mu mejlom
+            User? user = await this.CacheService.GetUser(userId);
+            this.MailService.SendMail(user!.Email, article.Id.ToString(), article.Title, type);
         }
 
         public async Task MarkAllNotificationsRead(int userId)

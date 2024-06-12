@@ -7,6 +7,7 @@ using Hangfire;
 using Hangfire.Redis.StackExchange;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,10 @@ builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IPictureService, PictureService>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<ICacheService, CacheService>();
+
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
 builder.Services.AddHttpContextAccessor();
 
