@@ -13,6 +13,7 @@ export class ArticlePictureSliderComponent {
   public currentIndex: number;
   public currentPicture: string;
   @ViewChild('dots') dotsContainer!: ElementRef;
+  @ViewChild('sliderElement') sliderElement!: ElementRef;
 
   constructor(private cd: ChangeDetectorRef) {
     this.pictures = [];
@@ -22,6 +23,10 @@ export class ArticlePictureSliderComponent {
   }
   
   ngAfterViewInit() {
+    if(this.viewMethod == ArticleViewMethod.List){
+      this.sliderElement.nativeElement.classList.add('slider-container-list');
+      this.sliderElement.nativeElement.children[0].classList.add('picture-list');
+    }
     this.updateSlide();
     this.cd.detectChanges();
   }

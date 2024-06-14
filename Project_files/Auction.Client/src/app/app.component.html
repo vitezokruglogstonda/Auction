@@ -10,14 +10,15 @@
   </div>
   <div class="right-toolbar-element-empty" *ngIf="!showRightToolbarElement"></div>
   <div class="right-toolbar-element" *ngIf="showRightToolbarElement">
-    <button class="notification-icon-container" mat-icon-button matTooltip={{notificationButtonTooltipText}} (click)="toggleNotificationCardApperiance()">
+    <button class="notification-icon-container" mat-icon-button matTooltip={{notificationButtonTooltipText}}
+      (click)="toggleNotificationCardApperiance()">
       <i class="fa-regular fa-bell notification-icon"></i>
       <div class="notification-indicator" *ngIf="showNotificationsNumber">
         <p>{{numberOfNewNotifications}}</p>
       </div>
     </button>
     <app-account-icon (emitter)="updateAccountInfoCardAppearance($event)"
-    [foreignEvent]="cardTriggeredEvent"></app-account-icon>
+      [foreignEvent]="cardTriggeredEvent"></app-account-icon>
   </div>
 </mat-toolbar>
 
@@ -48,27 +49,32 @@
       (accountInfoCardEmitter)="cardTriggeredHide()"></app-account-info-card>
     <app-notification-card *ngIf="showNotificationCard"
       (notificationCardEmitter)="notificationCardTriggeredHide()"></app-notification-card>
+
     <div class="footer">
       <div class="footer-content">
         <div class="footer-authors">
           <div class="author-container">
-            <div class="author-name">Andrija Đorđević</div>
-            <div class="author-label">Student</div>
-          </div>
-          <div class="author-container author-container-right">
-            <div class="author-name">Ivan Petković</div>
             <div class="author-label">Mentor</div>
+            <div class="author-name">Ivan Petković</div>
+          </div>
+          <div class="author-container">
+            <a href="https://www.elfak.ni.ac.rs/" class="elfak-logo-container">
+              <img class="elfak-logo" src="assets/Icons/elfak_logo.png">
+            </a>
+          </div>
+          <div class="author-container">
+            <div class="author-label">Student</div>
+            <div class="author-name">Andrija Đorđević</div>
           </div>
         </div>
         <div class="footer-copyright">&copy; 2024 Elektronski Fakultet Niš. All rights reserved.</div>
-        <div class="elfak-logo-container" (click)="openSite('https://www.elfak.ni.ac.rs/')">
-          <img class="elfak-logo" src="assets/Icons/elfak_logo.png">
-        </div>
       </div>
-    </div>
-    <div *ngIf="!viewAtTop" class="scroll-to-top-button" (click)="scrollToTop()" mat-ripple [matRippleCentered]=true [matRippleUnbounded]=true>
-      <i class="fa-solid fa-chevron-up"></i>
     </div>
   </mat-sidenav-content>
 
 </mat-sidenav-container>
+
+<div *ngIf="!viewAtTop" class="scroll-to-top-button" (click)="scrollToTop()" mat-ripple [matRippleCentered]=true
+  [matRippleUnbounded]=true>
+  <i class="fa-solid fa-chevron-up"></i>
+</div>

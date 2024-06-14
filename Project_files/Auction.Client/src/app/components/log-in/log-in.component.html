@@ -1,9 +1,6 @@
 <div class="login-page-container">
     <mat-card class="card-container">
-        <mat-card-title class="login-title" >
-            <p>Log into your account</p>
-        </mat-card-title>
-        <mat-divider class="devider-line"></mat-divider>
+        <h4 class="login-title">Log into your account</h4>
         <div class="login-form-container">
             <mat-form-field class="form-field" appearance="fill">
                 <mat-label>Enter your email</mat-label>
@@ -24,18 +21,21 @@
             <div *ngIf="loginError || passwordWrongError">
                 <p id="loginErrorLabel">You must enter your credentials in order to log in.</p>
             </div>
-            <div mat-raised-button class="submit-button" id="login-button" color="primary" (click)="logIn()" tabindex="0">
-                <i class="fa-solid fa-right-to-bracket"></i>
-                <p>Log in</p>
-            </div>
+            <button type="button" class="submit-button" id="login-button" color="primary" (click)="logIn()" tabindex="0">
+                <span class="submit-button-content">
+                    <i class="fa-solid fa-right-to-bracket button-icon"></i>
+                    <span>Log in</span>
+                </span>
+            </button>
         </div>
-        <mat-divider></mat-divider>
         <div class="register-div">
             <p>Don't have an account?</p>
-            <div mat-raised-button class="submit-button" id="register-button" color="primary" routerLink="/register">
-                <i class="fa-solid fa-id-card button-icon"></i>
-                <p>Register</p>            
-            </div>
+            <button type="button" class="submit-button" id="register-button" color="primary" routerLink="/register">
+                <span class="submit-button-content">
+                    <i class="fa-solid fa-id-card button-icon"></i>
+                    <span>Register</span>
+                </span>            
+            </button>
         </div>
     </mat-card>
 </div>

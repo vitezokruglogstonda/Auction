@@ -12,8 +12,10 @@ body {
     overflow-x: hidden;
 }
 
+
+
 .main-toolbar {
-    background-color: orange;
+    background-color: #F39C12;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -116,7 +118,6 @@ body {
 
 .sidenav-container {
     height: calc(100% - 64px);
-    /* overflow: overlay; */
 }
 
 .sidenav {
@@ -174,13 +175,7 @@ body {
 }
 
 .content-container {
-    background-color: #c6cad6;
-    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5) 250%);
-    /* background-image: url("C:\\Users\\Andrija\\Desktop\\background.png");
-    background-repeat: no-repeat;
-    background-size: 100vw 100vh; 
-    background-size: cover;
-    margin: 0; */
+    background-color: #DADADA;
 
     width: 100%;
     display: flex;
@@ -188,12 +183,30 @@ body {
     align-items: center;
 
     position: relative;
-    min-height: 100vh;
 
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
     
+    background-image: url("../assets/background.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
+
+/* .content-container::after{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: calc(100% - 64px);
+    right:0;
+    z-index: 2;
+    content:"";
+    background-color: rgba(0, 0, 0, 0.10);
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    content: "";
+} */
 
 .content-wrap {
     scroll-snap-align: start;
@@ -201,23 +214,92 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 3;
 }
 
 .footer{
-    display: flex;
+  /*  display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #333;
-    background-image: linear-gradient(to top, orange -45%, transparent 40%, rgba(0, 0, 0, 0.6) 95%);
-    color: #ffa500;
+    align-items: center;*/
+    background-color: #F39C12;
+    color: #263238;
     width: 100%;
-    bottom: 0;
-    /* min-height: 40vh; */
-    min-height: 100vh;    
-    font-family: "Century Gothic";
+    font-family: "Open Sans", sans-serif;
+    padding: 32px 24px 12px 24px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-top: 3px solid #263238;
 
 }
 
+.footer-content {
+    text-align: center;
+}
+
+.footer-content > * {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.footer-content > *:last-child {
+    margin-bottom: 0;
+}
+
+.footer-copyright {
+    font-size: 12px;
+    line-height: 1.3;
+    display: inline-block;
+    width: 100%;
+}
+
+.footer-content .author-container {
+    width: 33.3334%;
+    padding:0 5px;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.footer-content .author-label {
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+.footer-content .author-name {
+    font-size: 20px;
+    display: inline-block;
+    width:100%;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+
+.footer-content .elfak-logo-container {
+    width:80px;
+    display: inline-block;
+}
+
+.footer-content .elfak-logo-container img {
+    display: block;
+    width: 100%;
+}
+
+
+@media screen and (max-width: 600px) {
+    
+    .footer-content .author-container {
+        width: 100%;
+        margin-bottom:18px;
+    }
+    
+    .footer-content .author-container:last-child {
+        margin-bottom:0px;
+    }
+}
+
+/*
 .footer-content{
     width: 100%;
     height: 100%;
@@ -244,7 +326,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    /* width: 10em; */
 }
 
 .author-container-right{
@@ -281,7 +362,7 @@ body {
 
 .elfak-logo:hover{
     cursor: pointer;
-}
+}*/
 
 .scroll-to-top-button{
     display: flex;

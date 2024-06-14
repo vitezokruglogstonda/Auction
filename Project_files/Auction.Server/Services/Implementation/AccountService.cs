@@ -194,7 +194,7 @@ namespace Auction.Server.Services.Implementation
 
         public async Task<bool> LogUserOut(int userId)
         {
-            User? user = await this.CacheService.GetUser(userId);
+            User? user = await DbContext.Users.FindAsync(userId);
             if (user == null)
                 return false;
             if (user.OnlineStatus)

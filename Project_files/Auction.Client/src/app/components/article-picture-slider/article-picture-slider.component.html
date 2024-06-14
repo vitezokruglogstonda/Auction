@@ -1,4 +1,4 @@
-<div class="slider-container">
+<div class="slider-container" #sliderElement>
     <img *ngIf="currentPicture" class="picture" src="{{currentPicture}}" alt="picture">
     <div *ngIf="overlayEnabled()" class="list-article-item-overlay">
         <div #leftButton matRipple class="slider-button left" (click)="previousSlide()">
