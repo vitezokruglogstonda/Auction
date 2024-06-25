@@ -18,9 +18,9 @@
                 <mat-error *ngIf="passwordFieldEmptyError">{{fieldEmptyError_Label}}</mat-error>
                 <mat-error *ngIf="passwordWrongError && !passwordFieldEmptyError">{{passwordWrongError_Label}}</mat-error>
             </mat-form-field>
-            <div *ngIf="loginError || passwordWrongError">
+            <!-- <div *ngIf="loginError || passwordWrongError">
                 <p id="loginErrorLabel">You must enter your credentials in order to log in.</p>
-            </div>
+            </div> -->
             <button type="button" class="submit-button" id="login-button" color="primary" (click)="logIn()" tabindex="0">
                 <span class="submit-button-content">
                     <i class="fa-solid fa-right-to-bracket button-icon"></i>

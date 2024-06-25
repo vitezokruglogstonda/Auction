@@ -9,10 +9,8 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: #aeb1bc;
+    background-color: #ccc;
     position: relative;
-    /* background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.5) 5%, transparent 50%, rgba(0, 0, 0, 0.5) 95%); */
-    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.3) 5%, transparent 50%, rgba(0, 0, 0, 0.3) 95%);
 }
 
 .slider-container-list{

@@ -58,7 +58,7 @@
     display: block;
     padding: 20px;
     color: rgb(0 0 0);
-    background-color: #ffa600ab;
+    background-color: rgba(255, 166, 0, 0.671);
     margin: 20px auto;
     min-width: 150px;
     width: 100%;
@@ -74,9 +74,7 @@
 }
 
 .submit-button:hover{
-    border-color: #ffa600ab;
-    background-color: #f5f5f5;
-    color: #ffa600ab;
+    background-color: rgba(255, 166, 0, 0.5);
 }
 
 .submit-button .submit-button-content {

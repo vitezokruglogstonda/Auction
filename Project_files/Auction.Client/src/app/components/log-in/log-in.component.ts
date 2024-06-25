@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { selectEmailTaken, selectLoginErrorStatus } from '../../store/app/app.selector';
 import { LoginDto } from '../../models/user';
 import { checkEmail, logIn } from '../../store/user/user.action';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-log-in',
@@ -27,7 +28,7 @@ export class LogInComponent {
   public passwordWrongError_Label: String;
   public loginError: boolean;
 
-  constructor(private store: Store<AppState>) { 
+  constructor(private store: Store<AppState>, private snackbarService: SnackbarService) { 
     this.email = "";
     this.emailExample = environment.login_card_example_email;
     this.emailFieldEmptyError = false;
@@ -47,6 +48,9 @@ export class LogInComponent {
   ngOnInit(): void{
     this.store.select(selectLoginErrorStatus).subscribe((state)=>{
       this.passwordWrongError = state;
+      if(!!state){
+        this.snackbarService.spawnSnackbar("Invalid credentials. Try again.")
+      }
     });
     this.store.select(selectEmailTaken).subscribe((state) => {
       this.emailExistenceError = !state;
@@ -82,6 +86,7 @@ export class LogInComponent {
       this.store.dispatch(logIn({loginDto: dto}));
     }else{
       this.loginError = true;
+      this.snackbarService.spawnSnackbar("Invalid credentials. Try again.")
     }
   }
 

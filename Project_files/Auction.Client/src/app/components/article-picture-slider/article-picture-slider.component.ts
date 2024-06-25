@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ArticleViewMethod } from '../../models/article';
 import { environment } from '../../../environments/environment';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-article-picture-slider',
@@ -12,6 +13,7 @@ export class ArticlePictureSliderComponent {
   @Input() viewMethod: ArticleViewMethod | null;
   public currentIndex: number;
   public currentPicture: string;
+  public currentPictureStyle;
   @ViewChild('dots') dotsContainer!: ElementRef;
   @ViewChild('sliderElement') sliderElement!: ElementRef;
 
@@ -19,6 +21,7 @@ export class ArticlePictureSliderComponent {
     this.pictures = [];
     this.currentIndex = 0;
     this.currentPicture = environment.defaultArticleImage;
+    this.currentPictureStyle = { backgroundImage: 'url("'+ this.currentPicture +'")' };
     this.viewMethod = null;
   }
   
