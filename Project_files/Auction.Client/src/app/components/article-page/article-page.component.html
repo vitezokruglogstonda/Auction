@@ -1,15 +1,12 @@
 <div class="article-page-container" *ngIf="article">
     <div class="article-page-upper">
-        <div class="article-page-upper-wrap">
+        <h2 class="article-info-title">{{article.title}}</h2>
+        <div class="article-page-upper-wrap">       
             <div class="picture-slide-container">
                 <app-article-picture-slider class="picture-slide" [viewMethod]="articleViewMethod"
                     [pictures]="article!.pictures"></app-article-picture-slider>
             </div>
-            <!-- <div class="vertical-line"></div> -->
             <div class="article-info-container">
-                <div class="article-info-title">
-                    <p>{{article.title}}</p>
-                </div>
                 <div class="info-container">
                     <div class="info-subcontainer">
                         <div class="info-image-container" (click)="goToProfile(articleCreator?.id)">
@@ -21,7 +18,7 @@
                             <p class="info-label article-info-label">Publisher</p>
                         </div>
                     </div>
-                    <div *ngIf="articleCustomer!==null" class="info-subcontainer info-subcontainer-right">
+                    <div *ngIf="articleCustomer!==null" class="info-subcontainer">
                         <div class="info-label-container info-label-container-right"
                             (click)="goToProfile(articleCustomer.id)">
                             <p class="info-value article-info-user-name">{{articleCustomer.firstName}}
@@ -32,13 +29,13 @@
                             <img class="info-image" src={{articleCustomer.profilePicturePath}} />
                         </div>
                     </div>
-                    <div *ngIf="articleCustomer===null" class="info-subcontainer info-subcontainer-right">
-                        <div class="info-label-container info-label-container-right">
-                            <p class="info-value">{{articleStatusLabel}}</p>
-                            <p class="info-label">Status</p>
-                        </div>
+                    <div *ngIf="articleCustomer===null" class="info-subcontainer">
                         <div class="label-icon-container">
                             <i class="fa-solid fa-circle-info label-icon"></i>
+                        </div>
+                        <div class="info-label-container ">
+                            <p class="info-value">{{articleStatusLabel}}</p>
+                            <p class="info-label">Status</p>
                         </div>
                     </div>
                 </div>
@@ -52,13 +49,13 @@
                             <p class="info-label">Expires</p>
                         </div>
                     </div>
-                    <div class="info-subcontainer info-subcontainer-right" *ngIf="showExpiryTimeLeft">
-                        <div class="info-label-container info-label-container-right">
-                            <p class="info-value">{{expiryTimeLeft}}</p>
-                            <p class="info-label">Time left</p>
-                        </div>
+                    <div class="info-subcontainer" *ngIf="showExpiryTimeLeft">
                         <div class="label-icon-container">
                             <i class="fa-solid fa-stopwatch label-icon"></i>
+                        </div>
+                        <div class="info-label-container">
+                            <p class="info-value">{{expiryTimeLeft}}</p>
+                            <p class="info-label">Time left</p>
                         </div>
                     </div>
                 </div>
@@ -72,13 +69,13 @@
                             <p class="info-label">Start price</p>
                         </div>
                     </div>
-                    <div class="info-subcontainer info-subcontainer-right" *ngIf="showCurrentPrice">
-                        <div class="info-label-container info-label-container-right">
-                            <p class="info-value">${{article.soldPrice}}</p>
-                            <p class="info-label">Last price</p>
-                        </div>
+                    <div class="info-subcontainer" *ngIf="showCurrentPrice">
                         <div class="label-icon-container">
                             <i class="fas fa-money-bill label-icon current-price-icon"></i>
+                        </div>
+                        <div class="info-label-container">
+                            <p class="info-value">${{article.soldPrice}}</p>
+                            <p class="info-label">Last price</p>
                         </div>
                     </div>
                 </div>
@@ -87,25 +84,23 @@
     </div>
     <div class="article-page-downer">
         <div class="description-container">
-            <mat-expansion-panel>
+            <mat-expansion-panel expanded="true">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <i class="fa-solid fa-quote-right description-icon"></i>
-                    </mat-panel-title>
-                    <mat-panel-description>
                         <p class="description-title">Description</p>
-                    </mat-panel-description>
+                    </mat-panel-title>
                 </mat-expansion-panel-header>
                 <p class="description-text">{{article.description}}</p>
             </mat-expansion-panel>
         </div>
         <div class="biding-container">
-            <div class="enroll-button" *ngIf="showEnrollButton" (click)="enroll()">
-                <div class="enroll-button-content-container">
-                    <i class="fa-solid fa-gavel label-icon enroll-button-content"></i>
-                    <p class="enroll-button-label">Bid Now</p>
-                    <p class="fee-label enroll-button-content">(${{fee}})</p>
-                </div>
+            <div class="enroll-button-wrapper">
+                <button class="enroll-button-new" *ngIf="showEnrollButton" (click)="enroll()">
+                    <i class="fa-solid fa-gavel label-icon"></i>
+                    <span>Bid Now</span>
+                    <span>(${{fee}})</span>
+                </button>
             </div>
             <div class="bid-list-and-options-container" *ngIf="!showEnrollButton && showBidSection">
                 <div class="bid-list-container">
@@ -150,9 +145,9 @@
                             </mat-form-field>
                         </div>                     
                     </div>
-                    <div matRipple class="bid-button" (click)="placeBid()">
-                        <p>Bid</p>
-                    </div>
+                    <button type="button" class="bid-button" (click)="placeBid()">
+                        <span>Bid</span>
+                    </button>
                 </div>
                 <div class="bid-options-container" *ngIf="!currentlyBidding"></div>
             </div>

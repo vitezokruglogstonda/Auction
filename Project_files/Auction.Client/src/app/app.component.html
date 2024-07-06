@@ -27,7 +27,7 @@
   <mat-sidenav #snav mode="over" class="sidenav">
     <mat-selection-list [multiple]="false">
       <mat-list-item class="sidenav-list-option" *ngFor="let item of sidenavItems; let i = index"
-        routerLink="{{item?.route}}">
+        routerLink="{{item?.route}}" (click)="snav.toggle()">
         <div class="sidenav-list-option-container">
           <div class="sidenav-list-option-icon">
             <i class="{{sidenavIcons[i]}}"></i>

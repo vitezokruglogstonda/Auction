@@ -1,71 +1,75 @@
-<div class="ca-container">
-    <div class="photo-upload-container">
-        <div class="input-field-container">
-            <input id="input-field" type="file" accept="image/*" (change)="newPicture($event)" multiple>
-        </div>
-        <div class="drag-drop" (click)="browse()">
-            <i class="fa-regular fa-images drag-drop-icon"></i>
-            <div class="drag-drop-text">
-                <p><i class="fa-solid fa-arrow-up-from-bracket drag-drop-text-icon"></i> Drop your file(s) here, or
-                    <span class="browse" (click)="browse()">Browse</span>
-                </p>
+
+<div class="ca-container-wrapper">
+    <div class="ca-container">
+        <div class="photo-upload-container">
+            <div class="input-field-container">
+                <input id="input-field" type="file" accept="image/*" (change)="newPicture($event)" multiple>
+            </div>
+            <div class="drag-drop" (click)="browse()">
+                <i class="fa-regular fa-images drag-drop-icon"></i>
+                <div class="drag-drop-text">
+                    <p><i class="fa-solid fa-arrow-up-from-bracket drag-drop-text-icon"></i> Drop your file(s) here, or
+                        <span class="browse" (click)="browse()">Browse</span>
+                    </p>
+                </div>
+            </div>
+            <div class="upload-error"></div>
+            <div class="photo-list-item-container" *ngFor="let photo of uploadedPictures">
+                <div class="photo-list-item">
+                    <div *ngIf="photo !== null" class="image-icon">
+                        <img alt="Photo" />
+                        <p>{{[getFileSize(photo)]}}MB</p>
+                    </div>
+                    <p *ngIf="photo !== null">{{photo.name}}</p>
+                    <div class="remove-photo-button" *ngIf="photo !== null" (click)="removeFileFromList(photo)">
+                        <i class="fas fa-times remove-photo-icon"></i>
+                    </div>
+                    <i *ngIf="photo == null" class="fa-solid fa-image image-icon default-image-icon"></i>
+                    <p *ngIf="photo == null" class="empty-label">Empty</p>
+                    <div *ngIf="photo == null" class="empty"></div>
+                </div>
             </div>
         </div>
-        <div class="upload-error"></div>
-        <div class="photo-list-item-container" *ngFor="let photo of uploadedPictures">
-            <div class="photo-list-item">
-                <div *ngIf="photo !== null" class="image-icon">
-                    <img alt="Photo" />
-                    <p>{{[getFileSize(photo)]}}MB</p>
-                </div>
-                <p *ngIf="photo !== null">{{photo.name}}</p>
-                <div class="remove-photo-button" *ngIf="photo !== null" (click)="removeFileFromList(photo)">
-                    <i class="fas fa-times remove-photo-icon"></i>
-                </div>
-                <i *ngIf="photo == null" class="fa-solid fa-image image-icon default-image-icon"></i>
-                <p *ngIf="photo == null" class="empty-label">Empty</p>
-                <div *ngIf="photo == null" class="empty"></div>
+        <div class="vertical-line"></div>
+        <div class="enter-info-container">
+            <div class="field-container">
+                <i class="fa-solid fa-font form-field-icon"></i>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Article Title</mat-label>
+                    <input matInput [(ngModel)]="articleTitle" #titleInput="ngModel"
+                        [class.is-invalid]="titleInput.invalid && titleInput.touched" required>
+                    <mat-error *ngIf="titleInput.touched && titleInput.invalid">{{errorMessage_InputField}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="field-container description-container">
+                <i class="fa-solid fa-quote-right form-field-icon" id="description-icon"></i>
+                <mat-form-field appearance="outline" class="form-field description-field" color="primary">
+                    <mat-label>Description</mat-label>
+                    <textarea [@textareaAnimation]="descriptionField_Enlarged ? 'enlarged' : 'shrink'"
+                        [ngClass]="{'enlarged': descriptionField_Enlarged, 'shrink': !descriptionField_Enlarged}"
+                        class="description-textarea" matInput [(ngModel)]="articleDescription" #descriptionInput="ngModel"
+                        (input)="enlargeTextarea()" (change)="enlargeTextarea()" (blur)="shrinkTextarea()"
+                        required>Description</textarea>
+                    <mat-error
+                        *ngIf="descriptionInput.touched && descriptionInput.invalid">{{errorMessage_InputField}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="field-container">
+                <i class="fa-solid fa-tag form-field-icon"></i>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Starting price</mat-label>
+                    <input matInput type="number" [(ngModel)]="startingPrice" step="100" name="value" min="0" (ngModelChange)="manualValueChanged($event)" #priceInput="ngModel"
+                        [class.is-invalid]="priceInput.invalid && priceInput.touched" required>
+                    <mat-error *ngIf="priceInput.touched && priceInput.invalid">{{errorMessage_InputField}}</mat-error>
+                    <mat-hint *ngIf="moneyAmountWarning_Show" class="input-field-warning-message">{{moneyAmountWarning}}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="submit-button-container">
+                <button type="button" class="submit-button" (click)="publishArticle()">
+                        <span>Publish</span>
+                </button>
             </div>
         </div>
     </div>
-    <div class="vertical-line"></div>
-    <div class="enter-info-container">
-        <div class="field-container">
-            <i class="fa-solid fa-font form-field-icon"></i>
-            <mat-form-field class="form-field" appearance="fill">
-                <mat-label>Article Title</mat-label>
-                <input matInput [(ngModel)]="articleTitle" #titleInput="ngModel"
-                    [class.is-invalid]="titleInput.invalid && titleInput.touched" required>
-                <mat-error *ngIf="titleInput.touched && titleInput.invalid">{{errorMessage_InputField}}</mat-error>
-            </mat-form-field>
-        </div>
-        <div class="field-container description-container">
-            <i class="fa-solid fa-quote-right form-field-icon" id="description-icon"></i>
-            <mat-form-field appearance="outline" class="form-field description-field" color="primary">
-                <mat-label>Description</mat-label>
-                <textarea [@textareaAnimation]="descriptionField_Enlarged ? 'enlarged' : 'shrink'"
-                    [ngClass]="{'enlarged': descriptionField_Enlarged, 'shrink': !descriptionField_Enlarged}"
-                    class="description-textarea" matInput [(ngModel)]="articleDescription" #descriptionInput="ngModel"
-                    (input)="enlargeTextarea()" (change)="enlargeTextarea()" (blur)="shrinkTextarea()"
-                    required>Description</textarea>
-                <mat-error
-                    *ngIf="descriptionInput.touched && descriptionInput.invalid">{{errorMessage_InputField}}</mat-error>
-            </mat-form-field>
-        </div>
-        <div class="field-container">
-            <i class="fa-solid fa-tag form-field-icon"></i>
-            <mat-form-field class="form-field" appearance="fill">
-                <mat-label>Starting price</mat-label>
-                <input matInput type="number" [(ngModel)]="startingPrice" step="100" name="value" min="0" (ngModelChange)="manualValueChanged($event)" #priceInput="ngModel"
-                    [class.is-invalid]="priceInput.invalid && priceInput.touched" required>
-                <mat-error *ngIf="priceInput.touched && priceInput.invalid">{{errorMessage_InputField}}</mat-error>
-                <mat-hint *ngIf="moneyAmountWarning_Show" class="input-field-warning-message">{{moneyAmountWarning}}</mat-hint>
-            </mat-form-field>
-        </div>
-        <div class="submit-button-container">
-            <div matRipple class="submit-button" (click)="publishArticle()" >
-                <p>Publish</p>
-            </div>
-        </div>
-    </div>
+
 </div>

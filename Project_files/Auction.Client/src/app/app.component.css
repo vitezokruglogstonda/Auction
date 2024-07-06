@@ -117,7 +117,7 @@ body {
 }
 
 .sidenav {
-    background-color: #ffa600ab;
+    background-color: #ffa600;
     width: 20%;
     min-width:280px;
 }
@@ -175,9 +175,9 @@ body {
     background-color: #DADADA;
 
     width: 100%;
-    display: flex;
+    /*display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;*/
 
     position: relative;
 
@@ -191,15 +191,11 @@ body {
 }
 
 .content-wrap {
-    scroll-snap-align: start;
+   /* scroll-snap-align: start;*/
     width: 100%;
     padding:0 40px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-   /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 3;*/
 }
 
 .footer{
