@@ -23,16 +23,11 @@
 }
 
 .search-section{
-   /* width: 70%;*/
-    /* height: 10%; */
-   /* display: flex;
-    align-items: center;
-    justify-content: center;*/
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     display: block;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 
 .search-container{
@@ -45,8 +40,6 @@
     border-width: 1px;
     border-radius: 5px;
     border-color: #aeb1bc;
-    /* box-shadow: 0px 0px 3px black; */
-
     display: flex;
     flex-direction: row;
     align-items: center;

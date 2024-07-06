@@ -1,142 +1,140 @@
-<div class="main-container">
-    <div class="header">
-        <!-- <mat-divider class="devider-line"></mat-divider> -->
-        <p class="header-text">Registration</p>
-        <!-- <mat-divider class="devider-line"></mat-divider> -->
-    </div>
+<div class="main-container register-page-container">
+    <div class="register-card-wrapper">
+        <div class="header">
+            <!-- <mat-divider class="devider-line"></mat-divider> -->
+            <h4 class="header-text">Registration</h4>
+            <!-- <mat-divider class="devider-line"></mat-divider> -->
+        </div>
+        <mat-stepper class="stepper" orientation="vertical" [linear]="true" #stepper>
 
-    <mat-stepper class="stepper" orientation="vertical" [linear]="true" #stepper>
-
-        <mat-step>
-            <div class="step-form-container">
-                <ng-template matStepLabel>Enter your new account credentials</ng-template>
-                <div class="field-container">
-                    <mat-icon class="side-icon">account_circle</mat-icon>
-                    <mat-form-field class="form-field" appearance="fill">
-                        <mat-label>Email</mat-label> 
-                        <input matInput [(ngModel)]="email" placeholder={{emailExample}} pattern="{{emailPattern}}"
-                            #emailInput="ngModel" [class.is-invalid]="emailInput.invalid && emailInput.touched"
-                            (change)="checkEmail($event)" required>
-                        <mat-error *ngIf="emailInput.touched && emailInput.invalid">{{emailErrorMessage_Invalid}}
-                        </mat-error>
-                        <mat-hint *ngIf="emailError" class="warning-message-input">{{emailErrorMessage_Taken}}</mat-hint>
-                    </mat-form-field>
+            <mat-step>
+                <div class="step-form-container">
+                    <ng-template matStepLabel>Enter your new account credentials</ng-template>
+                    <div class="field-container">
+                        <mat-form-field class="form-field" appearance="fill">
+                            <mat-label>Email</mat-label> 
+                            <input matInput [(ngModel)]="email" placeholder={{emailExample}} pattern="{{emailPattern}}"
+                                #emailInput="ngModel" [class.is-invalid]="emailInput.invalid && emailInput.touched"
+                                (change)="checkEmail($event)" required>
+                            <mat-error *ngIf="emailInput.touched && emailInput.invalid">{{emailErrorMessage_Invalid}}
+                            </mat-error>
+                            <mat-hint *ngIf="emailError" class="warning-message-input">{{emailErrorMessage_Taken}}</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container">
+                        <mat-form-field class="form-field" appearance="fill">
+                            <mat-label>Password</mat-label>
+                            <input matInput [(ngModel)]="password" #passwordInput="ngModel"
+                                [type]="passwordHide ? 'password' : 'text'" required>
+                            <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                                <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="passwordInput.touched && passwordInput.invalid">{{passwordErrorMessage}}
+                            </mat-error>
+                            <mat-hint
+                                *ngIf="passwordInput.touched && passwordInput.value.length<5 && passwordInput.value.length>0"
+                                class="warning-message-input">{{passwordHint}}</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container">
+                        <mat-form-field class="form-field" appearance="fill">
+                            <mat-label>Confirm password</mat-label>
+                            <input matInput [(ngModel)]="passwordRep" #passwordRepInput="ngModel" pattern="{{password}}"
+                                minlength="{{password.length}}" maxlength="{{password.length}}"
+                                [type]="passwordHide ? 'password' : 'text'" required>
+                            <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                                <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="passwordRepInput.touched && passwordRepInput.errors">
+                                {{passwordRepErrorMessage}}</mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
-                <br />
-                <div class="field-container">
-                    <mat-icon class="side-icon">vpn_key</mat-icon>
-                    <mat-form-field class="form-field" appearance="fill">
-                        <mat-label>Password</mat-label>
-                        <input matInput [(ngModel)]="password" #passwordInput="ngModel"
-                            [type]="passwordHide ? 'password' : 'text'" required>
-                        <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
-                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
-                            <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <div class="step-button-container" style="justify-content: flex-start;">
+                    <button class="step-button" id="first-step-button" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <div class="step-form-container shorter">
+                    <ng-template matStepLabel>Fill out your personal information</ng-template>
+                    <div class="field-container info-field">
+                        <mat-form-field class="form-field" appearance="fill">
+                            <mat-label>First Name</mat-label>
+                            <input matInput [(ngModel)]="firstName" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container info-field">
+                        <mat-form-field class="form-field" appearance="fill">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput [(ngModel)]="lastName" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container info-field">
+                        <mat-form-field class="form-field" appearance="fill">
+                            <mat-label>Birthdate</mat-label>
+                            <input matInput [matDatepicker]="birthDatePicker" (dateChange)="newDate($event)" required>
+                            <mat-hint style="color: white;">DD/MM/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #birthDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container info-field">
+                        <mat-form-field class="form-field" appearance="fill">
+                            <mat-label>Gender</mat-label>
+                            <mat-select [(ngModel)]="userGender" required>
+                                <mat-option *ngFor="let gender of gendersList" [value]="gender">
+                                    {{gender}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="step-button-container">
+                   <!-- <button mat-stroked-button class="step-button" matStepperPrevious>Back</button> -->
+                    <button class="step-button" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Profile picture</ng-template>
+                <div (mouseover)="showBadge=true" (mouseleave)="showBadge=false" class="step-form-container picture-step">
+                    <div class="profile-picture-div">
+                        <button mat-mini-fab *ngIf="showBadge&&userPictureExists" color="warn" class="remove-picture-button badge"
+                            (click)="deletePhoto()">
+                            <i class="fas fa-times cancel-icon badge-icon"></i>
                         </button>
-                        <mat-error *ngIf="passwordInput.touched && passwordInput.invalid">{{passwordErrorMessage}}
-                        </mat-error>
-                        <mat-hint
-                            *ngIf="passwordInput.touched && passwordInput.value.length<5 && passwordInput.value.length>0"
-                            class="warning-message-input">{{passwordHint}}</mat-hint>
-                    </mat-form-field>
-                </div>
-                <br />
-                <div class="field-container">
-                    <mat-icon class="side-icon">vpn_key</mat-icon>
-                    <mat-form-field class="form-field" appearance="fill">
-                        <mat-label>Confirm password</mat-label>
-                        <input matInput [(ngModel)]="passwordRep" #passwordRepInput="ngModel" pattern="{{password}}"
-                            minlength="{{password.length}}" maxlength="{{password.length}}"
-                            [type]="passwordHide ? 'password' : 'text'" required>
-                        <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
-                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
-                            <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                        <mat-error *ngIf="passwordRepInput.touched && passwordRepInput.errors">
-                            {{passwordRepErrorMessage}}</mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-            <br />
-            <div class="step-button-container" style="justify-content: flex-start;">
-                <button mat-stroked-button class="step-button" id="first-step-button" matStepperNext>Next</button>
-            </div>
-        </mat-step>
-
-        <mat-step>
-            <div class="step-form-container shorter">
-                <ng-template matStepLabel>Fill out your personal information</ng-template>
-                <div class="field-container info-field">
-                    <mat-form-field class="form-field" appearance="fill">
-                        <mat-label>First Name</mat-label>
-                        <input matInput [(ngModel)]="firstName" required>
-                    </mat-form-field>
-                </div>
-                <div class="field-container info-field">
-                    <mat-form-field class="form-field" appearance="fill">
-                        <mat-label>Last Name</mat-label>
-                        <input matInput [(ngModel)]="lastName" required>
-                    </mat-form-field>
-                </div>
-                <div class="field-container info-field">
-                    <mat-form-field class="form-field" appearance="fill">
-                        <mat-label>Birthdate</mat-label>
-                        <input matInput [matDatepicker]="birthDatePicker" (dateChange)="newDate($event)" required>
-                        <mat-hint style="color: white;">DD/MM/YYYY</mat-hint>
-                        <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #birthDatePicker></mat-datepicker>
-                    </mat-form-field>
-                </div>
-                <div class="field-container info-field">
-                    <mat-form-field class="form-field" appearance="fill">
-                        <mat-label>Gender</mat-label>
-                        <mat-select [(ngModel)]="userGender" required>
-                            <mat-option *ngFor="let gender of gendersList" [value]="gender">
-                                {{gender}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="step-button-container">
-                <button mat-stroked-button class="step-button" matStepperPrevious>Back</button>
-                <button mat-stroked-button class="step-button" matStepperNext>Next</button>
-            </div>
-        </mat-step>
-
-        <mat-step>
-            <ng-template matStepLabel>Profile picture</ng-template>
-            <div (mouseover)="showBadge=true" (mouseleave)="showBadge=false" class="step-form-container picture-step">
-                <div class="profile-picture-div">
-                    <button mat-mini-fab *ngIf="showBadge&&userPictureExists" color="warn" class="badge"
-                        (click)="deletePhoto()">
-                        <!-- <mat-icon class="badge-icon">cancel</mat-icon> -->
-                        <i class="fas fa-times cancel-icon badge-icon"></i>
+                        <div class="profile-picture-wrapper">
+                            <img class="profile-picture" src="{{defaultPicturePath}}" />
+                        </div>
+                    </div>
+                    <br />
+                    <button class="step-button upload-picture-button" (click)="openUploadDialog()">
+                        <span class="button-content">
+                            <i class="fa-solid fa-upload button-icon"></i>
+                            <span>Upload</span>
+                        </span>
                     </button>
-                    <img class="profile-picture" src="{{defaultPicturePath}}" />
                 </div>
+                <div class="step-button-container">
+                   <!-- <button mat-stroked-button class="step-button" matStepperPrevious>Back</button> -->
+                    <button class="step-button" matStepperNext>Next</button>
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
                 <br />
-                <div mat-raised-button class="upload-picture-button" (click)="openUploadDialog()">
-                    <i class="fa-solid fa-upload button-icon"></i>
-                    <p>Upload</p>
+                <div class="step-form-container-register">
+                    <button class="step-button register-button" (click)="registerNow()">
+                        <i class="fa-solid fa-id-card button-icon"></i>
+                        <span>Register now</span>
+                    </button>
                 </div>
-            </div>
-            <div class="step-button-container">
-                <button mat-stroked-button class="step-button" matStepperPrevious>Back</button>
-                <button mat-stroked-button class="step-button" matStepperNext>Next</button>
-            </div>
-        </mat-step>
+            </mat-step>
 
-        <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-            <br />
-            <div class="step-form-container-register">
-                <div mat-raised-button class="register-button" (click)="registerNow()">
-                    <i class="fa-solid fa-id-card button-icon"></i>
-                    <p>Register now</p>
-                </div>
-            </div>
-        </mat-step>
-
-    </mat-stepper>
+        </mat-stepper>
+    </div>    
 </div>

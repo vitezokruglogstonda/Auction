@@ -13,12 +13,11 @@ import { Router } from '@angular/router';
   templateUrl: './account-info-card.component.html',
   styleUrl: './account-info-card.component.css'
 })
-export class AccountInfoCardComponent {
-  
+export class AccountInfoCardComponent {  
+  @Output() accountInfoCardEmitter: EventEmitter<boolean>;
   public accountImagePath: String;
   public userName: String;
   public moneyBalance: String;
-  @Output() accountInfoCardEmitter: EventEmitter<boolean>;
 
   constructor(private store: Store<AppState>, private elRef: ElementRef, private router: Router) {
     this.accountImagePath = "";

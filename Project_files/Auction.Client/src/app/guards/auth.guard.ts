@@ -15,7 +15,6 @@ export class AuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router, private localStorage: LocalStorageService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-
         let jwt: string | null = this.localStorage.getItem("jwt");
         if (route.data['roles'].includes(UserType.Guest)) {
             if (jwt === null)
@@ -34,11 +33,7 @@ export class AuthGuard implements CanActivate {
                     return false;
                 }
                 return true;
-            }),
-            // catchError((error) => {
-            //     this.router.navigate(['/login']); //ovo mnogo ne valja (pogledaj notes)
-            //     return throwError(error);
-            // })
+            })
         );
     }
 }

@@ -1,4 +1,158 @@
-.main-container {
+.register-page-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: url(/assets/city-background.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+
+.register-page-container h4 {
+    margin: 0;
+}
+
+
+.register-page-container .step-button {
+    display: block;
+    padding: 20px;
+    color: rgb(0 0 0);
+    background-color: rgba(255, 166, 0, 0.671);
+    margin: 0px auto 0px;
+    min-width: 150px;
+    width: 100%;
+    height: 55px;
+    border-radius: 5px 5px 0px 0px;
+    border-width: 0px 0px 2px 0px;
+    border-color: rgb(200 200 200);
+    cursor: pointer;
+    line-height: 0px;
+    transition: border-color 0.3s ease-out, background-color 0.3s ease-out, color 0.3s ease-out;
+}
+
+.register-page-container .step-button:hover{
+    background-color: rgba(255, 166, 0, 0.5);
+}
+
+.register-page-container .step-button .button-content {
+    display: block;
+
+}
+
+.register-page-container .step-button .button-icon{
+    margin-right: 10px;
+}
+
+.register-page-container .step-button .button-content span {
+    min-width: 50px;
+}
+
+.register-card-wrapper {
+    display: block;
+    width: 500px;
+    max-width: 90%;
+    padding: 32px;
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius:5px;
+    background:#fff;
+}
+
+
+.register-card-wrapper mat-form-field {
+    width: 100%;
+    position: relative;  
+    margin-bottom: 24px;
+}
+
+.register-card-wrapper::ng-deep .mat-vertical-content {
+    padding:0 24px;
+    margin:24px 0;
+    border-left: 1px solid #f1f1f1;
+}
+
+.register-card-wrapper::ng-deep .mat-vertical-content .picture-step {
+    margin-bottom:40px;
+}
+
+.register-card-wrapper::ng-deep .mat-vertical-content .picture-step .upload-picture-button {
+    width: 35%;
+    border:2px solid rgba(255, 166, 0, 0.671);
+    background-color: transparent;
+}
+
+.register-card-wrapper::ng-deep .mat-vertical-content .picture-step .upload-picture-button:hover {
+    background-color: rgba(255, 166, 0, 0.671);
+}
+
+.register-card-wrapper::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+}
+.register-card-wrapper::ng-deep .mat-vertical-content-container {
+    margin-left:24px;
+}
+
+
+.register-card-wrapper::ng-deep .mat-vertical-content-container:before {
+    display: none !important;
+}
+
+.register-card-wrapper::ng-deep .profile-picture-div {
+    position: relative;
+    display: inline-block;
+    margin-bottom:24px;
+    padding: 12px;
+}
+
+.register-card-wrapper::ng-deep .profile-picture-wrapper {
+    border-radius: 50%;
+    overflow:hidden;
+    display: inline-block;
+    line-height: 0;  
+    background-color: #f1f1f1;
+    border: 1px solid #f1f1f1;
+}
+
+.register-card-wrapper::ng-deep .profile-picture {
+    height: 100px;
+    display: inline-block;
+}
+
+.register-card-wrapper::ng-deep .remove-picture-button {
+    position: absolute;
+    bottom: 8px;
+    left:8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.main-container {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -14,7 +168,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background: linear-gradient(to bottom, #e1a940, #e1a940b3, #c6cad6); */
     background: linear-gradient(to bottom, #e1a940, #e1a940b3, transparent);
 }
 
@@ -69,10 +222,6 @@
 }
 
 .profile-picture-div {
-    /* width: 20%;
-    height: 20%; */
-    /* width: 10em;
-    height: 10em; */
     width: 18vh;
     height: 18vh;
     max-width: 20%;
@@ -91,9 +240,6 @@
 
 .badge {
     position: absolute;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     width: 30px;
     height: 30px;
     right: 41%;
@@ -109,13 +255,6 @@
 }
 
 .badge-icon {
-    /* width: 100%;
-    height: 100%;
-    position:relative;
-    top: 10%;
-    color: #636468; */
-
-    /* margin-top: 30%; */
     font-size: 15px;
     color: rgba(255, 255, 255, 0.6);
 }
@@ -211,24 +350,16 @@
 
 ::ng-deep .mat-step-header .mat-step-icon {
     font-family: "Century Gothic";
-    /* background-color: rgb(53, 53, 53); 
-    color: orange; */
-    /* #ffa600ab */
     background-color: orange;
     color: black;
 }
 
 ::ng-deep .mat-step-header .mat-step-icon-selected {
     font-family: "Century Gothic";
-    /* background-color: rgb(53, 53, 53); */
     background-color: orange;
 }
 
 ::ng-deep .mat-mdc-form-field-hint{
     color: #6b6d75 !important;
     font-family: "Century Gothic" !important;
-}
-
-/* ::ng-deep .mat-step-header .mat-step-label{
-    color: white; 
-} */
+}*/

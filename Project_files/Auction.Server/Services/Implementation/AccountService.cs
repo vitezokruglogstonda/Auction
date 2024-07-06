@@ -185,10 +185,10 @@ namespace Auction.Server.Services.Implementation
             user!.OnlineStatus = true;
             DbContext.Update(user);
             await DbContext.SaveChangesAsync();
+            await this.CacheService.StoreUserToCache(user!);
             user.ProfilePicturePath = PictureService.MakeProfilePictureUrl(user.ProfilePicturePath!);
             GenerateJwtToken(user, httpContext, TokenType.AccessToken);
             GenerateJwtToken(user, httpContext, TokenType.RefreshToken);
-            await this.CacheService.StoreUserToCache(user!);
             return new UserDto(user);
         }
 

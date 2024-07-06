@@ -1,22 +1,12 @@
-.view-container{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .view-header{
     width: 100%;
     display: flex;
-    background-color: white;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
 
-.view-setting{
+.view-setting {
     height: 3.5em;
     border-radius: 5px 0px 0px 5px;
     border-color: #aeb1bc;
@@ -26,7 +16,7 @@
 }
 
 .view-setting-button{
-    background-color: transparent;
+    background-color: #fff;
     width: 50px;
 }
 
@@ -41,10 +31,9 @@
 }
 
 .paginator{
-    background-color: transparent;
+    background-color: #fff;
     border-radius: 0px 5px 5px 0px;
     width: 100%;
-    height: 3.5em;
     border-color: #aeb1bc;
     border-style: solid;
     border-width: 1px;
@@ -68,7 +57,6 @@
 .grid-view{
     width: auto;
     max-width: 100%;
-    /* height: 100%; */
     max-height: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -81,9 +69,47 @@
 
 .grid-view-container{
     width: 320px;
-    /* height: 20%; */
     margin-left: 2%;
     margin-right: 2%;
     margin-bottom: 4%;
 }
 
+.view-header::ng-deep .mat-mdc-paginator-page-size {
+    min-width:211px;
+}
+
+.view-header::ng-deep .mat-mdc-paginator-range-actions {
+    min-width: 316px;
+}
+
+@media screen and (max-width:768px) {
+    .paginator{
+        padding-top:10px;
+    }
+
+    .view-header {
+        display:block;
+    }
+
+    .view-header::ng-deep .view-setting {
+        margin-bottom: 12px;
+        border-radius: 5px;
+        border: 1px solid #aeb1bc;  
+    }
+
+}
+
+@media screen and (max-width:650px) {
+
+    .view-header::ng-deep .mat-mdc-paginator-container {
+        justify-content: center;    
+        flex-flow: row-reverse wrap;
+    }
+
+}
+
+@media screen and (max-width:792px) {
+    .view-content::ng-deep .grid-view {
+        justify-content: center;
+    }
+}
