@@ -334,6 +334,8 @@
 #no-bids-label{
     font-size: large;
     color: gray;
+    text-align: center;
+    transform: translate(0, 75px);
 }
 
 .bid-options-container-active{
@@ -407,5 +409,9 @@
     .picture-slide-container,
     .article-info-container {
         width: 100%;
+    }
+
+    #no-bids-label{
+        transform: translate(0,0);
     }
 }  

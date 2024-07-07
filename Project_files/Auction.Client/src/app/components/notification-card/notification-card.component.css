@@ -8,6 +8,7 @@
     flex-direction: column;
     background-color: white;
     z-index: 4;
+    min-height: 350px;
     max-height: 440px;
     overflow: auto;
     max-width:100%;
