@@ -46,6 +46,12 @@ body {
     cursor: pointer;
 }
 
+.app-logo{
+    color: #222;
+    width: 200px;
+    height: 100%;
+}
+
 .menu-icon-container{
     display: flex;
     justify-content: flex-start;
@@ -65,17 +71,18 @@ body {
     color: #c6cad6;
 }
 
- /*.right-toolbar-element-empty{
-    width: 2.5%;
-    height: 64px;
-    width: 64px; 
-}*/
+.right-toolbar-element-empty{
+    /* width: 2.5%;
+    height: 64px; */
+    width: 48px; 
+}
 
 .right-toolbar-element {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-left: -45px;
 }
 
 .notification-icon-container{

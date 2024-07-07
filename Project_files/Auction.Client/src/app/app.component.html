@@ -6,9 +6,13 @@
   </div>
 
   <div class="app-title-container">
-    <p class="app-title">{{toolbarCenterText}}</p>
+    <!-- <p class="app-title">{{toolbarCenterText}}</p> -->
+    <img class="app-logo" src="assets/logo.svg" alt="triangle with all three sides equal" height="87" width="100" />
   </div>
-  <div class="right-toolbar-element-empty" *ngIf="!showRightToolbarElement"></div>
+  <div class="right-toolbar-element-empty" *ngIf="!showRightToolbarElement">
+    &nbsp;
+    <!-- <div>&nbsp;</div> -->
+  </div>
   <div class="right-toolbar-element" *ngIf="showRightToolbarElement">
     <button class="notification-icon-container" mat-icon-button matTooltip={{notificationButtonTooltipText}}
       (click)="toggleNotificationCardApperiance()">
