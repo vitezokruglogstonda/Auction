@@ -60,13 +60,14 @@ export class AppComponent {
     this.store.select(selectLoginStatus).subscribe((state)=>{
       let route = "";
       if(this.routeService.getCurrentRoute())
-        route = this.routeService.getCurrentRoute()!;
+        route = this.routeService.getCurrentRouteFromUrl()!;
       if(state === LoginStatus.Offline){
         this.showRightToolbarElement = false;
         this.showNotificationsNumber = false;
         this.userType = UserType.Guest;
         this.populateSidenavList(this.userType);
-        if(this.routeService.getCurrentRoute() == null || this.routeService.getCurrentRoute()! == undefined)
+        let currentUrl = this.routeService.getCurrentRoute()!;
+        if(currentUrl == null || currentUrl == undefined || currentUrl == '' || currentUrl == '/')
           route = "login";
       }else{ 
         this.showRightToolbarElement = true;
