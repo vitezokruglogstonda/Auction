@@ -66,7 +66,8 @@ export class AppComponent {
         this.showNotificationsNumber = false;
         this.userType = UserType.Guest;
         this.populateSidenavList(this.userType);
-        route = "login";
+        if(this.routeService.getCurrentRoute() == null || this.routeService.getCurrentRoute()! == undefined)
+          route = "login";
       }else{ 
         this.showRightToolbarElement = true;
         this.store.select(selectUserId).subscribe((state)=>{

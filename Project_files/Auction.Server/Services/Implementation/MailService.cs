@@ -47,8 +47,8 @@ namespace Auction.Server.Services.Implementation
                     break;
             }
 
-            templateText = templateText.Replace("~", text);
-            templateText = templateText.Replace("`", redirectUrl);            
+            templateText = templateText.Replace("||--text--||", text);
+            templateText = templateText.Replace("||--article_link--||", redirectUrl);             
 
             msg.Body = templateText;
             msg.IsBodyHtml = true;

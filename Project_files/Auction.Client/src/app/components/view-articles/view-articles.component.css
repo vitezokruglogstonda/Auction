@@ -63,15 +63,13 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin: 40px 0;
 }
 
 .grid-view-container{
     width: 320px;
-    margin-left: 2%;
-    margin-right: 2%;
-    margin-bottom: 4%;
+    height: 400px;
+    margin:12px;  
 }
 
 .view-header::ng-deep .mat-mdc-paginator-page-size {

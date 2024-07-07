@@ -21,7 +21,7 @@ export class ArticlePictureSliderComponent {
     this.pictures = [];
     this.currentIndex = 0;
     this.currentPicture = environment.defaultArticleImage;
-    this.currentPictureStyle = { backgroundImage: 'url("'+ this.currentPicture +'")' };
+    this.currentPictureStyle = 'backgroundImage: url("'+ this.currentPicture +'")';
     this.viewMethod = null;
   }
   
@@ -52,6 +52,7 @@ export class ArticlePictureSliderComponent {
 
   updateSlide() {
     this.currentPicture = this.pictures[this.currentIndex];
+    this.currentPictureStyle = '{background: url("'+ this.currentPicture +'") no-repeat center center}';
     if(!this.dotsContainer)
       return;
     let allDots = this.dotsContainer.nativeElement.children;

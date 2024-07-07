@@ -1,5 +1,12 @@
-::ng-deep .snackbar {
-    --mdc-snackbar-container-color: #ffa500;
+::ng-deep .info_snackbar {
+    /* --mdc-snackbar-container-color: #ffa500; */
+    --mdc-snackbar-container-color: #34b66b;    
+    margin-right: 20px;
+}
+
+::ng-deep .error_snackbar {
+    --mdc-snackbar-container-color: #ed7425;
+    margin-right: 20px;
 }
 
 .snackbar-container{

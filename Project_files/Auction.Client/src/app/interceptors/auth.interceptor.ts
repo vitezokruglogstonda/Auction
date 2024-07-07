@@ -15,6 +15,7 @@ import { logout } from '../store/app/app.action';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../services/snackbar.service';
 import { environment } from '../../environments/environment';
+import { SnackbarType } from '../models/app-info';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -60,7 +61,7 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error) => {
         // If refresh token fails, handle the error (e.g., logout user)
         //console.error('Error handling token expiration:', error);
-        this.snackbarService.spawnSnackbar(environment.interceptor_sessionExpiredMessage);        
+        this.snackbarService.spawnSnackbar(environment.interceptor_sessionExpiredMessage, SnackbarType.Info);        
         this.refreshing = false;
         this.localStorage.clear();
         this.store.dispatch(signOutSuccess());

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { selectUserId } from '../../store/user/user.selector';
 import { resetPublishArticleError } from '../../store/app/app.action';
 import { SnackbarService } from '../../services/snackbar.service';
+import { SnackbarType } from '../../models/app-info';
 
 @Component({
   selector: 'app-create-article-page',
@@ -131,17 +132,17 @@ export class CreateArticlePageComponent {
 
   handleFiles(files: FileList | null){
     if(files?.length! > 5 || (this.getFileListLength() + files?.length! > 5)){
-      this.snackbarService.spawnSnackbar(environment.article_picture_upload.errorMessage_numberOfFiles);
+      this.snackbarService.spawnSnackbar(environment.article_picture_upload.errorMessage_numberOfFiles, SnackbarType.Error);
       return;
     }
     for (let i = 0; i < files?.length!; i++)
     {
       if(!files?.item(i)!.type.startsWith("image")){
-        this.snackbarService.spawnSnackbar(environment.article_picture_upload.errorMessage_fileType);
+        this.snackbarService.spawnSnackbar(environment.article_picture_upload.errorMessage_fileType, SnackbarType.Error);
         continue;
       }
       if(this.getFileSize(files?.item(i)!) > environment.article_picture_upload.fileSize){
-        this.snackbarService.spawnSnackbar(environment.article_picture_upload.errorMessage_fileSize);
+        this.snackbarService.spawnSnackbar(environment.article_picture_upload.errorMessage_fileSize, SnackbarType.Error);
         continue;
       }
       this.addFileToList(files?.item(i)!);
@@ -209,7 +210,7 @@ export class CreateArticlePageComponent {
 
   publishArticle(){
     if(!this.checkData()){
-      this.snackbarService.spawnSnackbar(environment.article_data_upload.errorMessage_incompleteData)
+      this.snackbarService.spawnSnackbar(environment.article_data_upload.errorMessage_incompleteData, SnackbarType.Info)
       return;
     }
     let articleDto: ArticleDto = {
@@ -222,9 +223,9 @@ export class CreateArticlePageComponent {
     this.store.dispatch(publishArticle({articleDto: articleDto}));
     this.store.select(selectPublishArticleError).subscribe((state) => {
       if(state){
-        this.snackbarService.spawnSnackbar(environment.article_data_upload.errorMessage_publishArticleFailed);
+        this.snackbarService.spawnSnackbar(environment.article_data_upload.errorMessage_publishArticleFailed, SnackbarType.Error);
       }else{
-        this.snackbarService.spawnSnackbar(environment.article_data_upload.errorMessage_publishArticleSuccess);
+        this.snackbarService.spawnSnackbar(environment.article_data_upload.errorMessage_publishArticleSuccess, SnackbarType.Info);
         this.router.navigate(["/profile", this.userId]);
       }
     })

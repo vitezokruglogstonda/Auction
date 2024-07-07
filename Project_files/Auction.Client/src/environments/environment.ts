@@ -40,8 +40,8 @@ export const environment = {
     },
     dialog_AddMoney_Settings: {
         openAnimationDuration: "500ms",
-        width: "20%",
-        height: "50%"
+        width: "384px",
+        height: "480px"
     },
     article_picture_upload: {
         fileSize: 4,

@@ -14,3 +14,8 @@ export enum LoginStatus {
     Offline,
     Online
 }
+
+export enum SnackbarType {
+    Info,
+    Error
+}

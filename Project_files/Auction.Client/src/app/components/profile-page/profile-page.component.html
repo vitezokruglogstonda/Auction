@@ -1,128 +1,132 @@
 <div class="profile-container">
-    <div class="profile-header">
-        <div class="profile-header-container">
-            <div class="profile-picture-card">
-                <div class="profile-picture-container">
-                    <img class="profile-picture" src="{{profile!.profilePicturePath}}">
-                    <button class="profile-picture-button" *ngIf="myProfile" (click)="openChangeProfilePhotoDialog()">
-                        <i class="fas fa-camera camera-icon"></i>
-                    </button>
+    <div class="profile-account-wrapper">
+        <div class="profile-header">
+            <div class="profile-header-container">
+                <div class="profile-picture-card">
+                    <div class="profile-picture-container">
+                        <img class="profile-picture" src="{{profile!.profilePicturePath}}">
+                        <button class="profile-picture-button" *ngIf="myProfile" (click)="openChangeProfilePhotoDialog()">
+                            <i class="fas fa-camera camera-icon"></i>
+                        </button>
+                    </div>
+                    <p id="username">{{combineUserName()}}</p>
                 </div>
-                <p id="username">{{combineUserName()}}</p>
-            </div>
-            <div class="profile-info">
-                <div class="info-field-container">
-                    <div class="info-icon-container">
-                        <i class="info-icon fas fa-envelope"></i>
+                <div class="profile-info">
+                    <div class="info-field-container">
+                        <div class="info-icon-container">
+                            <i class="info-icon fas fa-envelope"></i>
+                        </div>
+                        <div class="info-field">
+                            <p><span class="value-text">{{profile?.email}}</span></p>
+                            <p class="info-field-label">Mail address</p>
+                        </div>
                     </div>
-                    <div class="info-field">
-                        <p><span class="value-text">{{profile?.email}}</span></p>
-                        <p class="info-field-label">Mail address</p>
+                    <div class="info-field-container">
+                        <div class="info-icon-container">
+                            <i class="info-icon fas fa-cake-candles"></i>
+                        </div>
+                        <div class="info-field">
+                            <p><span class="value-text">{{customDateToString()}}</span></p>
+                            <p class="info-field-label">Birth date</p>
+                        </div>
                     </div>
-                </div>
-                <div class="info-field-container">
-                    <div class="info-icon-container">
-                        <i class="info-icon fas fa-cake-candles"></i>
+                    <div class="info-field-container">
+                        <div class="info-icon-container">
+                            <i class="info-icon fas fa-venus-mars"></i>
+                        </div>
+                        <div class="info-field">
+                            <p><span class="value-text">{{profile?.gender}}</span></p>
+                            <p class="info-field-label">Gender</p>
+                        </div>
                     </div>
-                    <div class="info-field">
-                        <p><span class="value-text">{{customDateToString()}}</span></p>
-                        <p class="info-field-label">Birth date</p>
+                    <div class="info-field-container">
+                        <div class="info-icon-container">
+                            <!-- <i class="info-icon fas fa-cart-shopping"></i> -->
+                            <i class="info-icon fa-solid fa-handshake"></i>
+                        </div>
+                        <div class="info-field">
+                            <p><span class="value-text">{{numberOfItemsSold}}</span></p>
+                            <p class="info-field-label">Number of sales</p>
+                        </div>
                     </div>
-                </div>
-                <div class="info-field-container">
-                    <div class="info-icon-container">
-                        <i class="info-icon fas fa-venus-mars"></i>
-                    </div>
-                    <div class="info-field">
-                        <p><span class="value-text">{{profile?.gender}}</span></p>
-                        <p class="info-field-label">Gender</p>
-                    </div>
-                </div>
-                <div class="info-field-container">
-                    <div class="info-icon-container">
-                        <!-- <i class="info-icon fas fa-cart-shopping"></i> -->
-                        <i class="info-icon fa-solid fa-handshake"></i>
-                    </div>
-                    <div class="info-field">
-                        <p><span class="value-text">{{numberOfItemsSold}}</span></p>
-                        <p class="info-field-label">Number of sales</p>
-                    </div>
-                </div>
-                <div class="info-field-container" *ngIf="myProfile">
-                    <div class="info-icon-container">
-                        <i class="info-icon fas fa-money-bill"></i>
-                    </div>
-                    <div class="info-field">
-                        <p><span class="value-text money-label">${{balance}}</span></p>
-                        <p class="info-field-label">Money balance</p>
+                    <div class="info-field-container" *ngIf="myProfile">
+                        <div class="info-icon-container">
+                            <i class="info-icon fas fa-money-bill"></i>
+                        </div>
+                        <div class="info-field">
+                            <p><span class="value-text money-label">${{balance}}</span></p>
+                            <p class="info-field-label">Money balance</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="option-container" *ngIf="myProfile">
+            <mat-card class="option option-add-money" (click)="openAddMoneyDialog()">
+                <div class="option-info-container">
+                    <div class="option-info-icon">
+                        <i class="fa-solid fa-money-bill option-icon" id="money-button-icon"></i>
+                    </div>
+                    <div class="option-info-label">
+                        <p>Add money to your account</p>
+                    </div>
+                </div>
+                <div class="option-button-icon">
+                    <i class="fa-solid fa-plus button-icon"></i>
+                </div>
+            </mat-card>
+            <mat-card class="option option-new-article" (click)="redirectToCreateArticlePage()">
+                <div class="option-info-container">
+                    <div class="option-info-icon">
+                        <i class="fa-solid fa-gavel option-icon" id="article-button-icon"></i>
+                    </div>
+                    <div class="option-info-label">
+                        <p>Create new article</p>
+                    </div>
+                </div>
+                <div class="option-button-icon">
+                    <i class="fa-solid fa-plus button-icon"></i>
+                </div>
+            </mat-card>
+        </div>
     </div>
-    <div class="option-container" *ngIf="myProfile">
-        <mat-card class="option option-add-money" (click)="openAddMoneyDialog()">
-            <div class="option-info-container">
-                <div class="option-info-icon">
-                    <i class="fa-solid fa-money-bill option-icon" id="money-button-icon"></i>
-                </div>
-                <div class="option-info-label">
-                    <p>Add money to your account</p>
-                </div>
-            </div>
-            <div class="option-button-icon">
-                <i class="fa-solid fa-plus button-icon"></i>
-            </div>
-        </mat-card>
-        <mat-card class="option option-new-article" (click)="redirectToCreateArticlePage()">
-            <div class="option-info-container">
-                <div class="option-info-icon">
-                    <i class="fa-solid fa-gavel option-icon" id="article-button-icon"></i>
-                </div>
-                <div class="option-info-label">
-                    <p>Create new article</p>
-                </div>
-            </div>
-            <div class="option-button-icon">
-                <i class="fa-solid fa-plus button-icon"></i>
-            </div>
-        </mat-card>
+    <div class="articles-view-container-wrapper">
+        <div class="articles-view-container">
+            <mat-tab-group color="primary" preserveContent> <!-- makni ovo ako hoces da se ucita content svaki put kad selektujes tab -->
+                <mat-tab>
+                    <ng-template mat-tab-label class="tab-header">
+                        <i class="fa-solid fa-gavel tab-header-icon"></i>
+                        <p>Selling Articles</p>
+                    </ng-template>
+                    <app-view-articles *ngIf="!no_sellingItems" [articles]="sellingItemsList!" [numberOfArticles]="sellingItemsList.length"></app-view-articles>
+                    <div *ngIf="no_sellingItems" class="no-items-box">No items to show.</div>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label class="tab-header">
+                        <i class="info-icon fas fa-cart-shopping tab-header-icon"></i>
+                        <p>Currently Bidding Articles</p>
+                    </ng-template>
+                    <app-view-articles *ngIf="!no_currentlyBiddingItems" [articles]="currentlyBiddingItemsList!" [numberOfArticles]="currentlyBiddingItemsList.length"></app-view-articles>
+                    <div *ngIf="no_currentlyBiddingItems" class="no-items-box">No items to show.</div>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label class="tab-header">
+                        <i class="fa-solid fa-handshake tab-header-icon"></i>
+                        <p>Sold Articles</p>
+                    </ng-template>
+                    <app-view-articles *ngIf="!no_soldItems" [articles]="soldItemsList!" [numberOfArticles]="soldItemsList.length"></app-view-articles>
+                    <div *ngIf="no_soldItems" class="no-items-box">No items to show.</div>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label class="tab-header">
+                        <i class="info-icon fas fa-cart-shopping tab-header-icon"></i>
+                        <p>Bought Articles</p>
+                    </ng-template>
+                    <app-view-articles *ngIf="!no_boughtItems" [articles]="boughtItemsList!" [numberOfArticles]="boughtItemsList.length"></app-view-articles>
+                    <div *ngIf="no_boughtItems" class="no-items-box">No items to show.</div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
     </div>
-    <mat-divider class="divider-line"></mat-divider>
-    <div class="articles-view-container">
-        <mat-tab-group color="primary" preserveContent> <!-- makni ovo ako hoces da se ucita content svaki put kad selektujes tab -->
-            <mat-tab>
-                <ng-template mat-tab-label class="tab-header">
-                    <i class="fa-solid fa-gavel tab-header-icon"></i>
-                    <p>Selling Articles</p>
-                </ng-template>
-                <app-view-articles *ngIf="!no_sellingItems" [articles]="sellingItemsList!" [numberOfArticles]="sellingItemsList.length"></app-view-articles>
-                <div *ngIf="no_sellingItems" class="no-items-box">No items to show.</div>
-            </mat-tab>
-            <mat-tab>
-                <ng-template mat-tab-label class="tab-header">
-                    <i class="info-icon fas fa-cart-shopping tab-header-icon"></i>
-                    <p>Currently Bidding Articles</p>
-                </ng-template>
-                <app-view-articles *ngIf="!no_currentlyBiddingItems" [articles]="currentlyBiddingItemsList!" [numberOfArticles]="currentlyBiddingItemsList.length"></app-view-articles>
-                <div *ngIf="no_currentlyBiddingItems" class="no-items-box">No items to show.</div>
-            </mat-tab>
-            <mat-tab>
-                <ng-template mat-tab-label class="tab-header">
-                    <i class="fa-solid fa-handshake tab-header-icon"></i>
-                    <p>Sold Articles</p>
-                </ng-template>
-                <app-view-articles *ngIf="!no_soldItems" [articles]="soldItemsList!" [numberOfArticles]="soldItemsList.length"></app-view-articles>
-                <div *ngIf="no_soldItems" class="no-items-box">No items to show.</div>
-            </mat-tab>
-            <mat-tab>
-                <ng-template mat-tab-label class="tab-header">
-                    <i class="info-icon fas fa-cart-shopping tab-header-icon"></i>
-                    <p>Bought Articles</p>
-                </ng-template>
-                <app-view-articles *ngIf="!no_boughtItems" [articles]="boughtItemsList!" [numberOfArticles]="boughtItemsList.length"></app-view-articles>
-                <div *ngIf="no_boughtItems" class="no-items-box">No items to show.</div>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
+
 </div>

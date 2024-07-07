@@ -6,6 +6,7 @@ import { selectEmailTaken, selectLoginErrorStatus } from '../../store/app/app.se
 import { LoginDto } from '../../models/user';
 import { checkEmail, logIn } from '../../store/user/user.action';
 import { SnackbarService } from '../../services/snackbar.service';
+import { SnackbarType } from '../../models/app-info';
 
 @Component({
   selector: 'app-log-in',
@@ -49,7 +50,7 @@ export class LogInComponent {
     this.store.select(selectLoginErrorStatus).subscribe((state)=>{
       this.passwordWrongError = state;
       if(!!state){
-        this.snackbarService.spawnSnackbar("Invalid credentials. Try again.")
+        this.snackbarService.spawnSnackbar("Invalid credentials. Try again.", SnackbarType.Error)
       }
     });
     this.store.select(selectEmailTaken).subscribe((state) => {
@@ -86,7 +87,7 @@ export class LogInComponent {
       this.store.dispatch(logIn({loginDto: dto}));
     }else{
       this.loginError = true;
-      this.snackbarService.spawnSnackbar("Invalid credentials. Try again.")
+      this.snackbarService.spawnSnackbar("Invalid credentials. Try again.", SnackbarType.Error)
     }
   }
 

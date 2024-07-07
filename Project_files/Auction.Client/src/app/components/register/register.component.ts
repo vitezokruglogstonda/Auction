@@ -10,6 +10,7 @@ import { UploadPictureDialogComponent } from '../upload-picture-dialog/upload-pi
 import { checkEmail, register } from '../../store/user/user.action';
 import { selectEmailTaken } from '../../store/app/app.selector';
 import { SnackbarService } from '../../services/snackbar.service';
+import { SnackbarType } from '../../models/app-info';
 
 @Component({
   selector: 'app-register',
@@ -194,7 +195,7 @@ export class RegisterComponent {
       };
       this.store.dispatch(register({ registerDto: userData }));
     } else {
-      this.snackbarService.spawnSnackbar(environment.registrationError_snackBar.text);     
+      this.snackbarService.spawnSnackbar(environment.registrationError_snackBar.text, SnackbarType.Error);     
     }
   }
 

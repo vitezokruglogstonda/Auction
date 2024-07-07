@@ -22,6 +22,7 @@ export class RouteService {
     }
   
     getCurrentRoute(): string | null {
-      return this.localStorage.getItem('currentPage');
+      // return this.localStorage.getItem('currentPage');
+      return (window as any).location.href.split('#')[1];
     }
 }

@@ -14,6 +14,7 @@ import { environment } from '../../../environments/environment';
 import { SnackbarService } from '../../services/snackbar.service';
 import { BidService } from '../../services/bid.service';
 import { BidItem } from '../../models/bid';
+import { SnackbarType } from '../../models/app-info';
 
 @Component({
   selector: 'app-article-page',
@@ -278,11 +279,11 @@ export class ArticlePageComponent {
 
   placeBid(){
     if(this.newBid < this.article?.soldPrice! + 100){
-      this.snackbarService.spawnSnackbar("The bid amount must be at least $100 grater than last the bid.");
+      this.snackbarService.spawnSnackbar("The bid amount must be at least $100 grater than last the bid.", SnackbarType.Info);
       return;
     }
     if(this.newBid > this.userBalance){
-      this.snackbarService.spawnSnackbar("You don't have enough money on your balance.");
+      this.snackbarService.spawnSnackbar("You don't have enough money on your balance.", SnackbarType.Info);
       return;
     }
     this.store.dispatch(newBid({userId: this.userId, articleId : this.article?.id!, amount: this.newBid}));

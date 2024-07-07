@@ -37,9 +37,10 @@ namespace Auction.Server.Services.Implementation
             if (this.DbContext.Articles.Any(article => article.Title == newArticle.Title))
                 return null;
 
-            DateTime expiryDateTime = DateTime.Now.AddDays(expiryDate);
+            //DateTime expiryDateTime = DateTime.Now.AddDays(expiryDate);
+
             //DateTime expiryDateTime = DateTime.Now.AddMinutes(1);
-            //DateTime expiryDateTime = DateTime.Now.AddSeconds(30);
+            DateTime expiryDateTime = DateTime.Now.AddSeconds(30);
 
             Article article = new Article()
             {

@@ -28,6 +28,7 @@ body {
     justify-content: center;
 }
 
+/* 
 .app-title {
     letter-spacing: .2rem;
     font-size: larger;
@@ -44,7 +45,7 @@ body {
 .app-title:hover {
     color: #c6cad6;
     cursor: pointer;
-}
+} */
 
 .app-logo{
     color: #222;
