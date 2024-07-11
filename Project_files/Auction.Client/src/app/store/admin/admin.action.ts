@@ -18,3 +18,7 @@ export const republishArticle = createAction("Republish Article", props<{article
 export const republishArticleSuccess = createAction("Republish Article - Success", props<{articleId : number, status: ArticleStatus}>());
 export const removeArticle = createAction("Remove Article", props<{articleId : number}>());
 export const removeArticleSuccess = createAction("Remove Article - Success", props<{articleId : number}>());
+
+export const resetToInitialAdminInfoState = createAction("Admin - Reset To Initial Admin Info State");
+export const resetToInitialUserListReducer = createAction("Admin - Reset To Initial User List Reducer");
+export const resetToInitialArticleListReducer = createAction("Admin - Reset To Initial Article List Reducer");

@@ -14,6 +14,8 @@ namespace Auction.Server.Models
 
         public DbSet<ArticlePicture> ArticlePictures { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
@@ -54,6 +56,20 @@ namespace Auction.Server.Models
                 v => ConvertDateTimeToString(v),
                 v => new CustomDateTime(v)));
 
+            modelBuilder
+                .Entity<Notification>()
+                .Property(u => u.Timestamp)
+                .HasConversion(new ValueConverter<CustomDateTime, string>(
+                v => ConvertDateTimeToString(v),
+                v => new CustomDateTime(v)));
+
+            modelBuilder
+                .Entity<Notification>()
+                .Property(u => u.EndDate)
+                .HasConversion(new ValueConverter<CustomDateTime?, string>(
+                v => ConvertDateTimeToString(v),
+                v => new CustomDateTime(v)));
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -65,6 +81,18 @@ namespace Auction.Server.Models
 
         private string ConvertDateTimeToString(CustomDateTime? customDatetime)
         {
+            if(customDatetime == null) 
+            {
+                customDatetime = new CustomDateTime()
+                {
+                    Second = 0,
+                    Minute = 0,
+                    Hour = 0,
+                    Day = 0,
+                    Month = 0,
+                    Year = 0
+                };
+            }
             string returnDate = customDatetime?.Hour.ToString() + ":" + customDatetime?.Minute.ToString() + ":" + customDatetime?.Second.ToString() + "|" + customDatetime?.Day.ToString() + "/" + customDatetime?.Month.ToString() + "/" + customDatetime?.Year.ToString();
             return returnDate;
         }

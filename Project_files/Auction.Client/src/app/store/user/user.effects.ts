@@ -4,6 +4,8 @@ import { switchMap } from "rxjs";
 import * as UserActions from "./user.action";
 import * as AppActions from "../app/app.action";
 import * as ProfileActions from "../profile/profile.action";
+import * as AdminActions from "../admin/admin.action";
+import * as ArticleActions from "../article/article.action";
 import { NotificationDto, User, Notification, NotificationStatus } from "../../models/user";
 import { LoginStatus } from "../../models/app-info";
 import { UserService } from "../../services/user.service";
@@ -128,10 +130,22 @@ export class UserEffects {
                 switchMap((result: boolean) => {
                     this.localStorage.clear();
                     return [
+                        AdminActions.resetToInitialAdminInfoState(),
+                        AdminActions.resetToInitialUserListReducer(),
+                        AdminActions.resetToInitialArticleListReducer(),
+
+                        ArticleActions.resetToArticleInfoInitialState(),
+                        ArticleActions.resetToArticlesListInitialState(),
+                        ArticleActions.resetToBidListInitialState(),
+
+                        ProfileActions.resetToProfileInitialState(),
+                        ProfileActions.resetToProfileArticlesListInitialState(),
+
                         UserActions.signOutSuccess(),
+                        UserActions.resetToNotificationListInitialState(),
                         AppActions.logout(),
-                        UserActions.clearNotificationList(),
-                        AppActions.resetNumberOfNotifications()
+                        // UserActions.clearNotificationList(),
+                        // AppActions.resetNumberOfNotifications(),
                     ];
                 })
             )

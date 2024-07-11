@@ -30,3 +30,7 @@ export const getBidListSuccess = createAction("Get Bid List - Success", props<{i
 export const startBidding = createAction("Start Bidding", props<{articleId: number}>());
 export const newBid = createAction("Bid", props<{userId: number, articleId: number, amount: number}>());
 export const newBidItem = createAction("New Bid Item", props<{item: BidItem}>());
+
+export const resetToArticleInfoInitialState = createAction("Article - Reset To Article Info Initial State");
+export const resetToArticlesListInitialState = createAction("Article - Reset To Articles List Initial State");
+export const resetToBidListInitialState = createAction("Article - Reset To Bid List Initial State");

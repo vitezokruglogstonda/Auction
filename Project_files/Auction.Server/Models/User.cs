@@ -65,6 +65,8 @@ namespace Auction.Server.Models
         //[NotMapped]
         public virtual List<Article>? BoughtArticles { get; set; } = new List<Article>();
 
+        public virtual List<Notification>? Notifications { get; set; } = new List<Notification>();
+
         public User(string Email, byte[] PasswordHash, byte[]? PasswordSalt, string FirstName, string LastName, CustomDate BirthDate, string Gender, UserType UserType, string ProfilePicturePath, bool OnlineStatus, decimal Balance)
         {
             this.Email = Email;

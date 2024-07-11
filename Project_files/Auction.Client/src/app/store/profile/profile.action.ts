@@ -9,3 +9,6 @@ export const profilePictureChanged = createAction("Profile picture changed", pro
 export const loadProfileArticles = createAction("Ger Users Articles", props<{userId : number}>());
 export const loadProfileArticlesSuccess = createAction("Ger Users Articles - Success", props<{items: Article[]}>());
 export const addArticle = createAction("Add Article", props<{item: Article}>());
+
+export const resetToProfileInitialState = createAction("Profile - Reset To Profile Initial State");
+export const resetToProfileArticlesListInitialState = createAction("Profile - Reset To Profile Articles List Initial State");

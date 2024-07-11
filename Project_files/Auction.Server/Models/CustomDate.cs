@@ -16,6 +16,12 @@
     }
 
     public class CustomDateTime{
+        public int Second { get; set; }
+        public int Minute { get; set; }
+        public int Hour { get; set; }
+        public int Day { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
         public CustomDateTime() { }
         public CustomDateTime(string str)
         {
@@ -38,12 +44,10 @@
             this.Month = dateTime.Month;
             this.Year = dateTime.Year;
         }
-        public int Second { get; set; }
-        public int Minute { get; set; }
-        public int Hour { get; set; }
-        public int Day { get; set; }
-        public int Month { get; set; }
-        public int Year { get; set; }
 
+        public DateTime ToDateTime()
+        {
+            return new DateTime(this.Year, this.Month, this.Day, this.Hour, this.Minute, this.Second);
+        }
     }
 }

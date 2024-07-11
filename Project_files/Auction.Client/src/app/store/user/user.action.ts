@@ -22,3 +22,5 @@ export const addNewNotification = createAction("Add New Notifications", props<{n
 export const clearNotificationList = createAction("Clear Notification List");
 export const markAllNotificationsRead = createAction("Mark All Notifications Read");
 export const markAllNotificationsReadSuccess = createAction("Mark All Notifications Read - Success");
+
+export const resetToNotificationListInitialState = createAction("User - Reset To Notification List Initial State");

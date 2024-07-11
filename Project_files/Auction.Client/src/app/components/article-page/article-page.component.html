@@ -19,15 +19,15 @@
                         </div>
                     </div>
                     <div *ngIf="articleCustomer!==null" class="info-subcontainer">
-                        <div class="info-label-container info-label-container-right"
+                        <div class="info-image-container" (click)="goToProfile(articleCustomer.id)">
+                            <img class="info-image" src={{articleCustomer.profilePicturePath}} />
+                        </div>
+                        <div class="info-label-container"
                             (click)="goToProfile(articleCustomer.id)">
                             <p class="info-value article-info-user-name">{{articleCustomer.firstName}}
                                 {{articleCustomer.lastName}}</p>
                             <p class="info-label article-info-label">Buyer</p>
-                        </div>
-                        <div class="info-image-container" (click)="goToProfile(articleCustomer.id)">
-                            <img class="info-image" src={{articleCustomer.profilePicturePath}} />
-                        </div>
+                        </div>                        
                     </div>
                     <div *ngIf="articleCustomer===null" class="info-subcontainer">
                         <div class="label-icon-container">

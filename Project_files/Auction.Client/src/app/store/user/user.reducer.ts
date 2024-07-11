@@ -84,5 +84,8 @@ export const notificationListReducer = createReducer(
     }),
     on(Actions.clearNotificationList, (state) => {
         return notificationListAdapter.removeAll({ ...state });
-    })
+    }),
+    on(Actions.resetToNotificationListInitialState, (state) => ({
+        ...initialNotificationListState
+    }))
 );

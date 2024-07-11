@@ -1,8 +1,54 @@
 ﻿using Auction.Server.Models.Dto;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Auction.Server.Models
 {
+    [Table("Notification")]
+    public class Notification
+    {
+        [Key]
+        [Column("Id")]
+        public int Id { get; set; }
+
+        [ForeignKey("User")]
+        [Column("UserId")]
+        public int UserId { get; set; }
+
+        [Column("Text")]
+        public string Text { get; set; }
+
+        [Column("Timestamp")]
+        public CustomDateTime Timestamp { get; set; }
+
+        [Column("ArticleId")]
+        public int ArticleId { get; set; }
+
+        [Column("Type")]
+        public NotificationType Type { get; set; }
+
+        [Column("Status")]
+        public NotificationStatus Status { get; set; }
+
+        [Column("EndDate")]
+        public CustomDateTime? EndDate { get; set; }
+
+        [JsonConstructor]
+        public Notification(int id, int userId, string text, CustomDateTime timestamp, int articleId, NotificationType type, NotificationStatus status, CustomDateTime? endDate)
+        {
+            Id = id;
+            UserId = userId;
+            Text = text;
+            Timestamp = timestamp;
+            ArticleId = articleId;
+            Type = type;
+            Status = status;
+            EndDate = endDate;
+        }
+        public Notification() { }
+    }
+
     public class NotificationListHead
     {
         public int UserId { get; set; }

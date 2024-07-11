@@ -27,6 +27,9 @@ export const profileReducer = createReducer(
     on(Actions.loadProfileArticles, (state, {userId}) => ({
         ...state,
     })),
+    on(Actions.resetToProfileInitialState, (state) => ({
+        ...initialState
+    })),
 );
 
 export const profileArticlesListAdapter: EntityAdapter<Article> = createEntityAdapter<Article>();
@@ -43,5 +46,7 @@ export const profileArticlesListReducer = createReducer(
         return profileArticlesListAdapter.addOne(item, state);
     }),
     //update 1 zbog promene statusa artikla
-
+    on(Actions.resetToProfileArticlesListInitialState, (state) => ({
+        ...initialProfileArticlesListState
+    })),
 );

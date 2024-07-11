@@ -32,64 +32,15 @@ namespace Auction.Server.Services.Implementation
             CacheService = cacheService;
         }
 
-        private async Task<NotificationListHead?> GetNotificationListHead(int userId, bool makeNew = true)
-        {
-            NotificationListHead? head = null;
-
-            string? headSerialized = await this.Redis.StringGetAsync("n_u_" + userId.ToString());
-
-            if (headSerialized.IsNullOrEmpty())
-            {
-                if (!makeNew)
-                    return null;
-                                
-                head = new(userId);
-
-                await this.Redis.StringSetAsync("n_u_" + userId.ToString(), JsonSerializer.Serialize<NotificationListHead>(head));
-            }
-            else
-            {
-                head = JsonSerializer.Deserialize<NotificationListHead>(headSerialized!);
-            }
-            return head;
-        }
-
         public async Task<List<NotificationNode>?> GetNotificationList(int userId)
         {
-            //NotificationListHead? head = await GetNotificationListHead(userId, false);
-
-            //if (head == null) return null;
-
-            NotificationListHead? head = await GetNotificationListHead(userId);
-
-            if (head!.Next == null) return null;
-
-            string? next = head!.Next;
-            string? serializedNode;
-            NotificationNode node;
-            List<NotificationNode> returnList = new();
-
-            while (next != null)
-            {
-                serializedNode = await this.Redis.StringGetAsync(next);
-                if (serializedNode == null)
-                    break;
-                node = JsonSerializer.Deserialize<NotificationNode>(serializedNode)!;
-
-                returnList.Add(node);
-
-                next = node.Next;
-            }
-
-            return returnList;
+            return await this.CacheService.GetNotificationList(userId);
         }
 
         public async Task AddNotification(int userId, int articleId, decimal lastPrice, NotificationType type, CustomDateTime? endDate = null)
         {
-            Article ? article = await this.DbContext.Articles.FindAsync(articleId);
+            Article? article = await this.DbContext.Articles.FindAsync(articleId);
             if (article == null) return;
-
-            NotificationListHead? head = await GetNotificationListHead(userId);
 
             var notificationTextSection = this.Configuration.GetSection("Notification_text");
             string text;
@@ -112,47 +63,56 @@ namespace Auction.Server.Services.Implementation
                     break;
             }
 
-            NotificationArticleInfo articleInfo = new(articleId, article.Title, lastPrice);
-
             CustomDateTime timestamp = new(DateTime.Now);
+
+            Notification n = new Notification()
+            {
+                UserId = userId,
+                Text = text,
+                Timestamp = timestamp,
+                ArticleId = articleId,
+                Type = type,
+                Status = NotificationStatus.NotRead,
+                EndDate = endDate
+            };
+            this.DbContext.Notifications.Add(n);
+            User? user = await this.DbContext.Users
+                .Where(u => u.Id == userId)
+                .Include(u => u.Notifications)
+                .FirstOrDefaultAsync();
+            if (user!.Notifications == null)
+                user.Notifications = new();
+            user.Notifications.Add(n);
+            this.DbContext.Update<User>(user);
+            await DbContext.SaveChangesAsync();
+
+            NotificationArticleInfo articleInfo = new(articleId, article.Title, lastPrice);
             NotificationNode newNotification = new(text, articleInfo, type, timestamp, endDate);
-            newNotification.Next = head!.Next;
 
-            string newNotificationKey = "n_" + Guid.NewGuid().ToString();
-            head.Next = newNotificationKey;
-
-            await this.Redis.StringSetAsync(newNotificationKey, JsonSerializer.Serialize<NotificationNode>(newNotification));
-            await this.Redis.StringSetAsync("n_u_" + userId.ToString(), JsonSerializer.Serialize<NotificationListHead>(head));
+            await this.CacheService.AddNotificationToCache(userId, newNotification);
 
             //posalji notifikaciju kroz soket
             await HubContext.Clients.Group("n_u_" + userId.ToString()).SendAsync("NewNotification", newNotification);
             //javi mu mejlom
-            User? user = await this.CacheService.GetUser(userId);
             this.MailService.SendMail(user!.Email, article.Id.ToString(), article.Title, type);
         }
 
         public async Task MarkAllNotificationsRead(int userId)
         {
-            NotificationListHead? head = await GetNotificationListHead(userId, false);
+            List<Notification> notifications = await this.DbContext.Notifications
+                .Where(n => n.UserId == userId && n.Status == NotificationStatus.NotRead)
+                .ToListAsync();
 
-            if (head == null) return;
+            if (notifications.Count == 0) return;
 
-            string? next = head.Next;
-            string? serializedNode;
-            NotificationNode node;
-
-            while (next != null)
+            foreach(Notification n in notifications)
             {
-                serializedNode = await this.Redis.StringGetAsync(next);
-                if (serializedNode == null)
-                    break;
-                node = JsonSerializer.Deserialize<NotificationNode>(serializedNode)!;
-
-                node.Status = NotificationStatus.Read;
-                await this.Redis.StringSetAsync(next, JsonSerializer.Serialize<NotificationNode>(node));
-
-                next = node.Next;
+                n.Status = NotificationStatus.Read;
+                this.DbContext.Update<Notification>(n);
             }
+            await DbContext.SaveChangesAsync();
+
+            await this.CacheService.MarkAllNotificationsReadInCache(userId);
         }
 
         public async Task Notify(List<int> notificationGroupIds, int articleId, decimal lastPrice, NotificationType type, CustomDateTime? endDate = null)

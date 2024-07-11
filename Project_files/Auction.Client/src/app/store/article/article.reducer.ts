@@ -37,6 +37,9 @@ export const articleReducer = createReducer(
             customer: customer
         }
     })),
+    on(Actions.resetToArticleInfoInitialState, (state) => ({
+        ...initialState
+    })),
 );
 
 export const articlesListAdapter: EntityAdapter<Article> = createEntityAdapter<Article>();
@@ -75,7 +78,10 @@ export const articlesListReducer = createReducer(
             { id: id, changes: { soldPrice: lastPrice } },
             state
           );
-    })
+    }),
+    on(Actions.resetToArticlesListInitialState, (state) => ({
+        ...initialArticlesListState
+    })),
 );
 
 export const bidListAdapter: EntityAdapter<BidItem> = createEntityAdapter<BidItem>();
@@ -105,4 +111,7 @@ export const bidListReducer = createReducer(
         // const newItem = { ...item, id: require('uuid').v4() };
         // return bidListAdapter.addOne(newItem, state);
     }),
+    on(Actions.resetToBidListInitialState, (state) => ({
+        ...initialBidListState
+    })),
 );

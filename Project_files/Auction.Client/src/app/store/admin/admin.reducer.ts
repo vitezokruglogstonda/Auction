@@ -26,6 +26,9 @@ export const adminInfoReducer = createReducer(
         ...state,
         totalNumberOfArticles: numberOfArticles
     })),
+    on(Actions.resetToInitialAdminInfoState, (state) => ({
+        ...initialAdminInfoState
+    })),
 );
 
 export const userListAdapter: EntityAdapter<User> = createEntityAdapter<User>();
@@ -41,6 +44,9 @@ export const userListReducer = createReducer(
     on(Actions.loadAllUsersSuccess, (state, {users}) => {
         return userListAdapter.addMany(users, userListAdapter.removeAll({ ...state }));
     }),
+    on(Actions.resetToInitialUserListReducer, (state) => ({
+        ...initialUserListState
+    })),
 );
 
 export const articleListAdapter: EntityAdapter<Article> = createEntityAdapter<Article>();
@@ -80,4 +86,7 @@ export const articleListReducer = createReducer(
             state
           );
     }),
+    on(Actions.resetToInitialArticleListReducer, (state) => ({
+        ...initialArticleListState
+    })),
 );
