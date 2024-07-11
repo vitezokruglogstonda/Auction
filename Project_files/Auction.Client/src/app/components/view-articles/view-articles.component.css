@@ -13,6 +13,9 @@
     border-style: solid;
     border-width: 1px;
     border-right: 0px;
+
+    width: 101px;
+    min-width: 101px;
 }
 
 .view-setting-button{
@@ -80,7 +83,22 @@
     min-width: 316px;
 }
 
-@media screen and (max-width:768px) {
+.sort-select-wrapper{
+    background-color: white;
+    height: 58px;
+    min-width: 150px;
+    max-width: 150px;
+    border-color: #aeb1bc;
+    border-style: solid;
+    border-width: 1px 0px 0px 1px;
+    box-sizing: border-box;
+}
+
+.sort-select-wrapper::ng-deep .mat-mdc-form-field-subscript-wrapper{
+    display: none;
+}
+
+@media screen and (max-width:900px) {
     .paginator{
         padding-top:10px;
     }
@@ -93,6 +111,11 @@
         margin-bottom: 12px;
         border-radius: 5px;
         border: 1px solid #aeb1bc;  
+    }
+
+    .sort-select-wrapper{
+        border-width: 1px 1px 0px 1px;
+        transform: translate(-1px, 13px);
     }
 
 }

@@ -24,6 +24,10 @@ export class ViewArticlesComponent {
   public pageIndex: number;
   public articleViewMethod: ArticleViewMethod;
   @Output() pageParametersEvent: EventEmitter<[number,number]>;
+  @Input() showSortOption: boolean;
+  public sortOptions: string[];
+  public sortValue: string;
+  @Output() sortValueEmmiter: EventEmitter<string>;
 
   constructor(){
     this.articles = [];
@@ -35,6 +39,10 @@ export class ViewArticlesComponent {
     this.pageIndex = 0;
     this.articleViewMethod = ArticleViewMethod.Grid
     this.pageParametersEvent = new EventEmitter<[number,number]>();
+    this.showSortOption = false;
+    this.sortOptions = environment.sort_options;
+    this.sortValue = environment.sort_options[0];
+    this.sortValueEmmiter = new EventEmitter<string>();
   }
 
   ngOnInit(){ //ngAfterInit()
@@ -43,6 +51,7 @@ export class ViewArticlesComponent {
       this.showPaginator = true;
 
     this.pageParametersEvent.emit([this.pageSize, this.pageIndex]);
+    this.sortValueEmmiter.emit("Asc");
   }
 
   viewSetToGrid():boolean{
@@ -73,6 +82,12 @@ export class ViewArticlesComponent {
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
     this.pageParametersEvent.emit([this.pageSize, this.pageIndex]);
+  }
+
+  sortOptionChanged(option: string){
+    this.sortValue = option;
+    this.pageIndex = 0;
+    this.sortValueEmmiter.emit(option);
   }
 
 }

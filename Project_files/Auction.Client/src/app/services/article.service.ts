@@ -12,8 +12,8 @@ export class ArticleService {
 
     constructor(private http: HttpClient, private localStorage: LocalStorageService) { }
 
-    getArticles(pageSize: number, pageIndex: number): Observable<Article[] | null>{
-        let querry: String = `article/get-articles?pageSize=${pageSize}&pageIndex=${pageIndex}`;
+    getArticles(pageSize: number, pageIndex: number, sortOption: string): Observable<Article[] | null>{
+        let querry: String = `article/get-articles?pageSize=${pageSize}&pageIndex=${pageIndex}&sortOption=${sortOption}`;
         const httpOptions = {
             headers: new HttpHeaders({
                 'JWT': `${this.localStorage.getItem('jwt')}`

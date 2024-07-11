@@ -19,7 +19,7 @@ export class ArticleEffects {
         this.actions$.pipe(
             ofType(ArticleActions.loadArticles),
             switchMap((action) =>
-                this.articleService.getArticles(action.pageSize, action.pageIndex).pipe(
+                this.articleService.getArticles(action.pageSize, action.pageIndex, action.sortOption).pipe(
                     switchMap((result: Article[] | null) => {
                         if (result) {
                             return [

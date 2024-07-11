@@ -10,6 +10,14 @@
                 <i class="fa-solid fa-border-all view-setting-icon"></i>
             </mat-button-toggle>
         </mat-button-toggle-group>
+        <mat-form-field *ngIf="showSortOption" class="sort-select-wrapper">
+            <mat-label>Sort by price</mat-label>
+            <mat-select [(value)]="sortValue" (selectionChange)="sortOptionChanged($event.value)" class="sort-select">
+                <mat-option *ngFor="let sortOption of sortOptions" [value]="sortOption">
+                    {{sortOption}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
         <mat-paginator *ngIf="showPaginator" #paginator class="paginator" (page)="handlePaginatorEvent($event)"
             [length]="numberOfArticles" [pageSize]="pageSize" [showFirstLastButtons]="true"
             [pageSizeOptions]="pageSizeOptions" [hidePageSize]="false" [pageIndex]="pageIndex">
@@ -17,10 +25,12 @@
     </div>
     <div class="view-content">
         <div *ngIf="viewSetToList()" class="list-view">
-            <app-view-article-list-item *ngFor="let article of articles" [article]="article" [articleViewMethod]="articleViewMethod" class="list-view-container"></app-view-article-list-item>
+            <app-view-article-list-item *ngFor="let article of articles" [article]="article"
+                [articleViewMethod]="articleViewMethod" class="list-view-container"></app-view-article-list-item>
         </div>
         <div *ngIf="viewSetToGrid()" class="grid-view">
-            <app-view-article-grid-item *ngFor="let article of articles" [article]="article" [articleViewMethod]="articleViewMethod" class="grid-view-container"></app-view-article-grid-item>
+            <app-view-article-grid-item *ngFor="let article of articles" [article]="article"
+                [articleViewMethod]="articleViewMethod" class="grid-view-container"></app-view-article-grid-item>
         </div>
     </div>
 </div>

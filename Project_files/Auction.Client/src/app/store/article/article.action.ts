@@ -7,7 +7,7 @@ export const loadTotalNumberOfArticles = createAction("Load Total Number Of Arti
 export const loadTotalNumberOfArticlesSuccess = createAction("Load Total Number Of Articles - Success", props<{numberOfArticles: number}>());
 export const searchArticlesByTitle = createAction("Search Articles By Title", props<{searchQuery: string}>());
 
-export const loadArticles = createAction("Load Articles", props<{pageSize : number, pageIndex: number}>());
+export const loadArticles = createAction("Load Articles", props<{pageSize : number, pageIndex: number, sortOption: string}>());
 export const loadArticlesSuccess = createAction("Load Articles - Success", props<{items : Article[]}>());
 export const loadArticlesFailed = createAction("Load Articles - Failed");
 

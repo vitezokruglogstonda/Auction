@@ -15,6 +15,7 @@ export class HomePageComponent {
   public articles: Article[];
   public pageSize: number;
   public pageIndex: number;
+  public sortOption: string;
   public totalNumberOfArticles: number;
   public searchQuery: string;
   public loadArticlesListError: boolean;
@@ -23,6 +24,7 @@ export class HomePageComponent {
     this.articles = [];
     this.pageSize = 0;
     this.pageIndex = 0;
+    this.sortOption = "Asc";
     this.totalNumberOfArticles = 0;
     this.searchQuery = "";
     this.loadArticlesListError = false;
@@ -45,7 +47,7 @@ export class HomePageComponent {
         this.totalNumberOfArticles = state;      
     });
     this.store.dispatch(loadTotalNumberOfArticles());
-    this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex}));
+    this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex, sortOption: this.sortOption}));
   }
 
   // ngAfterInit(){
@@ -55,7 +57,7 @@ export class HomePageComponent {
   handlePageParametersChange(newPageParameters: [number, number]){
     this.pageSize = newPageParameters[0];
     this.pageIndex = newPageParameters[1];
-    this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex}));
+    this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex, sortOption: this.sortOption}));
   }
 
   onSearchQueryChange(){
@@ -68,8 +70,13 @@ export class HomePageComponent {
   cancelSearch(){
     this.searchQuery="";
     this.store.dispatch(loadTotalNumberOfArticles());
-    this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex}));
+    this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex, sortOption: this.sortOption}));
   }
 
+  handleSortOptionChanged(sort: string){
+    this.pageIndex = 0;
+    this.sortOption = sort;
+    this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex, sortOption: this.sortOption}));
+  }
 
 }

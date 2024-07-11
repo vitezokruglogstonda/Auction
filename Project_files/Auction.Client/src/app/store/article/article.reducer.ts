@@ -49,7 +49,7 @@ export const initialArticlesListState: ArticleListState = articlesListAdapter.ge
 
 export const articlesListReducer = createReducer(
     initialArticlesListState,
-    on(Actions.loadArticles, (state, {pageSize, pageIndex}) => {
+    on(Actions.loadArticles, (state, {pageSize, pageIndex, sortOption}) => {
         return articlesListAdapter.removeAll({ ...state, selectedUserId: null });
     }),
     on(Actions.loadArticlesSuccess, (state, {items}) => {

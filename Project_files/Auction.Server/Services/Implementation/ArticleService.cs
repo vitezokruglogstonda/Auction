@@ -5,6 +5,7 @@ using Auction.Server.Services.Interfaces;
 using System;
 using Hangfire;
 using Auction.Server.Jobs;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Auction.Server.Services.Implementation
 {
@@ -36,10 +37,10 @@ namespace Auction.Server.Services.Implementation
             if (this.DbContext.Articles.Any(article => article.Title == newArticle.Title))
                 return null;
 
-            //DateTime expiryDateTime = DateTime.Now.AddDays(expiryDate);
+            DateTime expiryDateTime = DateTime.Now.AddDays(expiryDate);
 
             //DateTime expiryDateTime = DateTime.Now.AddMinutes(1);
-            DateTime expiryDateTime = DateTime.Now.AddSeconds(30);
+            //DateTime expiryDateTime = DateTime.Now.AddSeconds(30);
 
             Article article = new Article()
             {
@@ -119,16 +120,28 @@ namespace Auction.Server.Services.Implementation
             return returnList;
         }
 
-        public async Task<List<ArticleDto_Response>?> GetArticles(int pageSize, int pageIndex)
+        public async Task<List<ArticleDto_Response>?> GetArticles(int pageSize, int pageIndex, string sortOption)
         {
             List<Article> articleObjects;
 
-            articleObjects = await DbContext.Articles
+            IQueryable<Article> articleObjectsQuery = DbContext.Articles
                 .Where(article => article.Status == ArticleStatus.Biding || article.Status == ArticleStatus.Pending)
+                .Include(article => article.Pictures);
+
+            if (sortOption == "Asc")
+            {
+                articleObjectsQuery = articleObjectsQuery.OrderBy(article => article.StartingPrice);
+            }
+            else if (sortOption == "Desc")
+            {
+                articleObjectsQuery = articleObjectsQuery.OrderByDescending(article => article.StartingPrice);
+            }
+
+            articleObjectsQuery = articleObjectsQuery
                 .Skip(pageIndex * pageSize)
-                .Take(pageSize)
-                .Include(article => article.Pictures)
-                .ToListAsync(); 
+                .Take(pageSize);
+
+            articleObjects = await articleObjectsQuery.ToListAsync();
 
             if (articleObjects.Count == 0)
                 return null;           

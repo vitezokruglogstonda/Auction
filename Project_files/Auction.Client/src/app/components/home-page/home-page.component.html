@@ -10,7 +10,7 @@
             </div>
         </div>
     </div>
-    <app-view-articles *ngIf="!loadArticlesListError" class="articles-view-section" [articles]="articles" (pageParametersEvent)="handlePageParametersChange($event)" [numberOfArticles]="totalNumberOfArticles"></app-view-articles>
+    <app-view-articles [showSortOption]="true" *ngIf="!loadArticlesListError" class="articles-view-section" [articles]="articles" (sortValueEmmiter)="handleSortOptionChanged($event)" (pageParametersEvent)="handlePageParametersChange($event)" [numberOfArticles]="totalNumberOfArticles"></app-view-articles>
     <div *ngIf="loadArticlesListError" class="no-content-div">
         <p>No items to show.</p>
     </div>

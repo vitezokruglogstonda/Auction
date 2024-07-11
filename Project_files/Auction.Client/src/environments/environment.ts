@@ -98,6 +98,10 @@ export const environment = {
         "fa-solid fa-gavel",
         "fa-solid fa-user-tie"
     ],
+    sort_options: [
+        "Asc",
+        "Desc"
+    ],
     addMoneyOptions: ["$100", "$200", "$500", "$1000", "$2000", "..."],
     defaultArticleImage: "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png",
     defaultFee: 100,

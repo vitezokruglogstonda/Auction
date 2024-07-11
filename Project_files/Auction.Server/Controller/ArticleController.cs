@@ -32,9 +32,9 @@ namespace Auction.Server.Controller
         [Auth]
         [HttpGet]
         [Route("get-articles")]
-        public async Task<ActionResult<List<ArticleDto_Response>?>> GetArticles([FromQuery] int pageSize, [FromQuery] int pageIndex)
+        public async Task<ActionResult<List<ArticleDto_Response>?>> GetArticles([FromQuery] int pageSize, [FromQuery] int pageIndex, [FromQuery] string sortOption)
         {
-            List<ArticleDto_Response>? articles = await this.ArticleService.GetArticles(pageSize, pageIndex);
+            List<ArticleDto_Response>? articles = await this.ArticleService.GetArticles(pageSize, pageIndex, sortOption);
             if (articles == null)
                 return NotFound();
             return Ok(articles);
