@@ -265,5 +265,106 @@ namespace Auction.Server.Services.Implementation
             await DbContext.Users.AddAsync(admin);
             await DbContext.SaveChangesAsync();
         }
+
+        public async Task ClearDatabase()
+        {
+            var users = await this.DbContext.Users
+        .Include(u => u.Notifications)
+        .Include(u => u.CreatedArticles)
+        .ThenInclude(a => a.Pictures)
+        .ToListAsync();
+
+            if (users == null) return;
+
+            var picturesToDelete = new List<ArticlePicture>();
+            var articlesToDelete = new List<Article>();
+            var notificationsToDelete = new List<Notification>();
+            var usersToDelete = new List<User>();
+
+            foreach (var user in users)
+            {
+                if (user.CreatedArticles != null)
+                {
+                    foreach (var article in user.CreatedArticles)
+                    {
+                        if (article.Pictures != null)
+                        {
+                            picturesToDelete.AddRange(article.Pictures);
+                        }
+                        articlesToDelete.Add(article);
+                    }
+                }
+
+                if (user.Notifications != null)
+                {
+                    notificationsToDelete.AddRange(user.Notifications);
+                }
+
+                usersToDelete.Add(user);
+            }
+
+            // Perform deletion
+            this.DbContext.RemoveRange(picturesToDelete);
+            this.DbContext.RemoveRange(articlesToDelete);
+            this.DbContext.RemoveRange(notificationsToDelete);
+            this.DbContext.RemoveRange(usersToDelete);
+
+            // Save changes
+            await this.DbContext.SaveChangesAsync();
+
+            // Perform additional service calls
+            foreach (var picture in picturesToDelete)
+            {
+                this.PictureService.DeleteArticlePicture(picture.PicturePath);
+            }
+
+            foreach (var user in usersToDelete)
+            {
+                this.PictureService.DeleteProfilePicture(user.ProfilePicturePath);
+            }
+
+
+            //List<User>? users = await this.DbContext.Users
+            //    .Include(u => u.Notifications)
+            //    .Include(u => u.CreatedArticles)
+            //    .ThenInclude(a => a.Pictures)
+            //    .ToListAsync();
+
+            //if (users == null) return;
+
+            //foreach ( var user in users )
+            //{
+            //    if(user == null) continue;
+            //    if(user.CreatedArticles != null)
+            //    {
+            //        foreach (var article in user.CreatedArticles!) 
+            //        { 
+            //            if (article == null) continue;
+            //            foreach( var picture in article.Pictures!)
+            //            {
+            //                if( picture == null ) continue;
+            //                this.DbContext.Remove<ArticlePicture>(picture);
+            //                article.Pictures.Remove(picture);
+            //                this.PictureService.DeleteArticlePicture(picture.PicturePath);
+            //            }
+            //            this.DbContext.Remove<Article>(article);
+            //            user.CreatedArticles.Remove(article);
+            //        }
+            //    }
+            //    if(user.Notifications != null)
+            //    {
+            //        foreach(var n in user.Notifications!)
+            //        {
+            //            this.DbContext.Remove(n);
+            //            user.Notifications.Remove(n);
+            //        }
+            //    }
+
+            //    this.PictureService.DeleteProfilePicture(user.ProfilePicturePath);
+
+            //    this.DbContext.Remove(user);
+            //}
+            //await this.DbContext.SaveChangesAsync();
+        }
     }
 }

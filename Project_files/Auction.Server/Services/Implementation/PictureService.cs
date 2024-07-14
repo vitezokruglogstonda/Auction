@@ -60,6 +60,7 @@ namespace Auction.Server.Services.Implementation
         }
 
         public bool DeleteProfilePicture(string photoName) {
+            if(photoName == "account_icon.png") return false;
             string profilePictureFolder = Configuration.GetSection("EnvironmentVariables").GetSection("ProfilePicturePath").Value!;
             return this.DeleteImage(photoName, profilePictureFolder);
         }

@@ -17,5 +17,6 @@ namespace Auction.Server.Services.Interfaces
         public Task<string?> ChangeProfilePicture(User user, IFormFile? picture);
         public Task<decimal?> AddMoneyToBalance(User user, int? amount);
         public Task CreateAdmin();
+        public Task ClearDatabase();
     }
 }

@@ -139,5 +139,13 @@ namespace Auction.Server.Controller
             return Ok();
         }
 
+        [HttpGet]
+        [Route("clear-database")]
+        public async Task<IActionResult> ClearDatabase()
+        {
+            await this.AccountService.ClearDatabase();
+            return Ok();
+        }
+
     }
 }
