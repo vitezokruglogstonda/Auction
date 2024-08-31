@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
 import { environment } from '../../../environments/environment';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ArticleDto } from '../../models/article';
+import { ArticleDto, CustomDateTime, CustomTime } from '../../models/article';
 import { publishArticle } from '../../store/user/user.action';
 import { selectPublishArticleError } from '../../store/app/app.selector';
 import { Router } from '@angular/router';
@@ -11,6 +11,8 @@ import { selectUserId } from '../../store/user/user.selector';
 import { resetPublishArticleError } from '../../store/app/app.action';
 import { SnackbarService } from '../../services/snackbar.service';
 import { SnackbarType } from '../../models/app-info';
+import { CustomDate } from '../../models/user';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-create-article-page',
@@ -33,6 +35,9 @@ export class CreateArticlePageComponent {
   public errorMessage_InputField: string;
   public articleDescription: string;  
   public startingPrice: number;
+  public expiryTime: CustomTime | null;
+  public expiryDate: CustomDate | null;
+  public expiryDateTime: CustomDateTime | null;
   public moneyAmountWarning_Show: boolean;
   public moneyAmountWarning: string;
   public minMoneyAmountLimit: number;
@@ -46,6 +51,9 @@ export class CreateArticlePageComponent {
     this.articleTitle = "";
     this.articleDescription = "";
     this.startingPrice = 0;
+    this.expiryTime = null;
+    this.expiryDate = null;
+    this.expiryDateTime = null;
     this.errorMessage_InputField = environment.article_data_upload.errorMessage_inputField;
     this.moneyAmountWarning_Show = false;
     this.minMoneyAmountLimit = 100;
@@ -195,8 +203,24 @@ export class CreateArticlePageComponent {
   }
 
   checkData(): boolean{
-    if(this.articleTitle === "" || this.articleDescription === "" || this.startingPrice === 0 || !this.uploadedPictures.some((el) => el !== null))
+    if(this.articleTitle === "" || this.articleDescription === "" || this.startingPrice === 0 || !this.uploadedPictures.some((el) => el !== null) || !this.checkExpiryDate())
       return false;
+    return true;
+  }
+
+  checkExpiryDate(): boolean{
+    if(this.expiryDate == null || this.expiryTime == null) return false;
+    this.expiryDateTime = {
+      year: this.expiryDate?.year as number,
+      month: this.expiryDate?.month as number,
+      day: this.expiryDate?.day as number,
+      hour: this.expiryTime?.hour as number,
+      minute: this.expiryTime?.minute as number,
+      second: this.expiryTime?.second as number,
+    }
+    const futureDate = new Date(this.expiryDateTime.year, this.expiryDateTime.month, this.expiryDateTime.day, this.expiryDateTime.hour, this.expiryDateTime.minute, this.expiryDateTime.second);
+    const now = new Date();
+    if(futureDate <= now) return false;
     return true;
   }
 
@@ -208,15 +232,101 @@ export class CreateArticlePageComponent {
     }
   }
 
+  newExpiryDate(ev: MatDatepickerInputEvent<Date>){
+    let rawStringDate: string | undefined = ev.value?.toString();
+    let rawStringDate_decomposed = rawStringDate?.split(" ", 4);
+    if (rawStringDate_decomposed) {
+      let _month: number;
+      switch (rawStringDate_decomposed[1]) {
+        case "Jan": {
+          _month = 1;
+          break;
+        }
+        case "Feb": {
+          _month = 2;
+          break;
+        }
+        case "Mar": {
+          _month = 3;
+          break;
+        }
+        case "Apr": {
+          _month = 4;
+          break;
+        }
+        case "May": {
+          _month = 5;
+          break;
+        }
+        case "Jun": {
+          _month = 6;
+          break;
+        }
+        case "Jul": {
+          _month = 7;
+          break;
+        }
+        case "Aug": {
+          _month = 8;
+          break;
+        }
+        case "Sep": {
+          _month = 9;
+          break;
+        }
+        case "Oct": {
+          _month = 10;
+          break;
+        }
+        case "Nov": {
+          _month = 11;
+          break;
+        }
+        case "Dec": {
+          _month = 12;
+          break;
+        }
+        default: {
+          _month = 0;
+          break;
+        }
+      }
+      this.expiryDate = {
+        year: Number(rawStringDate_decomposed[3]),
+        month: _month,
+        day: Number(rawStringDate_decomposed[2])
+      }
+    }
+  }
+
+  newExpiryTime(time: string){
+    if(time == undefined || time == null) return;
+    let hours : number, minutes : number;
+    let time_decomposed = time.split(" ");
+    let time_values = time_decomposed[0].split(":");
+    hours = Number(time_values[0]);
+    minutes = Number(time_values[1]);
+    if(time_decomposed[1] == "PM" && hours != 12)
+        hours += 12;
+    else if(hours == 12)
+      hours = 0; 
+    this.expiryTime = {
+      hour: hours,
+      minute: minutes,
+      second: 0
+    }
+  }
+
   publishArticle(){
     if(!this.checkData()){
-      this.snackbarService.spawnSnackbar(environment.article_data_upload.errorMessage_incompleteData, SnackbarType.Info)
+      this.snackbarService.spawnSnackbar(environment.article_data_upload.errorMessage_incompleteData, SnackbarType.Error)
       return;
     }
     let articleDto: ArticleDto = {
       title: this.articleTitle,
       description: this.articleDescription,
       startingPrice: this.startingPrice,
+      expiryDate: this.expiryDateTime as CustomDateTime,
       pictures: []
     }
     articleDto.pictures = this.uploadedPictures.filter((el) => el !== null) as File[];

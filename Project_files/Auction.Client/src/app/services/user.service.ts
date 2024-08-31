@@ -155,9 +155,11 @@ export class UserService {
 
         const formData = new FormData();
 
-        formData.append("title", article.title);
-        formData.append("description", article.description);
-        formData.append("startingPrice", article.startingPrice.toString());
+        const { pictures, ...uploadObject } = article;
+        formData.append("jsonDto", JSON.stringify(uploadObject));
+        // formData.append("title", article.title);
+        // formData.append("description", article.description);
+        // formData.append("startingPrice", article.startingPrice.toString());
         article.pictures.forEach((file) => {           
             formData.append(`pictures`, file, file.name);
         });

@@ -64,6 +64,25 @@
                     <mat-hint *ngIf="moneyAmountWarning_Show" class="input-field-warning-message">{{moneyAmountWarning}}</mat-hint>
                 </mat-form-field>
             </div>
+            <div class="field-container info-field">
+                <i class="fa-regular fa-calendar form-field-icon"></i>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Expiry date</mat-label>
+                    <input matInput [matDatepicker]="expiryDatePicker" (dateChange)="newExpiryDate($event)" required>
+                    <mat-hint style="color: white;">DD/MM/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #expiryDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="field-container info-field">
+                <i class="fa-regular fa-clock form-field-icon"></i>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Expiry time</mat-label>
+                    <input type="text" matInput [ngxTimepicker]="expiryTimePicker" required/>
+                    <!-- <mat-timepicker-toggle matSuffix [for]="timepicker"></mat-timepicker-toggle> -->
+                    <ngx-material-timepicker #expiryTimePicker (timeSet)="newExpiryTime($event)"></ngx-material-timepicker>
+                  </mat-form-field>
+            </div>
             <div class="submit-button-container">
                 <button type="button" class="submit-button" (click)="publishArticle()">
                         <span>Publish</span>

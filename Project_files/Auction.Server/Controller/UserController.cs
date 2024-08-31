@@ -5,6 +5,7 @@ using Auction.Server.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Newtonsoft.Json;
 using System;
 
 namespace Auction.Server.Controller
@@ -62,9 +63,12 @@ namespace Auction.Server.Controller
         [Auth]
         [HttpPost]
         [Route("publish-article")]
-        public async Task<ActionResult<ArticleDto_Response?>> PublishArticle([FromForm] ArticleDto_Request dto, [FromForm] List<IFormFile> pictures)
+        public async Task<ActionResult<ArticleDto_Response?>> PublishArticle([FromForm] string jsonDto, [FromForm] List<IFormFile> pictures)
         {
-            return Ok(await this.ArticleService.PublishArticle((HttpContext.Items["User"] as User)!, dto, pictures));
+            ArticleDto_Request? articleDto = JsonConvert.DeserializeObject<ArticleDto_Request>(jsonDto);
+            if (articleDto == null)
+                return BadRequest("Incorrect data.");
+            return Ok(await this.ArticleService.PublishArticle((HttpContext.Items["User"] as User)!, articleDto, pictures));
         }
 
         //ZA TESTIRANJE

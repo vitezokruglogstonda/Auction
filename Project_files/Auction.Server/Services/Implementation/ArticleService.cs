@@ -31,13 +31,15 @@ namespace Auction.Server.Services.Implementation
             //User? user = await this.DbContext.Users.FindAsync(_user.Id);
 
             int minimalStartingPrice = Int32.Parse(Configuration.GetSection("ArticleSettings").GetSection("MinimalStartingPrice").Value!);
-            int expiryDate = Int32.Parse(Configuration.GetSection("ArticleSettings").GetSection("DefaultExpiryDate").Value!);
+            //int expiryDate = Int32.Parse(Configuration.GetSection("ArticleSettings").GetSection("DefaultExpiryDate").Value!);
             if (string.IsNullOrEmpty(newArticle.Title) || string.IsNullOrEmpty(newArticle.Description) || newArticle.StartingPrice < minimalStartingPrice || pictures == null || !pictures.Any())
                 return null;
             if (this.DbContext.Articles.Any(article => article.Title == newArticle.Title))
                 return null;
 
-            DateTime expiryDateTime = DateTime.Now.AddDays(expiryDate);
+            //DateTime expiryDateTime = DateTime.Now.AddDays(expiryDate);
+
+            DateTime expiryDateTime = new DateTime(newArticle.ExpiryDate.Year, newArticle.ExpiryDate.Month, newArticle.ExpiryDate.Day, newArticle.ExpiryDate.Hour, newArticle.ExpiryDate.Minute, newArticle.ExpiryDate.Second);
 
             //DateTime expiryDateTime = DateTime.Now.AddMinutes(1);
             //DateTime expiryDateTime = DateTime.Now.AddSeconds(30);

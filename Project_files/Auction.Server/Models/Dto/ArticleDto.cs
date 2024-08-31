@@ -11,6 +11,8 @@ namespace Auction.Server.Models.Dto
         public string? Description { get; set; }
         [Required]
         public int StartingPrice { get; set; }
+        [Required]
+        public CustomDateTime ExpiryDate { get; set; }
     }
 
     public class ArticleDto_Response

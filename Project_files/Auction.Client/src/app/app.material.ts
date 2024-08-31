@@ -21,7 +21,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
-
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 export const materialComponents = [
     MatToolbarModule,
@@ -47,4 +47,5 @@ export const materialComponents = [
     MatPaginatorModule,
     MatExpansionModule,
     MatTableModule,
+    NgxMaterialTimepickerModule
 ];
