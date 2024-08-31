@@ -241,3 +241,26 @@
 .submit-button:hover{
     background-color: rgba(255, 166, 0, 0.5);
 }
+
+::ng-deep .timepicker__header {
+    background-color: #F39C12 !important;
+}
+
+::ng-deep .clock-face__number > span.active {
+    background-color: #F39C12 !important;
+}
+
+::ng-deep .clock-face__clock-hand {
+    background-color: #F39C12 !important;
+    &:after {
+    background-color: #F39C12 !important;
+    }
+}
+
+::ng-deep .clock-face__clock-hand_minute:before {
+    border: 4px solid #F39C12 !important;
+}
+
+::ng-deep button:not(.timepicker-dial__item) {
+    color: #F39C12 !important;
+}
