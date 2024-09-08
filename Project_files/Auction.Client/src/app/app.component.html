@@ -1,8 +1,14 @@
 <mat-toolbar class="main-toolbar" color="warn" [class.mat-elevation-z8]="true">
-  <div class="menu-icon-container">
+  <div class="menu-icon-container" *ngIf="mobileView">
     <button class="menu-icon-button" mat-icon-button matTooltip={{menuButtonTooltipText}} (click)="snav.toggle()">
       <mat-icon class="menu-icon">menu</mat-icon>
     </button>
+  </div>
+  <div *ngIf="!mobileView" class="long-menu-container">
+    <div class="sidenav-list-option-icon" *ngFor="let item of sidenavItems; let i = index"
+      routerLink="{{item?.route}}">
+      <i class="{{sidenavIcons[i]}}" matTooltip={{item.title}}></i>
+    </div>
   </div>
 
   <div class="app-title-container">

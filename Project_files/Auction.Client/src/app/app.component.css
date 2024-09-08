@@ -26,6 +26,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* 
@@ -72,10 +75,42 @@ body {
     color: #c6cad6;
 }
 
+/*  */
+
+
+
+
+
+.long-menu-container{
+    width: 255px;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    left: 5px;
+    margin-right: 0px;
+}
+
+.long-menu-container > div {
+    display: inline-block; 
+    margin-right: 10px; 
+    transition: color 0.3s ease;
+}
+
+.long-menu-container > div:hover{
+    cursor: pointer;
+    color: #666666;
+}
+
+
+
+/*  */
+
 .right-toolbar-element-empty{
     /* width: 2.5%;
     height: 64px; */
     width: 48px; 
+    position: relative;
+    right: 15px;
 }
 
 .right-toolbar-element {
@@ -83,7 +118,9 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-left: -45px;
+    /* margin-left: -45px; */
+    /* position: relative;
+    right: 15px; */
 }
 
 .notification-icon-container{

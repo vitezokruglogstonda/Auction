@@ -308,7 +308,7 @@ export class CreateArticlePageComponent {
     minutes = Number(time_values[1]);
     if(time_decomposed[1] == "PM" && hours != 12)
         hours += 12;
-    else if(hours == 12)
+    else if(time_decomposed[1] == "AM" && hours == 12)
       hours = 0; 
     this.expiryTime = {
       hour: hours,

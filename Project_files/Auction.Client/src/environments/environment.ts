@@ -3,6 +3,7 @@ import { UserType } from "../app/models/user";
 export const environment = {
     server_url: "https://localhost:7287/",
     app_title: 'Auction',
+    mobileViewWidth: 900,
     account_icon_tooltip_text: "Account",
     toolbar_menu_button_tooltip_text: "Menu",
     toolbar_notification_button_tooltip_text: "Notifications",

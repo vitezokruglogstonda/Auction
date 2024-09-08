@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, Inject, PLATFORM_ID  } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './store/app.state';
 import { NavigationEnd, Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { FormControl } from '@angular/forms';
 import { LocalStorageService } from './services/local-storage.service';
 import { logInWithToken, markAllNotificationsRead } from './store/user/user.action';
 import { RouteService } from './services/route.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -35,8 +36,9 @@ export class AppComponent {
   public numberOfNewNotifications: number;
   public showNotificationsNumber: boolean;
   public showNotificationCard: boolean;
+  public mobileView: boolean;
 
-  constructor(private store: Store<AppState>, private router: Router, private localStorage: LocalStorageService, private routeService: RouteService){
+  constructor(private store: Store<AppState>, private router: Router, private localStorage: LocalStorageService, private routeService: RouteService, @Inject(PLATFORM_ID) private platformId: Object){
     this.toolbarCenterText = environment.app_title;
     this.menuButtonTooltipText = environment.toolbar_menu_button_tooltip_text;
     this.notificationButtonTooltipText = environment.toolbar_notification_button_tooltip_text;
@@ -49,7 +51,9 @@ export class AppComponent {
     this.numberOfNewNotifications = 0;
     this.showNotificationsNumber = false;
     this.showNotificationCard = false;
+    this.mobileView = false;
     this.populateSidenavList(this.userType);
+    this.checkScreenWidth();
   }
   
   ngOnInit(): void {
@@ -85,6 +89,19 @@ export class AppComponent {
       }
       this.router.navigate([`${route}`]);
     });  
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.checkScreenWidth();
+    }
+  }
+
+  checkScreenWidth() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.mobileView = (window as any).innerWidth < environment.mobileViewWidth;
+    }
   }
   
   populateSidenavList(userType: UserType): void{
