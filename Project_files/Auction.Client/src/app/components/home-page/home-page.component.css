@@ -53,7 +53,7 @@
     .home-page-container{
         margin-bottom: 10%;
     }
-    .no-content-div{
-        transform: translate(0%, -150px);
-    }
+    /* .no-content-div{
+        transform: translate(0%, 250px);
+    } */
 }
