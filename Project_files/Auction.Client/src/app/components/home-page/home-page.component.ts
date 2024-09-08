@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Article } from '../../models/article';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
@@ -50,26 +50,9 @@ export class HomePageComponent {
     this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex, sortOption: this.sortOption}));
   }
 
-  // ngAfterInit(){
-  //   this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex}));
-  // }
-
   handlePageParametersChange(newPageParameters: [number, number]){
     this.pageSize = newPageParameters[0];
     this.pageIndex = newPageParameters[1];
-    this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex, sortOption: this.sortOption}));
-  }
-
-  onSearchQueryChange(){
-    if(this.searchQuery.length>0)
-      this.store.dispatch(searchArticlesByTitle({searchQuery: this.searchQuery}));
-    else 
-      this.cancelSearch();
-  }
-
-  cancelSearch(){
-    this.searchQuery="";
-    this.store.dispatch(loadTotalNumberOfArticles());
     this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex, sortOption: this.sortOption}));
   }
 

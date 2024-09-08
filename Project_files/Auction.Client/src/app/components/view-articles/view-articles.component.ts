@@ -1,7 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { Article, ArticleViewMethod } from '../../models/article';
 import { environment } from '../../../environments/environment';
 import { PageEvent } from '@angular/material/paginator';
+import { loadArticles, loadTotalNumberOfArticles, searchArticlesByTitle } from '../../store/article/article.action';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.state';
 
 export enum ViewSetting{
   List,
@@ -28,8 +31,14 @@ export class ViewArticlesComponent {
   public sortOptions: string[];
   public sortValue: string;
   @Output() sortValueEmmiter: EventEmitter<string>;
+  public sortOption: string;
+  public searchQuery: string;
+  @Input() showSearch: boolean;
+  @ViewChild('search') searchSection!: ElementRef;
+  @ViewChild('headerMenu') headerMenu!: ElementRef;
+  
 
-  constructor(){
+  constructor(private store: Store<AppState>){
     this.articles = [];
     this.viewSetting = ViewSetting.Grid;
     this.showPaginator = false;
@@ -43,6 +52,9 @@ export class ViewArticlesComponent {
     this.sortOptions = environment.sort_options;
     this.sortValue = environment.sort_options[0];
     this.sortValueEmmiter = new EventEmitter<string>();
+    this.sortOption = "Asc";
+    this.searchQuery = "";
+    this.showSearch = false;
   }
 
   ngOnInit(){ //ngAfterInit()
@@ -51,7 +63,35 @@ export class ViewArticlesComponent {
       this.showPaginator = true;
 
     this.pageParametersEvent.emit([this.pageSize, this.pageIndex]);
+    this.sortOption = "Asc";
     this.sortValueEmmiter.emit("Asc");
+  }
+
+  ngAfterViewInit() {
+    this.addEventListenersToSearchSection();
+    if(this.showSearch){
+      this.headerMenu.nativeElement.classList.add("expanded");
+    }else{
+      this.headerMenu.nativeElement.classList.remove("expanded");
+    }
+  }
+
+  addEventListenersToSearchSection(){
+    if(this.searchSection){
+      this.searchSection.nativeElement.addEventListener('click', () => {
+        this.searchSection.nativeElement.classList.add('expanded');
+        this.searchSection.nativeElement.firstChild.children[1].focus();
+      });
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside() {
+    if(event && this.searchSection){
+      if (!this.searchSection!.nativeElement.contains(event.target as Node | null)) {
+        this.searchSection!.nativeElement.classList.remove('expanded');
+      }
+    }
   }
 
   viewSetToGrid():boolean{
@@ -87,7 +127,21 @@ export class ViewArticlesComponent {
   sortOptionChanged(option: string){
     this.sortValue = option;
     this.pageIndex = 0;
+    this.sortOption = option;
     this.sortValueEmmiter.emit(option);
+  }
+
+  onSearchQueryChange(){
+    if(this.searchQuery.length>0)
+      this.store.dispatch(searchArticlesByTitle({searchQuery: this.searchQuery}));
+    else 
+      this.cancelSearch();
+  }
+
+  cancelSearch(){
+    this.searchQuery="";
+    this.store.dispatch(loadTotalNumberOfArticles());
+    this.store.dispatch(loadArticles({pageSize: this.pageSize, pageIndex: this.pageIndex, sortOption: this.sortOption}));
   }
 
 }

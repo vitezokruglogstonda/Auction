@@ -28,8 +28,8 @@ export const environment = {
     },
     dialog_UploadPhoto_Settings: {
         openAnimationDuration: "500ms",
-        width: "40%",
-        height: "40%",
+        width: "768px",
+        height: "384px",
         errorMessage_fileType: "Wrong file type. Try something else.",
         errorMessage_numberOfFiles: "You can upload just 1 file.",
     },
