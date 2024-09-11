@@ -253,7 +253,11 @@ export class ArticlePageComponent {
   }
 
   getExpiryDateLabel(): string {
-    return `${this.article?.expiryDate.day}.${this.article?.expiryDate.month}.${this.article?.expiryDate.year}. | ${this.article?.expiryDate.hour}:${this.article?.expiryDate.minute}`;
+    let minutesLeft:string = "";
+    if(this.article?.expiryDate.minute! < 10)
+      minutesLeft = "0";
+    minutesLeft += `${this.article?.expiryDate.minute}`;
+    return `${this.article?.expiryDate.day}.${this.article?.expiryDate.month}.${this.article?.expiryDate.year}. | ${this.article?.expiryDate.hour}:${minutesLeft}`;
   }
 
   enroll() {
