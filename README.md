@@ -10,6 +10,8 @@ The **Auction** is a web-based application implemented in ASP.NET Core and Angul
     - Viewing, searching and filtering articles
     - Publishing articles
     - Real-time biding
+    - Notifications
+    - Email notifications
 ---
 ## Tech stack
     - Angular
