@@ -1,7 +1,9 @@
-# Auction
-Web app for online auctions.
+# **Auction**
 ---
-# Features:
+## Overview
+The **Auction** is a web-based application implemented in ASP.NET Core and Angular, designed to facilitate online auctions, allowing users to create, manage, and participate in bidding events. The platform provides a seamless and intuitive experience for both buyers and sellers, ensuring transparency and fair competition.
+---
+## Features:
     - Creating an account
     - Login/Logout
     - Managing account, adding money to the balance
@@ -62,14 +64,14 @@ Web app for online auctions.
             ```bash
             docker exec -it auction.database psql -U postgres -d AuctionDB -f /auctiondb.sql
             ```
--Starting app (without docker):
-    -First run redis (port: 6379) and postgres database (port: 5432)
+- Starting app (without docker):
+    - First run redis (port: 6379) and postgres database (port: 5432)
         -credentials for db are in the appsettings.json file on server
-    -Server build&run command: 
+    - Server build&run command: 
         ```bash
         dotnet run
         ```
-    -Client build&run command: 
+    - Client build&run command: 
         ```bash
         ng serve
         ```
