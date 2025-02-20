@@ -11,6 +11,16 @@ The **Auction** is a web-based application implemented in ASP.NET Core and Angul
     - Publishing articles
     - Real-time biding
 ---
+## Tech stack
+    - Angular
+    - NgRx
+    - ASP.NET Core
+    - EF Core
+    - Redis
+    - PostgreSQL
+    - Hangfire
+    - SignalR
+---
 - Requirements:
     - ASP.NET Core 8.0
     - Angular 17.0.10
